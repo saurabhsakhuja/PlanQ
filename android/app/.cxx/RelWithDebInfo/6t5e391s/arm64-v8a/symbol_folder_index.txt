@@ -1,0 +1,1 @@
+C:\Users\Lenovo\AndroidStudioProjects\PlanQ\build\app\intermediates\cxx\RelWithDebInfo\6t5e391s\obj\arm64-v8a

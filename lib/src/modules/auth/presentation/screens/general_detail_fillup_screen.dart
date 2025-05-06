@@ -3,9 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart'; // Import your color constant
 import 'package:plan_q/src/core/constants/app_routes.dart';
+import 'package:plan_q/src/modules/auth/presentation/screens/widgets/fitness_experiance_question_widget.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/widgets/fitness_mission_question_widget.dart';
-import 'package:plan_q/src/modules/auth/presentation/screens/widgets/personal_descriptor_question_widget.dart'; // Import your route constants
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:plan_q/src/modules/auth/presentation/screens/widgets/personal_descriptor_question_widget.dart';
+import 'package:plan_q/src/modules/auth/presentation/screens/widgets/readblock_question_widget.dart'; // Import your route constants
 
 class GeneralDetailFillupScreen extends StatefulWidget {
   const GeneralDetailFillupScreen({Key? key}) : super(key: key);
@@ -21,6 +22,8 @@ class _GeneralDetailFillupScreenState extends State<GeneralDetailFillupScreen> {
   final List<Widget> _questions = [
     const PersonalDescriptorQuestionWidget(),
     const FitnessMissionQuestionWidget(), // Add this
+    RoadblockQuestionWidget(),
+    FitnessExperianceQuestionWidget(),
   ];
 
   // Added a dispose method to release resources.
@@ -145,18 +148,12 @@ class _GeneralDetailFillupScreenState extends State<GeneralDetailFillupScreen> {
     return Align(
       alignment: Alignment.topRight, // Align the skip button to the top right
       child: GestureDetector(
-        onTap: () {
-          // Navigate to the next screen (e.g., Register screen)
-          GoRouter.of(context).pushNamed(AppRoutes
-              .REGISTER_SCREEN_ROUTE_NAME); // Make sure this route is correct
-        },
+        onTap: _nextQuestion,
         child: const Padding(
           padding: EdgeInsets.only(right: 20), // Added top padding here
           child: Text(
             'Skip',
             style: TextStyle(
-              // color:
-              // ColorConstant.textButtonColor, // Use your text color constant
               fontSize: 16, // Adjust the size as needed
               fontWeight: FontWeight.w500,
             ),

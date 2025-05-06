@@ -51,6 +51,7 @@ class _PersonalDescriptorQuestionWidgetState
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             // Gender Question
             Text(
@@ -84,7 +85,7 @@ class _PersonalDescriptorQuestionWidgetState
                   ?.copyWith(fontWeight: FontWeight.w400),
             ),
             const SizedBox(height: 20),
-           
+
             RulerHeightWidget(),
             const SizedBox(height: 40),
             // Age Question
@@ -96,34 +97,6 @@ class _PersonalDescriptorQuestionWidgetState
                   ?.copyWith(fontWeight: FontWeight.w400),
             ),
             const SizedBox(height: 20),
-            // Wrap(
-            //   spacing: 8,
-            //   runSpacing: 8,
-            //   children: _ages.map((age) {
-            //     final isSelected = _selectedAge == age;
-            //     return GestureDetector(
-            //       onTap: () {
-            //         setState(() {
-            //           _selectedAge = age;
-            //         });
-            //       },
-            //       child: Container(
-            //         padding:
-            //             const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            //         decoration: BoxDecoration(
-            //           borderRadius: BorderRadius.circular(8),
-            //         ),
-            //         child: Text(
-            //           age.toString(),
-            //           style: TextStyle(
-            //             color: isSelected ? Colors.white : Colors.white,
-            //             fontWeight: FontWeight.w500,
-            //           ),
-            //         ),
-            //       ),
-            //     );
-            //   }).toList(),
-            // ),
 
             ScrollableAgeWidget()
           ],

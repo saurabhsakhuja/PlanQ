@@ -1,0 +1,2 @@
+C:/Users/Lenovo/AndroidStudioProjects/PlanQ/android/app/.cxx/RelWithDebInfo/6t5e391s/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/Lenovo/AndroidStudioProjects/PlanQ/android/app/.cxx/RelWithDebInfo/6t5e391s/x86_64/CMakeFiles/rebuild_cache.dir
