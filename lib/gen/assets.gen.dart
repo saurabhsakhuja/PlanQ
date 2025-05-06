@@ -72,11 +72,17 @@ class $AssetsImagesGen {
 class $AssetsSvgsGen {
   const $AssetsSvgsGen();
 
+  /// File path: assets/svgs/facebookLogo.svg
+  String get facebookLogo => 'assets/svgs/facebookLogo.svg';
+
+  /// File path: assets/svgs/googleLogo.svg
+  String get googleLogo => 'assets/svgs/googleLogo.svg';
+
   /// File path: assets/svgs/planq_intro_logo.svg
   String get planqIntroLogo => 'assets/svgs/planq_intro_logo.svg';
 
   /// List of all assets
-  List<String> get values => [planqIntroLogo];
+  List<String> get values => [facebookLogo, googleLogo, planqIntroLogo];
 }
 
 class Assets {

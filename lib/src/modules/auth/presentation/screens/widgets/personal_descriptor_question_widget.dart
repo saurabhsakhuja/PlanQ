@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart'; // Import your color constant.
 import 'package:flutter_unit_ruler/flutter_unit_ruler.dart';
-import 'package:plan_q/src/modules/auth/presentation/screens/widgets/ruler_height_widget.dart'; // Import the flutter_unit_ruler package
+import 'package:plan_q/src/modules/auth/presentation/screens/widgets/ruler_height_widget.dart';
+import 'package:plan_q/src/modules/auth/presentation/screens/widgets/scrollable_age_widget.dart'; // Import the flutter_unit_ruler package
 
 class PersonalDescriptorQuestionWidget extends StatefulWidget {
   const PersonalDescriptorQuestionWidget({super.key});
@@ -95,34 +96,36 @@ class _PersonalDescriptorQuestionWidgetState
                   ?.copyWith(fontWeight: FontWeight.w400),
             ),
             const SizedBox(height: 20),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: _ages.map((age) {
-                final isSelected = _selectedAge == age;
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _selectedAge = age;
-                    });
-                  },
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      age.toString(),
-                      style: TextStyle(
-                        color: isSelected ? Colors.white : Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
+            // Wrap(
+            //   spacing: 8,
+            //   runSpacing: 8,
+            //   children: _ages.map((age) {
+            //     final isSelected = _selectedAge == age;
+            //     return GestureDetector(
+            //       onTap: () {
+            //         setState(() {
+            //           _selectedAge = age;
+            //         });
+            //       },
+            //       child: Container(
+            //         padding:
+            //             const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            //         decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(8),
+            //         ),
+            //         child: Text(
+            //           age.toString(),
+            //           style: TextStyle(
+            //             color: isSelected ? Colors.white : Colors.white,
+            //             fontWeight: FontWeight.w500,
+            //           ),
+            //         ),
+            //       ),
+            //     );
+            //   }).toList(),
+            // ),
+
+            ScrollableAgeWidget()
           ],
         ),
       ),

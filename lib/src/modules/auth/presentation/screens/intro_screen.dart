@@ -132,8 +132,8 @@ class IntroScreen extends StatelessWidget {
             },
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                // GoRouter.of(context)
-                //     .pushNamed(AppRoutes.REGISTER_SCREEN_ROUTE_NAME);
+                GoRouter.of(context)
+                    .pushNamed(AppRoutes.REGISTER_SCREEN_ROUTE_NAME);
               },
           ),
         ],

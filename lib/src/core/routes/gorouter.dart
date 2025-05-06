@@ -6,6 +6,7 @@ import 'package:plan_q/src/locator.dart';
 import 'package:plan_q/src/modules/auth/presentation/cubit/login_status_cubit.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/general_detail_fillup_screen.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/intro_screen.dart';
+import 'package:plan_q/src/modules/auth/presentation/screens/login_screen.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/register_screen.dart';
 import 'package:plan_q/src/modules/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:plan_q/src/modules/dashboard/presentation/screens/home/home_screen.dart';
@@ -44,10 +45,16 @@ final router = GoRouter(
       path: AppRoutes.INTRO_SCREEN_ROUTE_PATH,
       builder: (_, __) => const IntroScreen(),
     ),
+  
     GoRoute(
       name: AppRoutes.REGISTER_SCREEN_ROUTE_NAME,
       path: AppRoutes.REGISTER_SCREEN_ROUTE_PATH,
       builder: (_, __) => const RegisterScreen(),
+    ),
+    GoRoute(
+      name: AppRoutes.LOGIN_SCREEN_ROUTE_NAME,
+      path: AppRoutes.LOGIN_SCREEN_ROUTE_PATH,
+      builder: (_, __) => LoginScreen(),
     ),
     GoRoute(
       name: AppRoutes.GENERAL_DETAIL_FILLUP_SCREEN_ROUTE_NAME,

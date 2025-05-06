@@ -22,27 +22,41 @@ class CommonSubmitButton extends StatelessWidget {
     return Container(
       width: double.maxFinite,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           colors: [
-            ColorConstant.buttonGradient1Color,
-            ColorConstant.buttonGradient2Color,
+            ColorConstant.buttonBorderGradient1Color,
+            ColorConstant.buttonBorderGradient2Color,
+            ColorConstant.buttonBorderGradient3Color,
           ],
         ),
         borderRadius: borderRadius ?? BorderRadius.circular(50),
       ),
-      padding: EdgeInsets.symmetric(vertical: 4),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onPressed,
-          borderRadius: borderRadius ?? BorderRadius.circular(8.0),
-          child: Padding(
-            padding: padding ??
-                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-            child: Text(
-              text,
-              style: textStyle ?? Theme.of(context).textTheme.titleMedium,
-              textAlign: TextAlign.center,
+      padding: EdgeInsets.symmetric(vertical: 1),
+      child: Container(
+        width: double.maxFinite,
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [
+              ColorConstant.buttonGradient1Color,
+              ColorConstant.buttonGradient2Color,
+            ],
+          ),
+          borderRadius: borderRadius ?? BorderRadius.circular(50),
+        ),
+        padding: EdgeInsets.symmetric(vertical: 4),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onPressed,
+            borderRadius: borderRadius ?? BorderRadius.circular(8.0),
+            child: Padding(
+              padding: padding ??
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+              child: Text(
+                text,
+                style: textStyle ?? Theme.of(context).textTheme.titleMedium,
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ),
