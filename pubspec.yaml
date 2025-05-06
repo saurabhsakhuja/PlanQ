@@ -58,18 +58,14 @@ flutter:
     - assets/images/
     - assets/fonts/
   fonts:
-    - family: Lora
+    - family: SF Pro Display
       fonts:
-        # - asset: assets/fonts/OpenSans-Bold.ttf
-        # - asset: assets/fonts/OpenSans-ExtraBold.ttf
-        # - asset: assets/fonts/OpenSans-Light.ttf
-        # - asset: assets/fonts/OpenSans-Medium.ttf
-        # - asset: assets/fonts/OpenSans-Regular.ttf
-        - asset: assets/fonts/Lora-Bold.ttf
-        - asset: assets/fonts/Lora-BoldItalic.ttf
-        - asset: assets/fonts/Lora-Italic.ttf
-        - asset: assets/fonts/Lora-Medium.ttf
-        - asset: assets/fonts/Lora-MediumItalic.ttf
-        - asset: assets/fonts/Lora-Regular.ttf
-        - asset: assets/fonts/Lora-SemiBold.ttf
-        - asset: assets/fonts/Lora-SemiBoldItalic.ttf
+        - asset: assets/fonts/SFPRODISPLAYBLACKITALIC.otf
+        - asset: assets/fonts/SFPRODISPLAYBOLD.otf
+        - asset: assets/fonts/SFPRODISPLAYHEAVYITALIC.otf
+        - asset: assets/fonts/SFPRODISPLAYLIGHTITALIC.otf
+        - asset: assets/fonts/SFPRODISPLAYMEDIUM.otf
+        - asset: assets/fonts/SFPRODISPLAYREGULAR.otf
+        - asset: assets/fonts/SFPRODISPLAYSEMIBOLDITALIC.otf
+        - asset: assets/fonts/SFPRODISPLAYTHINITALIC.otf
+        - asset: assets/fonts/SFPRODISPLAYULTRALIGHTITALIC.otf

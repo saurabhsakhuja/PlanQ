@@ -21,10 +21,10 @@ Future<void> main() async {
     StringConstant.accessToken,
   );
   final loginStatusCubit = LoginStatusCubit();
-  log('login token ==>$isAccessTokenExists');
-  if (isAccessTokenExists) {
-    loginStatusCubit.setLoginStatus(true);
-  }
+  // log('login token ==>$isAccessTokenExists');
+  // if (isAccessTokenExists) {
+  //   loginStatusCubit.setLoginStatus(true);
+  // }
   runApp(
     MultiBlocProvider(
       providers: [BlocProvider(create: (_) => loginStatusCubit)],
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
       title: StringConstant.appName,
       theme: ThemeData(
         scaffoldBackgroundColor: ColorConstant.background,
-        fontFamily: 'Lora',
+        fontFamily: 'SF Pro Display',
         colorScheme: ColorScheme.fromSeed(
           seedColor: ColorConstant.primaryColor,
         ),
