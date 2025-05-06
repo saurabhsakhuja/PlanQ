@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plan_q/gen/assets.gen.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
+import 'package:plan_q/src/core/constants/app_routes.dart';
 import 'package:plan_q/src/core/common/widgets/custom_network_image.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 
@@ -35,7 +37,10 @@ class IntroScreen extends StatelessWidget {
                     Text(
                       'Fitness That Fits You',
                     ),
-                    CommonSubmitButton(text: 'Get Started', onPressed: () {}),
+                    CommonSubmitButton(
+                        text: 'Get Started',
+                        onPressed: () => GoRouter.of(context)
+                            .pushNamed(AppRoutes.REGISTER_SCREEN_ROUTE_NAME)),
                   ],
                 ),
               )

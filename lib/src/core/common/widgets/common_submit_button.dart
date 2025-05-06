@@ -7,22 +7,20 @@ class CommonSubmitButton extends StatelessWidget {
   final TextStyle? textStyle;
   final BorderRadius? borderRadius;
   final EdgeInsets? padding;
-  final double? width; // Add width property
 
   const CommonSubmitButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.onPressed,
     this.textStyle,
     this.borderRadius,
     this.padding,
-    this.width, // Add to constructor
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width ?? double.infinity, // Use width if provided, otherwise fill
+      width: double.maxFinite,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
@@ -32,6 +30,7 @@ class CommonSubmitButton extends StatelessWidget {
         ),
         borderRadius: borderRadius ?? BorderRadius.circular(50),
       ),
+      padding: EdgeInsets.symmetric(vertical: 4),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
