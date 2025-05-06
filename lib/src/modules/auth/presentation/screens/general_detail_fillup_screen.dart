@@ -66,8 +66,7 @@ class _GeneralDetailFillupScreenState extends State<GeneralDetailFillupScreen> {
           child: SafeArea(
             // Added SafeArea here
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment
-                  .start, // Align children to the start, though not needed anymore.
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -135,6 +134,7 @@ class _GeneralDetailFillupScreenState extends State<GeneralDetailFillupScreen> {
                 borderRadius: BorderRadius.circular(8)),
             child: Icon(
               Icons.arrow_back_ios_new_outlined,
+              size: 20,
               color: ColorConstant.whiteColor,
             )),
       ),

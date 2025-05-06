@@ -603,6 +603,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_unit_ruler:
+    dependency: "direct main"
+    description:
+      name: flutter_unit_ruler
+      sha256: "806e65a717150d7bd58094744cb401cadf90a71f4753cf59ea7d7cd94354e694"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -1541,6 +1549,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  vertical_weight_slider:
+    dependency: "direct main"
+    description:
+      name: vertical_weight_slider
+      sha256: b43a75427485d442397ee621bd5a09368dfa9ecee35cd691f61530dfc29287c5
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.6.0"
   video_player:
     dependency: transitive
     description:
