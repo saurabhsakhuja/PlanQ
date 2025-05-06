@@ -10,4 +10,6 @@ class ColorConstant {
   static const Color buttonGradient1Color = Color(0xFF2737CF);
   static const Color buttonGradient2Color = Color(0xFFDA1A41);
   static const Color accentMintGeenColor = Color(0xFF77C2BA);
+  static const Color progressIndicatorColor = Colors.white;
+  static const Color progressIndicatorBackgroundColor = Color(0xFF938B8B);
 }

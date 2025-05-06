@@ -51,10 +51,13 @@ class IntroScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       CommonSubmitButton(
-                        text: 'Get Started',
-                        onPressed: () => GoRouter.of(context)
-                            .pushNamed(AppRoutes.REGISTER_SCREEN_ROUTE_NAME),
-                      ),
+                          text: 'Get Started',
+                          onPressed: () {
+                            GoRouter.of(context).pushNamed(
+                                // AppRoutes.REGISTER_SCREEN_ROUTE_NAME);
+                                AppRoutes
+                                    .GENERAL_DETAIL_FILLUP_SCREEN_ROUTE_NAME);
+                          }),
                       SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:plan_q/src/core/constants/app_routes.dart';
 import 'package:plan_q/src/locator.dart';
 import 'package:plan_q/src/modules/auth/presentation/cubit/login_status_cubit.dart';
+import 'package:plan_q/src/modules/auth/presentation/screens/general_detail_fillup_screen.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/intro_screen.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/register_screen.dart';
 import 'package:plan_q/src/modules/dashboard/presentation/screens/dashboard_screen.dart';
@@ -19,17 +20,17 @@ final shellNavigatorKeyF = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
   navigatorKey: locator<GlobalKey<NavigatorState>>(),
-  initialLocation: AppRoutes.HOME_SCREEN_ROUTE_PATH,
+  initialLocation: AppRoutes.INTRO_SCREEN_ROUTE_PATH,
   redirect: (context, state) {
     final loginStatus = context.read<LoginStatusCubit>().state;
-    if (loginStatus == false) {
-      if (state.matchedLocation == AppRoutes.LOGIN_SCREEN_ROUTE_PATH ||
-          state.matchedLocation == AppRoutes.REGISTER_SCREEN_ROUTE_PATH ||
-          state.matchedLocation == AppRoutes.FORGOT_SCREEN_ROUTE_PATH) {
-        return null;
-      }
-      return AppRoutes.INTRO_SCREEN_ROUTE_PATH;
-    }
+    // if (loginStatus == false) {
+    //   if (state.matchedLocation == AppRoutes.LOGIN_SCREEN_ROUTE_PATH ||
+    //       state.matchedLocation == AppRoutes.REGISTER_SCREEN_ROUTE_PATH ||
+    //       state.matchedLocation == AppRoutes.FORGOT_SCREEN_ROUTE_PATH) {
+    //     return null;
+    //   }
+    //   return AppRoutes.INTRO_SCREEN_ROUTE_PATH;
+    // }
     return null;
   },
   routes: [
@@ -42,10 +43,16 @@ final router = GoRouter(
       name: AppRoutes.INTRO_SCREEN_ROUTE_NAME,
       path: AppRoutes.INTRO_SCREEN_ROUTE_PATH,
       builder: (_, __) => const IntroScreen(),
-    ), GoRoute(
+    ),
+    GoRoute(
       name: AppRoutes.REGISTER_SCREEN_ROUTE_NAME,
       path: AppRoutes.REGISTER_SCREEN_ROUTE_PATH,
       builder: (_, __) => const RegisterScreen(),
+    ),
+    GoRoute(
+      name: AppRoutes.GENERAL_DETAIL_FILLUP_SCREEN_ROUTE_NAME,
+      path: AppRoutes.GENERAL_DETAIL_FILLUP_SCREEN_ROUTE_PATH,
+      builder: (_, __) => const GeneralDetailFillupScreen(),
     ),
     StatefulShellRoute.indexedStack(
       builder: (_, __, navigationShell) {
