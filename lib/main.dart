@@ -47,24 +47,69 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: ColorConstant.backgroundColor,
         fontFamily: 'SF Pro Display',
         colorScheme: ColorScheme.fromSeed(
-          seedColor: ColorConstant.primaryColor,
+          seedColor: ColorConstant.whiteColor,
         ),
         textTheme: const TextTheme(
-          displayLarge: TextStyle(fontSize: 57, fontWeight: FontWeight.bold,fontFamily: 'SF Pro Display'),
-          displayMedium: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
-          displaySmall: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-          headlineLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-          headlineMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
-          headlineSmall: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
-          titleLarge: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-          titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-          titleSmall: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-          bodyLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-          bodyMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
-          bodySmall: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
-          labelLarge: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-          labelMedium: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
-          labelSmall: TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+          displayLarge: TextStyle(
+              fontSize: 57,
+              fontWeight: FontWeight.bold,
+              color: ColorConstant.whiteColor),
+          displayMedium: TextStyle(
+              fontSize: 45,
+              fontWeight: FontWeight.bold,
+              color: ColorConstant.whiteColor),
+          displaySmall: TextStyle(
+              fontSize: 36,
+              fontWeight: FontWeight.bold,
+              color: ColorConstant.whiteColor),
+          headlineLarge: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              color: ColorConstant.whiteColor),
+          headlineMedium: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w600,
+              color: ColorConstant.whiteColor),
+          headlineSmall: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+              color: ColorConstant.whiteColor),
+          titleLarge: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w600,
+              color: ColorConstant.whiteColor),
+          titleMedium: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: ColorConstant.whiteColor),
+          titleSmall: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: ColorConstant.whiteColor),
+          bodyLarge: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.normal,
+              color: ColorConstant.whiteColor),
+          bodyMedium: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.normal,
+              color: ColorConstant.whiteColor),
+          bodySmall: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.normal,
+              color: ColorConstant.whiteColor),
+          labelLarge: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: ColorConstant.whiteColor),
+          labelMedium: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              color: ColorConstant.whiteColor),
+          labelSmall: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
+              color: ColorConstant.whiteColor),
         ),
         appBarTheme: AppBarTheme(
             backgroundColor: ColorConstant.primaryColor,

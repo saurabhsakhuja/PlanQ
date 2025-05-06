@@ -41,12 +41,7 @@ class CommonSubmitButton extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
             child: Text(
               text,
-              style: textStyle ??
-                  const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w400,
-                  ),
+              style: textStyle ?? Theme.of(context).textTheme.titleMedium,
               textAlign: TextAlign.center,
             ),
           ),
