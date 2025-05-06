@@ -49,6 +49,23 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(
           seedColor: ColorConstant.primaryColor,
         ),
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(fontSize: 57, fontWeight: FontWeight.bold,fontFamily: 'SF Pro Display'),
+          displayMedium: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
+          displaySmall: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+          headlineLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+          headlineMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
+          headlineSmall: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+          titleLarge: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+          titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          titleSmall: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+          bodyLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+          bodyMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+          bodySmall: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
+          labelLarge: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+          labelMedium: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+          labelSmall: TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+        ),
         appBarTheme: AppBarTheme(
             backgroundColor: ColorConstant.primaryColor,
             titleTextStyle: TextStyle(
