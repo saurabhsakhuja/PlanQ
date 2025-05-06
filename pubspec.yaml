@@ -36,6 +36,7 @@ dependencies:
   percent_indicator: ^4.2.5
   table_calendar: ^3.2.0
   shimmer: ^3.0.0
+  flutter_svg: ^2.1.0
 
 
 dev_dependencies:
@@ -58,6 +59,7 @@ flutter:
   assets:
     - assets/images/
     - assets/fonts/
+    - assets/svgs/
 fonts:
   - family: SF Pro Display
     fonts:

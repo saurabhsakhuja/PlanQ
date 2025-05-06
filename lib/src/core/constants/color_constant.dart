@@ -7,6 +7,7 @@ class ColorConstant {
   static const Color white60Color = Colors.white60;
   static const Color blackColor = Colors.black;
   static const Color greyColor = Colors.grey;
-  static const Color buttonGradient1 = Color(0xFF2737CF);
-  static const Color buttonGradient2 = Color(0xFFDA1A41);
+  static const Color buttonGradient1Color = Color(0xFF2737CF);
+  static const Color buttonGradient2Color = Color(0xFFDA1A41);
+  static const Color accentMintGeenColor = Color(0xFF77C2BA);
 }
