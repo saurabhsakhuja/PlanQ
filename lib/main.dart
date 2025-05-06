@@ -44,16 +44,18 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: StringConstant.appName,
       theme: ThemeData(
-        scaffoldBackgroundColor: ColorConstant.background,
+        scaffoldBackgroundColor: ColorConstant.backgroundColor,
         fontFamily: 'SF Pro Display',
         colorScheme: ColorScheme.fromSeed(
           seedColor: ColorConstant.primaryColor,
         ),
         appBarTheme: AppBarTheme(
-          backgroundColor: ColorConstant.primaryColor,
-          titleTextStyle: TextStyle(color: ColorConstant.white,fontWeight: FontWeight.bold,fontSize: 18),
-          iconTheme: IconThemeData(color: ColorConstant.white)
-        ),
+            backgroundColor: ColorConstant.primaryColor,
+            titleTextStyle: TextStyle(
+                color: ColorConstant.whiteColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 18),
+            iconTheme: IconThemeData(color: ColorConstant.whiteColor)),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
             side: const BorderSide(color: ColorConstant.primaryColor),

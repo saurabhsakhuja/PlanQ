@@ -42,7 +42,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             tabBackgroundColor: ColorConstant.primaryColor.withOpacity(
               0.1,
             ), // Selected tab background color
-            color: ColorConstant.grey, // Unselected tab color
+            color: ColorConstant.greyColor, // Unselected tab color
             tabs: const [
               GButton(icon: Icons.home, text: 'Home'),
               GButton(icon: Icons.receipt_long, text: 'Prescription'),
