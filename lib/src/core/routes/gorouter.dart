@@ -1,0 +1,59 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:plan_q/src/core/constants/app_routes.dart';
+import 'package:plan_q/src/locator.dart';
+import 'package:plan_q/src/modules/auth/presentation/cubit/login_status_cubit.dart';
+import 'package:plan_q/src/modules/dashboard/presentation/screens/dashboard_screen.dart';
+import 'package:plan_q/src/modules/dashboard/presentation/splash_screen.dart';
+
+final shellNavigatorKeyA = GlobalKey<NavigatorState>();
+final shellNavigatorKeyB = GlobalKey<NavigatorState>();
+final shellNavigatorKeyC = GlobalKey<NavigatorState>();
+final shellNavigatorKeyD = GlobalKey<NavigatorState>();
+final shellNavigatorKeyE = GlobalKey<NavigatorState>();
+final shellNavigatorKeyF = GlobalKey<NavigatorState>();
+
+final router = GoRouter(
+  navigatorKey: locator<GlobalKey<NavigatorState>>(),
+  initialLocation: AppRoutes.HOME_SCREEN_ROUTE_PATH,
+  redirect: (context, state) {
+    final loginStatus = context.read<LoginStatusCubit>().state;
+    if (loginStatus == false) {
+      if (state.matchedLocation == AppRoutes.LOGIN_SCREEN_ROUTE_PATH ||
+          state.matchedLocation == AppRoutes.SIGNUP_SCREEN_ROUTE_PATH ||
+          state.matchedLocation == AppRoutes.FORGOT_SCREEN_ROUTE_PATH) {
+        return null;
+      }
+      return AppRoutes.INTRO_SCREEN_ROUTE_PATH;
+    }
+    return null;
+  },
+  routes: [
+    GoRoute(
+      name: AppRoutes.SPLASH_SCREEN_ROUTE_NAME,
+      path: AppRoutes.SPLASH_SCREEN_ROUTE_PATH,
+      builder: (_, __) => const SplashScreen(),
+    ),
+    
+
+    StatefulShellRoute.indexedStack(
+      builder: (_, __, navigationShell) {
+        return DashboardScreen(navigationShell: navigationShell);
+      },
+      branches: [
+        // StatefulShellBranch(
+        //   navigatorKey: shellNavigatorKeyA,
+        //   routes: [
+        //     GoRoute(
+        //       name: AppRoutes.HOME_SCREEN_ROUTE_NAME,
+        //       path: AppRoutes.HOME_SCREEN_ROUTE_PATH,
+        //       builder: (_, __) => const HomeScreen(),
+        //     ),
+        //   ],
+        // ),
+       ],
+    ),
+  ],
+);
+
