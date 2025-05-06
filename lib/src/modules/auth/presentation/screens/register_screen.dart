@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
+import 'package:plan_q/src/core/constants/app_routes.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -37,29 +39,54 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Widget _buildPasswordRequirement(String text, bool isMet) {
     return Flexible(
-      child: Row(
-        children: [
-          Icon(
-            isMet ? Icons.check_circle : Icons.radio_button_unchecked,
-            color: isMet ? Colors.cyanAccent : Colors.white,
-            size: 18,
-          ),
-          const SizedBox(width: 8),
-          Text(text, style: const TextStyle(color: Colors.white)),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        child: Row(
+          children: [
+            Icon(
+              isMet ? Icons.check_circle : Icons.radio_button_unchecked,
+              color: isMet
+                  ? ColorConstant.accentMintGeenColor
+                  : ColorConstant.whiteColor,
+              size: 18,
+            ),
+            const SizedBox(width: 8),
+            Text(text,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: ColorConstant.whiteColor)),
+          ],
+        ),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Scaffold(
       backgroundColor: ColorConstant.backgroundColor,
       appBar: AppBar(
           backgroundColor: ColorConstant.backgroundColor,
           leading: BackButton()),
+      bottomSheet: SafeArea(
+        child: ColoredBox(
+          color: ColorConstant.backgroundColor,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Create Account Button
+                CommonSubmitButton(text: 'Create Account', onPressed: () {}),
+                const SizedBox(height: 20),
+                Center(child: _buildFooterText(context)),
+                SizedBox(height: 26)
+              ],
+            ),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
@@ -67,36 +94,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10),
-               Text(
+              Text(
                 'Register New Account',
-                style: TextStyle(
-                    color: ColorConstant.whiteColor,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(height: 8),
-              const Text(
+              Text(
                 'Fill the information to complete the registration',
-                style: TextStyle(color: Colors.white60),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: ColorConstant.secondaryDark),
               ),
               const SizedBox(height: 24),
 
               // Full Name
-              const Text("Full name", style: TextStyle(color: Colors.white)),
+              _titleText(title: 'Full name'),
               const SizedBox(height: 6),
               _buildTextField(_fullNameController, "Full Name"),
 
               const SizedBox(height: 16),
 
               // Email
-              const Text("Email", style: TextStyle(color: Colors.white)),
+              _titleText(title: 'Email'),
               const SizedBox(height: 6),
               _buildTextField(_emailController, "Email Address"),
 
               const SizedBox(height: 16),
 
               // Password
-              const Text("Password", style: TextStyle(color: Colors.white)),
+              _titleText(title: "Password"),
               const SizedBox(height: 6),
               _buildTextField(
                 _passwordController,
@@ -109,13 +136,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
               //Secure password indicators bars
               const SizedBox(height: 8),
               Row(
-                children: [
-                  _buildPasswordBar(hasSpecialCharacter),
-                  _buildPasswordBar(hasNumber),
-                  _buildPasswordBar(hasMinLength),
-                  _buildPasswordBar(hasUppercase),
-                ],
+                children: List.generate(4, (index) {
+                  return _buildPasswordBar(index < _getPasswordStrengthLevel());
+                }),
               ),
+
               const SizedBox(height: 8),
               //Secure password indicators
               Row(
@@ -138,8 +163,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               const SizedBox(height: 16),
 
               // Confirm Password
-              const Text("Confirm Password",
-                  style: TextStyle(color: Colors.white)),
+              _titleText(title: "Confirm Password"),
               const SizedBox(height: 6),
               _buildTextField(
                 _confirmPasswordController,
@@ -150,28 +174,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
 
               const SizedBox(height: 30),
-
-              // Create Account Button
-              CommonSubmitButton(text: 'Create Account', onPressed: () {}),
-              const SizedBox(height: 20),
-              Center(
-                child: RichText(
-                  text: TextSpan(
-                    text: "Already have an account? ",
-                    style: const TextStyle(color: Colors.white70),
-                    children: [
-                      TextSpan(
-                        text: "Sign In",
-                        style: const TextStyle(color: Colors.cyanAccent),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            // Navigate to sign in
-                          },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
             ],
           ),
         ),
@@ -179,23 +181,70 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+//to check there's any password strength level match
+  int _getPasswordStrengthLevel() {
+    int strength = 0;
+    if (hasSpecialCharacter) strength++;
+    if (hasNumber) strength++;
+    if (hasMinLength) strength++;
+    if (hasUppercase) strength++;
+    return strength;
+  }
+
+  //Footer sign In option
+  Widget _buildFooterText(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        children: <TextSpan>[
+          TextSpan(
+            text: "Already have an account? ",
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: ColorConstant.whiteColor),
+          ),
+          TextSpan(
+            text: 'Sign In',
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: ColorConstant.accentMintGeenColor,
+                  decoration: TextDecoration.underline,
+                ),
+            onEnter: (event) {},
+            onExit: (event) {},
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                GoRouter.of(context)
+                    .pushNamed(AppRoutes.LOGIN_SCREEN_ROUTE_NAME);
+              },
+          ),
+        ],
+      ),
+      textAlign: TextAlign.center,
+    );
+  }
+
+//Textfield to fill form fields
   Widget _buildTextField(TextEditingController controller, String hint,
       {bool obscureText = false,
       void Function()? toggleObscure,
       void Function(String)? onChanged}) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey[900],
+        color: ColorConstant.textFieldBg,
         borderRadius: BorderRadius.circular(14),
       ),
       child: TextField(
         controller: controller,
         obscureText: obscureText,
         onChanged: onChanged,
-        style: const TextStyle(color: Colors.white),
+        style: Theme.of(context)
+            .textTheme
+            .bodyMedium
+            ?.copyWith(color: ColorConstant.whiteColor),
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: const TextStyle(color: Colors.white60),
+          hintStyle: TextStyle(color: ColorConstant.offWhite),
           border: InputBorder.none,
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
@@ -203,7 +252,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ? IconButton(
                   icon: Icon(
                     obscureText ? Icons.visibility_off : Icons.visibility,
-                    color: Colors.white60,
+                    color: ColorConstant.whiteColor,
                   ),
                   onPressed: toggleObscure,
                 )
@@ -213,16 +262,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+//Strong Password Indicator bar
   Widget _buildPasswordBar(bool isActive) {
     return Expanded(
       child: Container(
         height: 4,
         margin: const EdgeInsets.symmetric(horizontal: 2),
         decoration: BoxDecoration(
-          color: isActive ? Colors.purpleAccent : Colors.white10,
+          gradient: LinearGradient(
+            colors: isActive
+                ? [
+                    ColorConstant.buttonGradient1Color,
+                    ColorConstant.buttonGradient2Color,
+                  ]
+                : [
+                    ColorConstant.buttonGradient1Color.withOpacity(.2),
+                    ColorConstant.buttonGradient2Color.withOpacity(.2)
+                  ],
+          ),
           borderRadius: BorderRadius.circular(4),
         ),
       ),
+    );
+  }
+
+//Text Field Title
+  Widget _titleText({required String title}) {
+    return Text(
+      title,
+      style: Theme.of(context)
+          .textTheme
+          .bodySmall
+          ?.copyWith(color: ColorConstant.offWhite),
     );
   }
 }
