@@ -7,8 +7,8 @@ class AppRoutes {
   static const String LOGIN_SCREEN_ROUTE_NAME = 'loginScreen';
   static const String LOGIN_SCREEN_ROUTE_PATH = '/loginScreen';
 
-  static const String SIGNUP_SCREEN_ROUTE_NAME = 'signupScreen';
-  static const String SIGNUP_SCREEN_ROUTE_PATH = '/signupScreen';
+  static const String REGISTER_SCREEN_ROUTE_NAME = 'registerScreen';
+  static const String REGISTER_SCREEN_ROUTE_PATH = '/registerScreen';
 
   static const String FORGOT_SCREEN_ROUTE_NAME = 'forgotPassword';
   static const String FORGOT_SCREEN_ROUTE_PATH = '/forgotPassword';
@@ -82,8 +82,10 @@ class AppRoutes {
   static const String METABOLIC_SCREEN_ROUTE_NAME = 'metabolicScreen';
   static const String METABOLIC_SCREEN_ROUTE_PATH = '/metabolicScreen';
 
-  static const String METABOLIC_STEPPER_SCREEN_ROUTE_NAME = 'metabolicStepperScreen';
-  static const String METABOLIC_STEPPER_SCREEN_ROUTE_PATH = '/metabolicStepperScreen';
+  static const String METABOLIC_STEPPER_SCREEN_ROUTE_NAME =
+      'metabolicStepperScreen';
+  static const String METABOLIC_STEPPER_SCREEN_ROUTE_PATH =
+      '/metabolicStepperScreen';
 
   static const String VIEW_LOGS_SCREEN_ROUTE_NAME = 'viewLogsScreen';
   static const String VIEW_LOGS_SCREEN_ROUTE_PATH = '/viewLogsScreen';

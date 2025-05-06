@@ -9,17 +9,18 @@ class CommonSubmitButton extends StatelessWidget {
   final EdgeInsets? padding;
 
   const CommonSubmitButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.onPressed,
     this.textStyle,
     this.borderRadius,
     this.padding,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.maxFinite,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
@@ -29,6 +30,7 @@ class CommonSubmitButton extends StatelessWidget {
         ),
         borderRadius: borderRadius ?? BorderRadius.circular(50),
       ),
+      padding: EdgeInsets.symmetric(vertical: 4),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
