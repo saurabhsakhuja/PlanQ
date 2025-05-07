@@ -78,7 +78,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 // Create Account Button
-                CommonSubmitButton(text: 'Create Account', onPressed: () {}),
+                CommonSubmitButton(
+                    child: Text(
+                      'Create Account',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    onPressed: () {}),
                 const SizedBox(height: 20),
                 Center(child: _buildFooterText(context)),
                 SizedBox(height: 26)

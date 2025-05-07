@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:plan_q/gen/assets.gen.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -38,29 +40,23 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         backgroundColor: ColorConstant.primaryColor,
         elevation: 0,
         scrolledUnderElevation: 0,
-        titleSpacing: showBackButton ? 0.0 : 12.0,
+        // titleSpacing: showBackButton ? 0.0 : 12.0,
         automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment:
-              centerTitle ? MainAxisAlignment.center : MainAxisAlignment.start,
-          children: [
-            if (showBackButton)
-              GestureDetector(
-                onTap: onBackButtonPressed ?? () => GoRouter.of(context).pop(),
-                child: const Padding(
-                  padding: EdgeInsets.only(left: 12, right: 6),
-                  child: Icon(Icons.arrow_back_ios, color: ColorConstant.whiteColor),
-                ),
-              ),
-            Text(
-              title,
-              style: const TextStyle(
-                color: ColorConstant.whiteColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+        leading: GestureDetector(
+          onTap: onBackButtonPressed ?? () => GoRouter.of(context).pop(),
+          child: Padding(
+            padding: EdgeInsets.only(
+              left: 10,
             ),
-          ],
+            child: SvgPicture.asset(Assets.svgs.backButtonIcon),
+          ),
+        ),
+        title: Text(
+          title,
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge
+              ?.copyWith(fontWeight: FontWeight.w400),
         ),
         centerTitle: centerTitle,
         actions: actions,

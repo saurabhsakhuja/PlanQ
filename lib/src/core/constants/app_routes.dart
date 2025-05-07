@@ -28,7 +28,14 @@ class AppRoutes {
   static const String HOME_SCREEN_ROUTE_NAME = 'homeScreen';
   static const String HOME_SCREEN_ROUTE_PATH = '/homeScreen';
 
-  static const String GENERAL_DETAIL_FILLUP_SCREEN_ROUTE_NAME = 'generalDetailFillupScreen';
-  static const String GENERAL_DETAIL_FILLUP_SCREEN_ROUTE_PATH = '/generalDetailFillupScreen';
+  static const String GENERAL_DETAIL_FILLUP_SCREEN_ROUTE_NAME =
+      'generalDetailFillupScreen';
+  static const String GENERAL_DETAIL_FILLUP_SCREEN_ROUTE_PATH =
+      '/generalDetailFillupScreen';
 
+  static const String WORKOUTS_MAIN_SCREEN_ROUTE_NAME = 'workoutsMainScreen';
+  static const String WORKOUTS_MAIN_SCREEN_ROUTE_PATH = '/workoutsMainScreen';
+
+  static const String MY_WORKOUTS_SCREEN_ROUTE_NAME = 'myWorkoutsScreen';
+  static const String MY_WORKOUTS_SCREEN_ROUTE_PATH = '/myWorkoutsScreen';
 }

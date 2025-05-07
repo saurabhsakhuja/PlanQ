@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 
 class FitnessMissionQuestionWidget extends StatefulWidget {
-  const FitnessMissionQuestionWidget({Key? key}) : super(key: key);
+  const FitnessMissionQuestionWidget({super.key});
 
   @override
   _FitnessMissionQuestionWidgetState createState() =>
@@ -45,13 +45,14 @@ class _FitnessMissionQuestionWidgetState
         children: [
           Text(
             "What's Your Ultimate Fitness Mission?",
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall
+                ?.copyWith(fontWeight: FontWeight.w500, fontSize: 26),
           ),
           const SizedBox(height: 20),
           SizedBox(
-            height: 280,
+            height: 320,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: _missions.length,
@@ -75,17 +76,11 @@ class _FitnessMissionQuestionWidgetState
                     },
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
-                      width: isSelected ? 220 : 200,
-                      height: isSelected ? 220 : 200,
+                      width: isSelected ? 240 : 220,
+                      height: isSelected ? 240 : 220,
                       padding: EdgeInsets.zero,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: isSelected
-                              ? ColorConstant.primaryColor
-                              : Colors.transparent,
-                          width: 2,
-                        ),
                         image: DecorationImage(
                           image: NetworkImage(mission['image']!),
                           fit: BoxFit.cover,
@@ -98,40 +93,42 @@ class _FitnessMissionQuestionWidgetState
                       child: Stack(
                         children: [
                           Positioned(
-                            bottom: 0,
-                            left: 0,
+                            top: 0,
+                            left: 12,
                             right: 0,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              child: Text(
-                                mission['title']!,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    mission['title']!,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                    ),
+                                    textAlign: TextAlign.start,
+                                  ),
                                 ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            top: 8,
-                            right: 8,
-                            child: Checkbox(
-                              value: isSelected,
-                              onChanged: (value) {
-                                setState(() {
-                                  if (value == true) {
-                                    _selectedMissions
-                                        .add(mission['title'] ?? '');
-                                  } else {
-                                    _selectedMissions.remove(mission['title']);
-                                  }
-                                });
-                              },
-                              checkColor: Colors.white,
-                              activeColor: ColorConstant.primaryColor,
+                                Checkbox(
+                                  value: isSelected,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      if (value == true) {
+                                        _selectedMissions
+                                            .add(mission['title'] ?? '');
+                                      } else {
+                                        _selectedMissions
+                                            .remove(mission['title']);
+                                      }
+                                    });
+                                  },
+                                  side: BorderSide(
+                                      color: ColorConstant.blueColor, width: 2),
+                                  checkColor: ColorConstant.blueColor,
+                                  activeColor: ColorConstant.whiteColor,
+                                ),
+                              ],
                             ),
                           ),
                         ],

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 
 class FitnessExperianceQuestionWidget extends StatefulWidget {
-  const FitnessExperianceQuestionWidget({Key? key}) : super(key: key);
+  const FitnessExperianceQuestionWidget({super.key});
 
   @override
   _FitnessExperianceQuestionWidgetState createState() =>
@@ -40,11 +40,12 @@ class _FitnessExperianceQuestionWidgetState
         children: [
           Text(
             "What's your experience with fitness so far?",
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall
+                ?.copyWith(fontWeight: FontWeight.w500, fontSize: 26),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 40),
           Center(
             child: Text(
               _selectedExperience.toString(),
@@ -58,7 +59,7 @@ class _FitnessExperianceQuestionWidgetState
           const SizedBox(height: 20),
           // Removed Slider
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 3),
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
             decoration: BoxDecoration(
                 color: ColorConstant.darkGreyColor,
                 borderRadius: BorderRadius.circular(50)),
@@ -74,22 +75,22 @@ class _FitnessExperianceQuestionWidgetState
                     });
                   },
                   child: Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: 8, horizontal: isSelected ? 24 : 0),
-                    decoration: BoxDecoration(
-                      color: isSelected
-                          ? const Color(
-                              0xFF450920) // Selected option background color
-                          : Colors.transparent,
-                      borderRadius: BorderRadius.circular(50),
-                      border: Border.all(
-                        color: isSelected
-                            ? const Color(
-                                0xFF880808) // Selected option border color
-                            : Colors.transparent,
-                        width: 1,
-                      ),
-                    ),
+                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                    decoration: isSelected
+                        ? BoxDecoration(
+                            border: Border.all(
+                              color: ColorConstant.redBorderColor,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(50),
+                            gradient: LinearGradient(colors: [
+                              ColorConstant.redTileGradient1Color,
+                              ColorConstant.redTileGradient2Color
+                            ]))
+                        : BoxDecoration(
+                            color: ColorConstant.darkGreyColor,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
                     child: Text(
                       label,
                       style: TextStyle(
@@ -104,7 +105,7 @@ class _FitnessExperianceQuestionWidgetState
               }).toList(),
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 20),
           Center(
             child: Text(
               _experienceText, // Use the calculated text here

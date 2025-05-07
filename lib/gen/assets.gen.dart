@@ -72,24 +72,97 @@ class $AssetsImagesGen {
 class $AssetsSvgsGen {
   const $AssetsSvgsGen();
 
+  /// File path: assets/svgs/add_blue_icon.svg
+  String get addBlueIcon => 'assets/svgs/add_blue_icon.svg';
+
+  /// File path: assets/svgs/ai_made_blue_icon.svg
+  String get aiMadeBlueIcon => 'assets/svgs/ai_made_blue_icon.svg';
+
+  /// File path: assets/svgs/ai_made_purple_icon.svg
+  String get aiMadePurpleIcon => 'assets/svgs/ai_made_purple_icon.svg';
+
   /// File path: assets/svgs/arrow_down_icon.svg
   String get arrowDownIcon => 'assets/svgs/arrow_down_icon.svg';
+
+  /// File path: assets/svgs/back_button_icon.svg
+  String get backButtonIcon => 'assets/svgs/back_button_icon.svg';
 
   /// File path: assets/svgs/facebookLogo.svg
   String get facebookLogo => 'assets/svgs/facebookLogo.svg';
 
+  /// File path: assets/svgs/filter_icon.svg
+  String get filterIcon => 'assets/svgs/filter_icon.svg';
+
+  /// File path: assets/svgs/fire_icon.svg
+  String get fireIcon => 'assets/svgs/fire_icon.svg';
+
   /// File path: assets/svgs/googleLogo.svg
   String get googleLogo => 'assets/svgs/googleLogo.svg';
+
+  /// File path: assets/svgs/heart_issues_icon.svg
+  String get heartIssuesIcon => 'assets/svgs/heart_issues_icon.svg';
+
+  /// File path: assets/svgs/highly_active_icon.svg
+  String get highlyActiveIcon => 'assets/svgs/highly_active_icon.svg';
+
+  /// File path: assets/svgs/joint_related_issue_icon.svg
+  String get jointRelatedIssueIcon =>
+      'assets/svgs/joint_related_issue_icon.svg';
+
+  /// File path: assets/svgs/lightly_active_icon.svg
+  String get lightlyActiveIcon => 'assets/svgs/lightly_active_icon.svg';
+
+  /// File path: assets/svgs/market_place_blue_icon.svg
+  String get marketPlaceBlueIcon => 'assets/svgs/market_place_blue_icon.svg';
+
+  /// File path: assets/svgs/moderately_active_icon.svg
+  String get moderatelyActiveIcon => 'assets/svgs/moderately_active_icon.svg';
+
+  /// File path: assets/svgs/no_injuries_icon.svg
+  String get noInjuriesIcon => 'assets/svgs/no_injuries_icon.svg';
+
+  /// File path: assets/svgs/other_icon.svg
+  String get otherIcon => 'assets/svgs/other_icon.svg';
 
   /// File path: assets/svgs/planq_intro_logo.svg
   String get planqIntroLogo => 'assets/svgs/planq_intro_logo.svg';
 
+  /// File path: assets/svgs/rarely_active_icon.svg
+  String get rarelyActiveIcon => 'assets/svgs/rarely_active_icon.svg';
+
+  /// File path: assets/svgs/recently_recover_icon.svg
+  String get recentlyRecoverIcon => 'assets/svgs/recently_recover_icon.svg';
+
+  /// File path: assets/svgs/red_check_icon.svg
+  String get redCheckIcon => 'assets/svgs/red_check_icon.svg';
+
+  /// File path: assets/svgs/spine_issue_icon.svg
+  String get spineIssueIcon => 'assets/svgs/spine_issue_icon.svg';
+
   /// List of all assets
   List<String> get values => [
+    addBlueIcon,
+    aiMadeBlueIcon,
+    aiMadePurpleIcon,
     arrowDownIcon,
+    backButtonIcon,
     facebookLogo,
+    filterIcon,
+    fireIcon,
     googleLogo,
+    heartIssuesIcon,
+    highlyActiveIcon,
+    jointRelatedIssueIcon,
+    lightlyActiveIcon,
+    marketPlaceBlueIcon,
+    moderatelyActiveIcon,
+    noInjuriesIcon,
+    otherIcon,
     planqIntroLogo,
+    rarelyActiveIcon,
+    recentlyRecoverIcon,
+    redCheckIcon,
+    spineIssueIcon,
   ];
 }
 

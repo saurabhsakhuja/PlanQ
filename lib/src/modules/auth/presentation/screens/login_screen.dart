@@ -80,7 +80,12 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
 
               const SizedBox(height: 50),
-              CommonSubmitButton(text: 'Continue', onPressed: () {}),
+              CommonSubmitButton(
+                  child: Text(
+                    'Continue',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  onPressed: () {}),
 
               const SizedBox(height: 30),
               _buildOrDivider(),
@@ -150,7 +155,11 @@ class _LoginScreenState extends State<LoginScreen> {
           iconAsset != null
               ? Padding(
                   padding: const EdgeInsets.only(left: 24),
-                  child: SvgPicture.asset(iconAsset, height: 24,width: 24,),
+                  child: SvgPicture.asset(
+                    iconAsset,
+                    height: 24,
+                    width: 24,
+                  ),
                 )
               : Icon(icon, color: iconColor),
           Text(

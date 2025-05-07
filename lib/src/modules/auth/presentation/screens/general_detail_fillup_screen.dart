@@ -3,13 +3,17 @@ import 'package:go_router/go_router.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart'; // Import your color constant
 import 'package:plan_q/src/core/constants/app_routes.dart';
+import 'package:plan_q/src/modules/auth/presentation/screens/widgets/activity_level_question_widget.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/widgets/fitness_experiance_question_widget.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/widgets/fitness_mission_question_widget.dart';
+import 'package:plan_q/src/modules/auth/presentation/screens/widgets/medical_history_question_widget.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/widgets/personal_descriptor_question_widget.dart';
-import 'package:plan_q/src/modules/auth/presentation/screens/widgets/readblock_question_widget.dart'; // Import your route constants
+import 'package:plan_q/src/modules/auth/presentation/screens/widgets/readblock_question_widget.dart';
+import 'package:plan_q/src/modules/auth/presentation/screens/widgets/workout_frequency_question_widget.dart';
+import 'package:plan_q/src/modules/auth/presentation/screens/widgets/workout_question_widget.dart'; // Import your route constants
 
 class GeneralDetailFillupScreen extends StatefulWidget {
-  const GeneralDetailFillupScreen({Key? key}) : super(key: key);
+  const GeneralDetailFillupScreen({super.key});
 
   @override
   _GeneralDetailFillupScreenState createState() =>
@@ -24,6 +28,10 @@ class _GeneralDetailFillupScreenState extends State<GeneralDetailFillupScreen> {
     const FitnessMissionQuestionWidget(), // Add this
     RoadblockQuestionWidget(),
     FitnessExperianceQuestionWidget(),
+    ActivityLevelQuestionWidget(),
+    WorkoutQuestionWidget(),
+    WorkoutFrequencyQuestionWidget(),
+    MedicalHistoryQuestionWidget(),
   ];
 
   // Added a dispose method to release resources.
@@ -44,8 +52,8 @@ class _GeneralDetailFillupScreenState extends State<GeneralDetailFillupScreen> {
       );
     } else {
       // Navigate to the next screen (e.g., Register screen)
-      GoRouter.of(context).pushNamed(AppRoutes
-          .REGISTER_SCREEN_ROUTE_NAME); // Make sure this route is correct
+      GoRouter.of(context).goNamed(AppRoutes
+          .WORKOUTS_MAIN_SCREEN_ROUTE_NAME); // Make sure this route is correct
     }
   }
 
@@ -98,9 +106,12 @@ class _GeneralDetailFillupScreenState extends State<GeneralDetailFillupScreen> {
                   padding:
                       const EdgeInsets.only(left: 20, right: 20, bottom: 20),
                   child: CommonSubmitButton(
-                    text: _currentQuestionIndex < _questions.length - 1
-                        ? 'Continue'
-                        : 'Finish', // Change button text
+                    child: Text(
+                      _currentQuestionIndex < _questions.length - 1
+                          ? 'Continue'
+                          : 'Finish',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ), // Change button text
                     onPressed: _nextQuestion,
                   ),
                 ),

@@ -10,7 +10,9 @@ import 'package:plan_q/src/modules/auth/presentation/screens/login_screen.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/register_screen.dart';
 import 'package:plan_q/src/modules/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:plan_q/src/modules/dashboard/presentation/screens/home/home_screen.dart';
-import 'package:plan_q/src/modules/dashboard/presentation/splash_screen.dart';
+import 'package:plan_q/src/modules/auth/presentation/screens/splash_screen.dart';
+import 'package:plan_q/src/modules/workouts/presentation/screens/my_workouts_screen.dart';
+import 'package:plan_q/src/modules/workouts/presentation/screens/workouts_main_screen.dart';
 
 final shellNavigatorKeyA = GlobalKey<NavigatorState>();
 final shellNavigatorKeyB = GlobalKey<NavigatorState>();
@@ -60,6 +62,16 @@ final router = GoRouter(
       name: AppRoutes.GENERAL_DETAIL_FILLUP_SCREEN_ROUTE_NAME,
       path: AppRoutes.GENERAL_DETAIL_FILLUP_SCREEN_ROUTE_PATH,
       builder: (_, __) => const GeneralDetailFillupScreen(),
+    ),
+    GoRoute(
+      name: AppRoutes.WORKOUTS_MAIN_SCREEN_ROUTE_NAME,
+      path: AppRoutes.WORKOUTS_MAIN_SCREEN_ROUTE_PATH,
+      builder: (_, __) => const WorkoutsMainScreen(),
+    ),
+    GoRoute(
+      name: AppRoutes.MY_WORKOUTS_SCREEN_ROUTE_NAME,
+      path: AppRoutes.MY_WORKOUTS_SCREEN_ROUTE_PATH,
+      builder: (_, __) => const MyWorkoutsScreen(),
     ),
     StatefulShellRoute.indexedStack(
       builder: (_, __, navigationShell) {
