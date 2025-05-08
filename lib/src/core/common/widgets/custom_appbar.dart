@@ -5,23 +5,25 @@ import 'package:plan_q/gen/assets.gen.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
+  final String? title; // Made title nullable
   final List<Widget>? actions;
   final bool showBackButton;
   final bool centerTitle;
   final bool? showBottomDiver;
   final VoidCallback? onBackButtonPressed;
   final PreferredSizeWidget? bottom;
+  final Widget? child;
 
   const CustomAppBar({
     Key? key,
-    required this.title,
+    this.title, // Made this.title nullable
     this.actions,
     this.showBackButton = false,
     this.centerTitle = false,
     this.showBottomDiver = true,
     this.onBackButtonPressed,
     this.bottom,
+    this.child,
   }) : super(key: key);
 
   @override
@@ -40,24 +42,28 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         backgroundColor: ColorConstant.primaryColor,
         elevation: 0,
         scrolledUnderElevation: 0,
-        // titleSpacing: showBackButton ? 0.0 : 12.0,
         automaticallyImplyLeading: false,
-        leading: GestureDetector(
-          onTap: onBackButtonPressed ?? () => GoRouter.of(context).pop(),
-          child: Padding(
-            padding: EdgeInsets.only(
-              left: 10,
-            ),
-            child: SvgPicture.asset(Assets.svgs.backButtonIcon),
-          ),
-        ),
-        title: Text(
-          title,
-          style: Theme.of(context)
-              .textTheme
-              .bodyLarge
-              ?.copyWith(fontWeight: FontWeight.w400),
-        ),
+        leading: showBackButton
+            ? GestureDetector(
+                onTap: onBackButtonPressed ?? () => GoRouter.of(context).pop(),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 10,
+                  ),
+                  child: SvgPicture.asset(Assets.svgs.backButtonIcon),
+                ),
+              )
+            : null,
+        title: child ??
+            (title != null // Added null check here
+                ? Text(
+                    title!,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(fontWeight: FontWeight.w400),
+                  )
+                : null), //  returning null, if title is null
         centerTitle: centerTitle,
         actions: actions,
         bottom: bottom,

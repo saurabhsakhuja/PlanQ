@@ -38,4 +38,7 @@ class AppRoutes {
 
   static const String MY_WORKOUTS_SCREEN_ROUTE_NAME = 'myWorkoutsScreen';
   static const String MY_WORKOUTS_SCREEN_ROUTE_PATH = '/myWorkoutsScreen';
+
+  static const String LIBRARY_SCREEN_ROUTE_NAME = 'libraryScreen';
+  static const String LIBRARY_SCREEN_ROUTE_PATH = '/libraryScreen';
 }

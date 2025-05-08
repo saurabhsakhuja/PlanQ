@@ -11,6 +11,7 @@ import 'package:plan_q/src/modules/auth/presentation/screens/register_screen.dar
 import 'package:plan_q/src/modules/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:plan_q/src/modules/dashboard/presentation/screens/home/home_screen.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/splash_screen.dart';
+import 'package:plan_q/src/modules/workouts/presentation/screens/library_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/my_workouts_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/workouts_main_screen.dart';
 
@@ -72,6 +73,11 @@ final router = GoRouter(
       name: AppRoutes.MY_WORKOUTS_SCREEN_ROUTE_NAME,
       path: AppRoutes.MY_WORKOUTS_SCREEN_ROUTE_PATH,
       builder: (_, __) => const MyWorkoutsScreen(),
+    ),
+    GoRoute(
+      name: AppRoutes.LIBRARY_SCREEN_ROUTE_NAME,
+      path: AppRoutes.LIBRARY_SCREEN_ROUTE_PATH,
+      builder: (_, __) => const LibraryScreen(),
     ),
     StatefulShellRoute.indexedStack(
       builder: (_, __, navigationShell) {

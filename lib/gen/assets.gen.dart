@@ -75,6 +75,9 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/add_blue_icon.svg
   String get addBlueIcon => 'assets/svgs/add_blue_icon.svg';
 
+  /// File path: assets/svgs/add_dark_blue_icon.svg
+  String get addDarkBlueIcon => 'assets/svgs/add_dark_blue_icon.svg';
+
   /// File path: assets/svgs/ai_made_blue_icon.svg
   String get aiMadeBlueIcon => 'assets/svgs/ai_made_blue_icon.svg';
 
@@ -142,6 +145,7 @@ class $AssetsSvgsGen {
   /// List of all assets
   List<String> get values => [
     addBlueIcon,
+    addDarkBlueIcon,
     aiMadeBlueIcon,
     aiMadePurpleIcon,
     arrowDownIcon,

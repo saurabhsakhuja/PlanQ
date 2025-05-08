@@ -23,7 +23,7 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
-      backgroundColor: ColorConstant.lightBlue1Color,
+      backgroundColor: ColorConstant.extralightBlueColor,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(

@@ -59,7 +59,7 @@ class WorkoutsCardWidget extends StatelessWidget {
                   border: Border.all(
                       color: ColorConstant.lightGreyColor, width: 0.5),
                   borderRadius: BorderRadius.circular(50),
-                  color: ColorConstant.lightBlue1Color,
+                  color: ColorConstant.extralightBlueColor,
                 ),
                 padding: const EdgeInsets.all(12),
                 child: const Icon(
@@ -82,7 +82,7 @@ class WorkoutsCardWidget extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 4),
                           decoration: BoxDecoration(
-                              color: ColorConstant.lightBlue1Color,
+                              color: ColorConstant.extralightBlueColor,
                               borderRadius: BorderRadius.circular(50)),
                           child: Text(
                             "$exercisesCount exercises", // Display the exercise count
@@ -100,7 +100,7 @@ class WorkoutsCardWidget extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 4),
                             decoration: BoxDecoration(
-                                color: ColorConstant.lightBlue1Color,
+                                color: ColorConstant.extralightBlueColor,
                                 borderRadius: BorderRadius.circular(50)),
                             child: Text(
                               "ADD EXERCISES",

@@ -24,7 +24,9 @@ class ColorConstant {
   static const Color progressIndicatorColor = Colors.white;
   static const Color progressIndicatorBackgroundColor = Color(0xFF938B8B);
   static const Color lightBlueColor = Color(0xFF121624);
-  static const Color lightBlue1Color = Color(0xFF22283D);
+  // static const Color lightBlueColor = Color(0xFF1F2937);
+  // static const Color lightBlue1Color = Color(0xFF22283D);
+  static const Color extralightBlueColor = Color(0xFF1F2937);
   static const Color blueColor = Color(0xFF3782FF);
   static const Color redTileGradient1Color = Color(0xFF541a1a);
   static const Color redTileGradient2Color = Color(0xFF381414);
