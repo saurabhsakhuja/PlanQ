@@ -23,7 +23,8 @@ class ColorConstant {
   static const Color accentMintGeenColor = Color(0xFF77C2BA);
   static const Color progressIndicatorColor = Colors.white;
   static const Color progressIndicatorBackgroundColor = Color(0xFF938B8B);
-  static const Color lightBlueColor = Color(0xFF121624);
+  // static const Color lightBlueColor = Color(0xFF121624);
+  static const Color lightBlueColor = Color(0xFF19212C);
   static const Color mediumBlueColor = Color(0xFF1F2937);
   // static const Color lightBlueColor = Color(0xFF1F2937);
   // static const Color lightBlue1Color = Color(0xFF22283D);

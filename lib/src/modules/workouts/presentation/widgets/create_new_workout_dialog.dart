@@ -67,7 +67,7 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
                 });
                 Navigator.of(context).pop();
                 locator<GoRouter>()
-                    .pushNamed(AppRoutes.MY_WORKOUTS_SCREEN_ROUTE_NAME);
+                    .pushNamed(AppRoutes.CREATE_NEW_WORKOUT_SCREEN_ROUTE_NAME);
               },
             ),
             const SizedBox(height: 12),

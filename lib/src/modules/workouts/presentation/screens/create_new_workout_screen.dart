@@ -249,8 +249,8 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
                     ],
                   ),
                   onPressed: () {
-                    locator<GoRouter>()
-                        .goNamed(AppRoutes.WORKOUTS_MAIN_SCREEN_ROUTE_NAME);
+                    locator<GoRouter>().pushNamed(
+                        AppRoutes.WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_NAME);
                   },
                 ),
               ],

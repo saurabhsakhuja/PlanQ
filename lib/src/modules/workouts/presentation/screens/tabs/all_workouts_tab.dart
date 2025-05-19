@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plan_q/gen/assets.gen.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
+import 'package:plan_q/src/core/constants/app_routes.dart';
+import 'package:plan_q/src/locator.dart';
 import 'package:plan_q/src/modules/workouts/presentation/widgets/create_new_workout_dialog.dart';
 import 'package:plan_q/src/modules/workouts/presentation/widgets/workouts_card_widget.dart';
 
@@ -44,13 +47,19 @@ class AllWorkoutsTab extends StatelessWidget {
               final workout = workouts[index];
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: WorkoutsCardWidget(
-                  title: workout['title'],
-                  workoutType: workout['workoutType'],
-                  workoutDays: workout['workoutDays'],
-                  progress: workout['progress'],
-                  isShowProgress: workout['showProgress'],
-                  exercisesCount: workout['exercisesCount'],
+                child: InkWell(
+                  onTap: () {
+                    locator<GoRouter>()
+                        .pushNamed(AppRoutes.CUSTOM_WORKOUT_SCREEN_ROUTE_NAME);
+                  },
+                  child: WorkoutsCardWidget(
+                    title: workout['title'],
+                    workoutType: workout['workoutType'],
+                    workoutDays: workout['workoutDays'],
+                    progress: workout['progress'],
+                    isShowProgress: workout['showProgress'],
+                    exercisesCount: workout['exercisesCount'],
+                  ),
                 ),
               );
             },

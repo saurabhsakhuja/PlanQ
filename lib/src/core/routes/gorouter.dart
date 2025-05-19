@@ -12,8 +12,11 @@ import 'package:plan_q/src/modules/dashboard/presentation/screens/dashboard_scre
 import 'package:plan_q/src/modules/dashboard/presentation/screens/home/home_screen.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/splash_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/create_new_workout_screen.dart';
+import 'package:plan_q/src/modules/workouts/presentation/screens/custom_workout_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/library_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/my_workouts_screen.dart';
+import 'package:plan_q/src/modules/workouts/presentation/screens/select_round_screen.dart';
+import 'package:plan_q/src/modules/workouts/presentation/screens/workout_player_manual_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/workouts_main_screen.dart';
 
 final shellNavigatorKeyA = GlobalKey<NavigatorState>();
@@ -49,7 +52,6 @@ final router = GoRouter(
       path: AppRoutes.INTRO_SCREEN_ROUTE_PATH,
       builder: (_, __) => const IntroScreen(),
     ),
-  
     GoRoute(
       name: AppRoutes.REGISTER_SCREEN_ROUTE_NAME,
       path: AppRoutes.REGISTER_SCREEN_ROUTE_PATH,
@@ -84,6 +86,21 @@ final router = GoRouter(
       name: AppRoutes.CREATE_NEW_WORKOUT_SCREEN_ROUTE_NAME,
       path: AppRoutes.CREATE_NEW_WORKOUT_SCREEN_ROUTE_PATH,
       builder: (_, __) => const CreateNewWorkoutScreen(),
+    ),
+    GoRoute(
+      name: AppRoutes.WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_NAME,
+      path: AppRoutes.WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_PATH,
+      builder: (_, __) => const WorkoutPlayerManualScreen(),
+    ),
+    GoRoute(
+      name: AppRoutes.SELECT_ROUND_SCREEN_ROUTE_NAME,
+      path: AppRoutes.SELECT_ROUND_SCREEN_ROUTE_PATH,
+      builder: (_, __) => SelectRoundScreen(),
+    ),
+    GoRoute(
+      name: AppRoutes.CUSTOM_WORKOUT_SCREEN_ROUTE_NAME,
+      path: AppRoutes.CUSTOM_WORKOUT_SCREEN_ROUTE_PATH,
+      builder: (_, __) => CustomWorkoutScreen(),
     ),
     StatefulShellRoute.indexedStack(
       builder: (_, __, navigationShell) {

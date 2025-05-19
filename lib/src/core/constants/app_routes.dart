@@ -44,4 +44,13 @@ class AppRoutes {
 
   static const String CREATE_NEW_WORKOUT_SCREEN_ROUTE_NAME = 'createNewWorkoutScreen';
   static const String CREATE_NEW_WORKOUT_SCREEN_ROUTE_PATH = '/createNewWorkoutScreen';
+
+  static const String WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_NAME = 'workoutPlayerManualScreen';
+  static const String WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_PATH = '/workoutPlayerManualScreen';
+
+  static const String SELECT_ROUND_SCREEN_ROUTE_NAME = 'selectRoundScreen';
+  static const String SELECT_ROUND_SCREEN_ROUTE_PATH = '/selectRoundScreen';
+
+  static const String CUSTOM_WORKOUT_SCREEN_ROUTE_NAME = 'customWorkoutScreen';
+  static const String CUSTOM_WORKOUT_SCREEN_ROUTE_PATH = '/customWorkoutScreen';
 }
