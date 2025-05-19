@@ -56,11 +56,11 @@ class IntroScreen extends StatelessWidget {
                           Theme.of(context).textTheme.titleMedium
                           ,),
                           onPressed: () {
-                            GoRouter.of(context).pushNamed(
-                                AppRoutes
-                                    .GENERAL_DETAIL_FILLUP_SCREEN_ROUTE_NAME);
-                            // GoRouter.of(context).goNamed(
-                            //     AppRoutes.WORKOUTS_MAIN_SCREEN_ROUTE_NAME);
+                            // GoRouter.of(context).pushNamed(
+                            //     AppRoutes
+                            //         .GENERAL_DETAIL_FILLUP_SCREEN_ROUTE_NAME);
+                            GoRouter.of(context).goNamed(
+                                AppRoutes.WORKOUTS_MAIN_SCREEN_ROUTE_NAME);
                           }),
                       SizedBox(height: 20),
                       Row(

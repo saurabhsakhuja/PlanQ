@@ -60,29 +60,31 @@ class _MyWorkoutsScreenState extends State<MyWorkoutsScreen> {
                     if (category == 'Back') {
                       return InkWell(
                         onTap: () {
-                          locator<GoRouter>()
-                              .pushNamed(AppRoutes.LIBRARY_SCREEN_ROUTE_NAME);
+                          locator<GoRouter>().pushNamed(
+                              AppRoutes.CREATE_NEW_WORKOUT_SCREEN_ROUTE_NAME);
+                          // locator<GoRouter>()
+                          //     .pushNamed(AppRoutes.LIBRARY_SCREEN_ROUTE_NAME);
                         },
                         child: Column(
                           children: [
                             const Divider(
                               color: ColorConstant.greyColor,
-                              height: 1,
+                              thickness: 0.5,
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              padding: const EdgeInsets.symmetric(vertical: 14),
                               child: _buildWorkoutRow(context, category),
                             ),
                             const Divider(
                               color: ColorConstant.greyColor,
-                              height: 1,
+                              thickness: 0.5,
                             ),
                           ],
                         ),
                       );
                     } else {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        padding: const EdgeInsets.symmetric(vertical: 20),
                         child: _buildWorkoutRow(context, category),
                       );
                     }
@@ -102,8 +104,10 @@ class _MyWorkoutsScreenState extends State<MyWorkoutsScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(category,
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                color: ColorConstant.greyColor, fontWeight: FontWeight.w500)),
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontSize: 20,
+                color: ColorConstant.greyColor,
+                fontWeight: FontWeight.w500)),
         if (category == 'Back')
           GestureDetector(
             onTap: () {

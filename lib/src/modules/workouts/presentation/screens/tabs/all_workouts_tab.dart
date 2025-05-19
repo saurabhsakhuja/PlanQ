@@ -59,6 +59,7 @@ class AllWorkoutsTab extends StatelessWidget {
         SizedBox(height: 26),
         // Add the button directly after the ListView.builder
         CommonSubmitButton(
+          height: 52,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
