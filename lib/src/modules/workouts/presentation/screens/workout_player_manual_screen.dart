@@ -81,6 +81,7 @@ class _WorkoutPlayerManualScreenState extends State<WorkoutPlayerManualScreen>
                     LibraryTab(
                       filterTabController: _filterTabController,
                     ),
+                    Text('Selected Tab')
                   ],
                 ),
               ),

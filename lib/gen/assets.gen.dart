@@ -62,11 +62,15 @@ class $AssetsFontsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/exercise_detail.png
+  AssetGenImage get exerciseDetail =>
+      const AssetGenImage('assets/images/exercise_detail.png');
+
   /// File path: assets/images/logo.jpg
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.jpg');
 
   /// List of all assets
-  List<AssetGenImage> get values => [logo];
+  List<AssetGenImage> get values => [exerciseDetail, logo];
 }
 
 class $AssetsSvgsGen {
@@ -89,6 +93,9 @@ class $AssetsSvgsGen {
 
   /// File path: assets/svgs/back_button_icon.svg
   String get backButtonIcon => 'assets/svgs/back_button_icon.svg';
+
+  /// File path: assets/svgs/dumbbell_icon.svg
+  String get dumbbellIcon => 'assets/svgs/dumbbell_icon.svg';
 
   /// File path: assets/svgs/facebookLogo.svg
   String get facebookLogo => 'assets/svgs/facebookLogo.svg';
@@ -139,8 +146,14 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/red_check_icon.svg
   String get redCheckIcon => 'assets/svgs/red_check_icon.svg';
 
+  /// File path: assets/svgs/reverse_arrow_icon.svg
+  String get reverseArrowIcon => 'assets/svgs/reverse_arrow_icon.svg';
+
   /// File path: assets/svgs/spine_issue_icon.svg
   String get spineIssueIcon => 'assets/svgs/spine_issue_icon.svg';
+
+  /// File path: assets/svgs/stand_person_icon.svg
+  String get standPersonIcon => 'assets/svgs/stand_person_icon.svg';
 
   /// List of all assets
   List<String> get values => [
@@ -150,6 +163,7 @@ class $AssetsSvgsGen {
     aiMadePurpleIcon,
     arrowDownIcon,
     backButtonIcon,
+    dumbbellIcon,
     facebookLogo,
     filterIcon,
     fireIcon,
@@ -166,7 +180,9 @@ class $AssetsSvgsGen {
     rarelyActiveIcon,
     recentlyRecoverIcon,
     redCheckIcon,
+    reverseArrowIcon,
     spineIssueIcon,
+    standPersonIcon,
   ];
 }
 

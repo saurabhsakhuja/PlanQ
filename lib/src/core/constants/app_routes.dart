@@ -53,4 +53,10 @@ class AppRoutes {
 
   static const String CUSTOM_WORKOUT_SCREEN_ROUTE_NAME = 'customWorkoutScreen';
   static const String CUSTOM_WORKOUT_SCREEN_ROUTE_PATH = '/customWorkoutScreen';
+
+  static const String EXERCISE_DETAIL_SCREEN_ROUTE_NAME = 'exerciseDetailScreen';
+  static const String EXERCISE_DETAIL_SCREEN_ROUTE_PATH = '/exerciseDetailScreen';
+
+  static const String ARM_CIRCUIT_DETAIL_SCREEN_ROUTE_NAME = 'armCircuitDetailScreen';
+  static const String ARM_CIRCUIT_DETAIL_SCREEN_ROUTE_PATH = '/armCircuitDetailScreen';
 }

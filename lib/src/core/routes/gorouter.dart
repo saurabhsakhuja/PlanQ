@@ -11,8 +11,10 @@ import 'package:plan_q/src/modules/auth/presentation/screens/register_screen.dar
 import 'package:plan_q/src/modules/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:plan_q/src/modules/dashboard/presentation/screens/home/home_screen.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/splash_screen.dart';
+import 'package:plan_q/src/modules/workouts/presentation/screens/arm_circuit_detail_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/create_new_workout_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/custom_workout_screen.dart';
+import 'package:plan_q/src/modules/workouts/presentation/screens/exercise_detail_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/library_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/my_workouts_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/select_round_screen.dart';
@@ -101,6 +103,17 @@ final router = GoRouter(
       name: AppRoutes.CUSTOM_WORKOUT_SCREEN_ROUTE_NAME,
       path: AppRoutes.CUSTOM_WORKOUT_SCREEN_ROUTE_PATH,
       builder: (_, __) => CustomWorkoutScreen(),
+    ),
+    GoRoute(
+      name: AppRoutes.EXERCISE_DETAIL_SCREEN_ROUTE_NAME,
+      path: AppRoutes.EXERCISE_DETAIL_SCREEN_ROUTE_PATH,
+      builder: (_, state) => ExerciseDetailScreen(
+          exerciseName: state.uri.queryParameters['exerciseName'] ?? ''),
+    ),
+    GoRoute(
+      name: AppRoutes.ARM_CIRCUIT_DETAIL_SCREEN_ROUTE_NAME,
+      path: AppRoutes.ARM_CIRCUIT_DETAIL_SCREEN_ROUTE_PATH,
+      builder: (_, __) => ArmCircuitDetailScreen(),
     ),
     StatefulShellRoute.indexedStack(
       builder: (_, __, navigationShell) {

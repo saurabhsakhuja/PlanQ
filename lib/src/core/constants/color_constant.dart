@@ -29,6 +29,7 @@ class ColorConstant {
   // static const Color lightBlueColor = Color(0xFF1F2937);
   // static const Color lightBlue1Color = Color(0xFF22283D);
   static const Color extralightBlueColor = Color(0xFF1F2937);
+  static const Color darkBlueColor = Color(0xFF081221);
   static const Color blueColor = Color(0xFF3782FF);
   static const Color redTileGradient1Color = Color(0xFF541a1a);
   static const Color redTileGradient2Color = Color(0xFF381414);
@@ -37,4 +38,6 @@ class ColorConstant {
   static const Color redBorderColor = Color(0xFFDA1A41);
   static const Color redIconColor = Color(0xFF880808);
   static const Color blueisGreyColor = Color(0xFF1F2937);
+  static const Color greenBgColor = Color(0xFF14532D);
+  static const Color redBgColor = Color(0xFFFF3131);
 }
