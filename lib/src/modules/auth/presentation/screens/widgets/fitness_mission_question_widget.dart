@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
+import 'package:plan_q/src/modules/auth/presentation/screens/general_detail_fillup_screen.dart';
 
 class FitnessMissionQuestionWidget extends StatefulWidget {
-  const FitnessMissionQuestionWidget({super.key});
+  final QuestionCallback onContinue;
+
+  const FitnessMissionQuestionWidget({super.key, required this.onContinue});
 
   @override
   _FitnessMissionQuestionWidgetState createState() =>
@@ -40,106 +44,118 @@ class _FitnessMissionQuestionWidgetState
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "What's Your Ultimate Fitness Mission?",
-            style: Theme.of(context)
-                .textTheme
-                .headlineSmall
-                ?.copyWith(fontWeight: FontWeight.w500, fontSize: 26),
-          ),
-          const SizedBox(height: 20),
-          SizedBox(
-            height: 320,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: _missions.length,
-              itemBuilder: (context, index) {
-                final mission = _missions[index];
-                final isSelected = _selectedMissions.contains(mission['title']);
-                return Padding(
-                  padding: EdgeInsets.only(
-                      right: 10,
-                      top: !isSelected ? 20 : 0,
-                      bottom: !isSelected ? 20 : 0),
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        if (isSelected) {
-                          _selectedMissions.remove(mission['title']);
-                        } else {
-                          _selectedMissions.add(mission['title'] ?? '');
-                        }
-                      });
-                    },
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      width: isSelected ? 240 : 220,
-                      height: isSelected ? 240 : 220,
-                      padding: EdgeInsets.zero,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        image: DecorationImage(
-                          image: NetworkImage(mission['image']!),
-                          fit: BoxFit.cover,
-                          colorFilter: ColorFilter.mode(
-                            Colors.black.withOpacity(0.4),
-                            BlendMode.darken,
-                          ),
-                        ),
-                      ),
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            top: 0,
-                            left: 12,
-                            right: 0,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    mission['title']!,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
-                                    ),
-                                    textAlign: TextAlign.start,
-                                  ),
-                                ),
-                                Checkbox(
-                                  value: isSelected,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      if (value == true) {
-                                        _selectedMissions
-                                            .add(mission['title'] ?? '');
-                                      } else {
-                                        _selectedMissions
-                                            .remove(mission['title']);
-                                      }
-                                    });
-                                  },
-                                  side: BorderSide(
-                                      color: ColorConstant.blueColor, width: 2),
-                                  checkColor: ColorConstant.blueColor,
-                                  activeColor: ColorConstant.whiteColor,
-                                ),
-                              ],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "What's Your Ultimate Fitness Mission?",
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall
+                  ?.copyWith(fontWeight: FontWeight.w500, fontSize: 26),
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              height: 320,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: _missions.length,
+                itemBuilder: (context, index) {
+                  final mission = _missions[index];
+                  final isSelected =
+                      _selectedMissions.contains(mission['title']);
+                  return Padding(
+                    padding: EdgeInsets.only(
+                        right: 10,
+                        top: !isSelected ? 20 : 0,
+                        bottom: !isSelected ? 20 : 0),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          if (isSelected) {
+                            _selectedMissions.remove(mission['title']);
+                          } else {
+                            _selectedMissions.add(mission['title'] ?? '');
+                          }
+                        });
+                      },
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        width: isSelected ? 240 : 220,
+                        height: isSelected ? 240 : 220,
+                        padding: EdgeInsets.zero,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          image: DecorationImage(
+                            image: NetworkImage(mission['image']!),
+                            fit: BoxFit.cover,
+                            colorFilter: ColorFilter.mode(
+                              Colors.black.withOpacity(0.4),
+                              BlendMode.darken,
                             ),
                           ),
-                        ],
+                        ),
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              top: 0,
+                              left: 12,
+                              right: 0,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      mission['title']!,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 16,
+                                      ),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ),
+                                  Checkbox(
+                                    value: isSelected,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        if (value == true) {
+                                          _selectedMissions
+                                              .add(mission['title'] ?? '');
+                                        } else {
+                                          _selectedMissions
+                                              .remove(mission['title']);
+                                        }
+                                      });
+                                    },
+                                    side: BorderSide(
+                                        color: ColorConstant.blueColor,
+                                        width: 2),
+                                    checkColor: ColorConstant.blueColor,
+                                    activeColor: ColorConstant.whiteColor,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+            CommonSubmitButton(
+              onPressed: widget.onContinue, // Call the callback when pressed
+              child: Text(
+                'Continue',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

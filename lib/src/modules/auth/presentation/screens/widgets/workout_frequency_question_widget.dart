@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
+import 'package:plan_q/src/modules/auth/presentation/screens/general_detail_fillup_screen.dart';
 
 class WorkoutFrequencyQuestionWidget extends StatefulWidget {
-  const WorkoutFrequencyQuestionWidget({super.key});
+  final QuestionCallback onContinue;
+
+  const WorkoutFrequencyQuestionWidget({super.key, required this.onContinue});
 
   @override
   _WorkoutFrequencyQuestionWidgetState createState() =>
@@ -45,144 +49,154 @@ class _WorkoutFrequencyQuestionWidgetState
 
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "How often do you want to workout",
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 26,
-                  color: Colors.white,
-                ),
-          ),
-          const SizedBox(height: 70),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "LEVEL 4",
-                style: Theme.of(context)
-                    .textTheme
-                    .labelLarge
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          const SizedBox(height: 30),
-          SizedBox(
-            height: 56,
-            child: Stack(
-              children: [
-                // Background line
-                Positioned.fill(
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(vertical: 6),
-                    height: 46,
-                    decoration: BoxDecoration(
-                        color: ColorConstant.blueisGreyColor,
-                        borderRadius: BorderRadius.circular(50)),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "How often do you want to workout",
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 26,
+                    color: Colors.white,
                   ),
+            ),
+            const SizedBox(height: 70),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "LEVEL 4",
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelLarge
+                      ?.copyWith(fontWeight: FontWeight.bold),
                 ),
-                // Circles
-                Positioned.fill(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 28),
+              ],
+            ),
+            const SizedBox(height: 30),
+            SizedBox(
+              height: 56,
+              child: Stack(
+                children: [
+                  // Background line
+                  Positioned.fill(
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 6),
+                      height: 46,
+                      decoration: BoxDecoration(
+                          color: ColorConstant.blueisGreyColor,
+                          borderRadius: BorderRadius.circular(50)),
+                    ),
+                  ),
+                  // Circles
+                  Positioned.fill(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 28),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: List.generate(_maxDays, (index) {
+                          return Container(
+                            height: 8,
+                            width: 8,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: ColorConstant.darkGreyColor),
+                              shape: BoxShape.circle,
+                            ),
+                          );
+                        }),
+                      ),
+                    ),
+                  ),
+                  // Dividers
+                  Positioned.fill(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: List.generate(_maxDays, (index) {
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: List.generate(_maxDays - 1, (index) {
                         return Container(
-                          height: 8,
-                          width: 8,
-                          decoration: BoxDecoration(
-                            border:
-                                Border.all(color: ColorConstant.darkGreyColor),
-                            shape: BoxShape.circle,
-                          ),
+                          height: 30,
+                          width: 2,
+                          color: ColorConstant.greyColor,
                         );
                       }),
                     ),
                   ),
-                ),
-                // Dividers
-                Positioned.fill(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: List.generate(_maxDays - 1, (index) {
-                      return Container(
-                        height: 30,
-                        width: 2,
-                        color: ColorConstant.greyColor,
-                      );
-                    }),
-                  ),
-                ),
-                AnimatedPositioned(
-                  duration: const Duration(milliseconds: 300),
-                  left: containerPosition - 56, //changed from 56 to 25
-                  top: 3,
-                  child: GestureDetector(
-                    onHorizontalDragUpdate: (details) {
-                      setState(() {
-                        double newPosition = details.globalPosition.dx -
-                            (context
-                                    .findRenderObject()
-                                    ?.getTransformTo(null)
-                                    .getTranslation()
-                                    .x ??
-                                0) -
-                            25;
-                        newPosition = newPosition.clamp(0, _screenWidth);
+                  AnimatedPositioned(
+                    duration: const Duration(milliseconds: 300),
+                    left: containerPosition - 56, //changed from 56 to 25
+                    top: 3,
+                    child: GestureDetector(
+                      onHorizontalDragUpdate: (details) {
+                        setState(() {
+                          double newPosition = details.globalPosition.dx -
+                              (context
+                                      .findRenderObject()
+                                      ?.getTransformTo(null)
+                                      .getTranslation()
+                                      .x ??
+                                  0) -
+                              25;
+                          newPosition = newPosition.clamp(0, _screenWidth);
 
-                        _selectedDays =
-                            (_maxDays * newPosition / _screenWidth).round();
-                        _selectedDays = _selectedDays.clamp(1, _maxDays);
-                      });
-                    },
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: ColorConstant.redBorderColor,
-                          width: 3,
-                        ),
-                        borderRadius: BorderRadius.circular(50),
-                        gradient: const LinearGradient(colors: [
-                          ColorConstant.redTileGradient1Color,
-                          ColorConstant.redTileGradient2Color
-                        ]),
-                      ),
-                      child: Center(
-                        child: Container(
-                          height: 8,
-                          width: 8,
-                          decoration: BoxDecoration(
+                          _selectedDays =
+                              (_maxDays * newPosition / _screenWidth).round();
+                          _selectedDays = _selectedDays.clamp(1, _maxDays);
+                        });
+                      },
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          border: Border.all(
                             color: ColorConstant.redBorderColor,
-                            shape: BoxShape.circle,
+                            width: 3,
+                          ),
+                          borderRadius: BorderRadius.circular(50),
+                          gradient: const LinearGradient(colors: [
+                            ColorConstant.redTileGradient1Color,
+                            ColorConstant.redTileGradient2Color
+                          ]),
+                        ),
+                        child: Center(
+                          child: Container(
+                            height: 8,
+                            width: 8,
+                            decoration: BoxDecoration(
+                              color: ColorConstant.redBorderColor,
+                              shape: BoxShape.circle,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "$_selectedDays days a week",
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
                 ),
               ],
             ),
-          ),
-          const SizedBox(height: 30),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "$_selectedDays days a week",
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
+            const SizedBox(height: 20),
+            CommonSubmitButton(
+              onPressed: widget.onContinue, // Call the callback when pressed
+              child: Text(
+                'Continue',
+                style: Theme.of(context).textTheme.titleMedium,
               ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

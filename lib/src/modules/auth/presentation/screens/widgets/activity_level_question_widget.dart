@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
+import 'package:plan_q/src/modules/auth/presentation/screens/general_detail_fillup_screen.dart';
 
 class ActivityLevelQuestionWidget extends StatefulWidget {
-  const ActivityLevelQuestionWidget({super.key});
+  final QuestionCallback onContinue;
+
+  const ActivityLevelQuestionWidget({super.key, required this.onContinue});
 
   @override
   _ActivityLevelQuestionWidgetState createState() =>
@@ -43,58 +47,76 @@ class _ActivityLevelQuestionWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      color: Colors.black, // Set the background color to black
+    return SingleChildScrollView(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "How do you typically stay active right now?",
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 26,
+          Container(
+            padding: const EdgeInsets.all(20),
+            color: Colors.black, // Set the background color to black
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "How do you typically stay active right now?",
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 26,
+                      ),
                 ),
+                const SizedBox(height: 20),
+                // Use GridView for the first 4 items
+                SizedBox(
+                  height: 2 * 152, //  2 rows * item height
+                  child: GridView.builder(
+                    physics:
+                        const NeverScrollableScrollPhysics(), // Disable scrolling of GridView
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 15,
+                      mainAxisSpacing: 15,
+                      childAspectRatio: 170 / 152, //width/height
+                      // childAspectRatio: 1.12
+                    ),
+                    itemCount: 4,
+                    itemBuilder: (context, index) {
+                      final level = _levels[index];
+                      final isSelected = _selectedLevel == level['title'];
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _selectedLevel = level['title'];
+                          });
+                        },
+                        child:
+                            _buildActivityLevelItem(level, isSelected, false),
+                      );
+                    },
+                  ),
+                ),
+                if (_levels.length > 4)
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _selectedLevel = _levels[4]['title'];
+                      });
+                    },
+                    child: _buildActivityLevelItem(_levels[4],
+                        _selectedLevel == _levels[4]['title'], true),
+                  ),
+              ],
+            ),
           ),
-          const SizedBox(height: 20),
-          // Use GridView for the first 4 items
-          SizedBox(
-            height: 2 * 152, //  2 rows * item height
-            child: GridView.builder(
-              physics:
-                  const NeverScrollableScrollPhysics(), // Disable scrolling of GridView
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 15,
-                mainAxisSpacing: 15,
-                childAspectRatio: 170 / 152, //width/height
-                // childAspectRatio: 1.12
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: CommonSubmitButton(
+              onPressed: widget.onContinue, // Call the callback when pressed
+              child: Text(
+                'Continue',
+                style: Theme.of(context).textTheme.titleMedium,
               ),
-              itemCount: 4,
-              itemBuilder: (context, index) {
-                final level = _levels[index];
-                final isSelected = _selectedLevel == level['title'];
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _selectedLevel = level['title'];
-                    });
-                  },
-                  child: _buildActivityLevelItem(level, isSelected, false),
-                );
-              },
             ),
           ),
-          if (_levels.length > 4)
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  _selectedLevel = _levels[4]['title'];
-                });
-              },
-              child: _buildActivityLevelItem(
-                  _levels[4], _selectedLevel == _levels[4]['title'], true),
-            ),
         ],
       ),
     );

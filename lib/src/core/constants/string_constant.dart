@@ -1,7 +1,8 @@
-class StringConstant {
-  static const String appName = "OutLive";
-  static const String baseUrl = 'https://mex22.saurabhsakhuja.com';
+// ignore_for_file: constant_identifier_names
 
+class StringConstant {
+  static const String appName = "PlanQ";
+  static const String baseUrl = 'https://mex22.saurabhsakhuja.com';
 
   //secure storage constansts
   static const String accessToken = "accessToken";

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:plan_q/src/core/constants/color_constant.dart'; // Import your color constant.
-import 'package:flutter_unit_ruler/flutter_unit_ruler.dart';
+import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
+import 'package:plan_q/src/core/constants/color_constant.dart';
+import 'package:plan_q/src/modules/auth/presentation/screens/general_detail_fillup_screen.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/widgets/ruler_height_widget.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/widgets/scrollable_age_widget.dart'; // Import the flutter_unit_ruler package
 
 class PersonalDescriptorQuestionWidget extends StatefulWidget {
-  const PersonalDescriptorQuestionWidget({super.key});
+  final QuestionCallback onContinue;
+  const PersonalDescriptorQuestionWidget({super.key, required this.onContinue});
 
   @override
   _PersonalDescriptorQuestionWidgetState createState() =>
@@ -41,74 +43,91 @@ class _PersonalDescriptorQuestionWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-          // color: ColorConstant.mainContentGradientColor,
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                ColorConstant.blackColor.withOpacity(0.5),
-                ColorConstant.mainContentGradientColor
-              ]),
-          // color: ColorConstant.lightBlueColor,
-          border: Border.all(color: ColorConstant.lightGreyColor, width: 0.5),
-          borderRadius: BorderRadius.circular(20)),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Gender Question
-            Text(
-              "What's Your Gender?",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge
-                  ?.copyWith(fontWeight: FontWeight.w400),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              decoration: BoxDecoration(
-                  border: Border.all(
-                      color: ColorConstant.lightGreyColor, width: 0.5),
-                  borderRadius: BorderRadius.circular(10)),
-              child: Row(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+                // color: ColorConstant.mainContentGradientColor,
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      ColorConstant.blackColor.withOpacity(0.5),
+                      ColorConstant.mainContentGradientColor
+                    ]),
+                // color: ColorConstant.lightBlueColor,
+                border:
+                    Border.all(color: ColorConstant.lightGreyColor, width: 0.5),
+                borderRadius: BorderRadius.circular(20)),
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  _buildGenderButton('Male', 'Male'),
-                  const SizedBox(width: 12),
-                  _buildGenderButton('Female', 'Female'),
+                  // Gender Question
+                  Text(
+                    "What's Your Gender?",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(fontWeight: FontWeight.w400),
+                  ),
+                  const SizedBox(height: 20),
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: ColorConstant.lightGreyColor, width: 0.5),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Row(
+                      children: [
+                        _buildGenderButton('Male', 'Male'),
+                        const SizedBox(width: 12),
+                        _buildGenderButton('Female', 'Female'),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  // Height Question
+                  Text(
+                    "What's Your Height?",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(fontWeight: FontWeight.w400),
+                  ),
+                  const SizedBox(height: 20),
+
+                  RulerHeightWidget(),
+                  const SizedBox(height: 20),
+                  // Age Question
+                  Text(
+                    "How Old Are You?",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(fontWeight: FontWeight.w400),
+                  ),
+                  const SizedBox(height: 20),
+
+                  ScrollableAgeWidget()
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            // Height Question
-            Text(
-              "What's Your Height?",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge
-                  ?.copyWith(fontWeight: FontWeight.w400),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: CommonSubmitButton(
+              onPressed: widget.onContinue, // Call the callback when pressed
+              child: Text(
+                'Continue',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
             ),
-            const SizedBox(height: 20),
-
-            RulerHeightWidget(),
-            const SizedBox(height: 20),
-            // Age Question
-            Text(
-              "How Old Are You?",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge
-                  ?.copyWith(fontWeight: FontWeight.w400),
-            ),
-            const SizedBox(height: 20),
-
-            ScrollableAgeWidget()
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

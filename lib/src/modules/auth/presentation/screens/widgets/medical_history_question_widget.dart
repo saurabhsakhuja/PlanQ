@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:plan_q/src/modules/auth/presentation/screens/general_detail_fillup_screen.dart';
 
 class MedicalHistoryQuestionWidget extends StatefulWidget {
-  const MedicalHistoryQuestionWidget({super.key});
+  final QuestionCallback onContinue;
+
+  const MedicalHistoryQuestionWidget({super.key, required this.onContinue});
 
   @override
   _MedicalHistoryQuestionWidgetState createState() =>
@@ -67,68 +71,80 @@ class _MedicalHistoryQuestionWidgetState
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Do you have any Medical History?",
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.w500, fontSize: 26, color: Colors.white),
-          ),
-          const SizedBox(height: 20),
-          Wrap(
-            spacing: 10,
-            runSpacing: 10,
-            children: _options.map((optionData) {
-              final String label = optionData['label'] ?? '';
-              final String iconPath = optionData['icon'] ?? '';
-              final bool isSelected = _selectedOptions.contains(label);
-              final Color? specificColor = _optionColors[label];
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Do you have any Medical History?",
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 26,
+                  color: Colors.white),
+            ),
+            const SizedBox(height: 20),
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: _options.map((optionData) {
+                final String label = optionData['label'] ?? '';
+                final String iconPath = optionData['icon'] ?? '';
+                final bool isSelected = _selectedOptions.contains(label);
+                final Color? specificColor = _optionColors[label];
 
-              return GestureDetector(
-                onTap: () => _toggleOption(label),
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: isSelected
-                        ? specificColor?.withOpacity(0.5) ??
-                            ColorConstant.redBorderColor.withOpacity(0.5)
-                        : ColorConstant.blueisGreyColor,
-                    borderRadius: BorderRadius.circular(50),
-                    border: Border.all(
+                return GestureDetector(
+                  onTap: () => _toggleOption(label),
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    decoration: BoxDecoration(
                       color: isSelected
-                          ? specificColor ?? ColorConstant.redBorderColor
-                          : ColorConstant.darkGreyColor,
-                      width: 1,
+                          ? specificColor?.withOpacity(0.5) ??
+                              ColorConstant.redBorderColor.withOpacity(0.5)
+                          : ColorConstant.blueisGreyColor,
+                      borderRadius: BorderRadius.circular(50),
+                      border: Border.all(
+                        color: isSelected
+                            ? specificColor ?? ColorConstant.redBorderColor
+                            : ColorConstant.darkGreyColor,
+                        width: 1,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: 20,
+                          height: 20,
+                          margin: const EdgeInsets.only(right: 4),
+                          child: SvgPicture.asset(
+                            iconPath,
+                            color: isSelected ? Colors.white : Colors.grey[400],
+                          ),
+                        ),
+                        Text(
+                          label,
+                          style: TextStyle(
+                            color: isSelected ? Colors.white : Colors.grey[400],
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: 20,
-                        height: 20,
-                        margin: const EdgeInsets.only(right: 4),
-                        child: SvgPicture.asset(
-                          iconPath,
-                          color: isSelected ? Colors.white : Colors.grey[400],
-                        ),
-                      ),
-                      Text(
-                        label,
-                        style: TextStyle(
-                          color: isSelected ? Colors.white : Colors.grey[400],
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
-        ],
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 20),
+            CommonSubmitButton(
+              onPressed: widget.onContinue, // Call the callback when pressed
+              child: Text(
+                'Continue',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
