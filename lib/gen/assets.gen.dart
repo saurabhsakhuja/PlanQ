@@ -112,6 +112,13 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/heart_issues_icon.svg
   String get heartIssuesIcon => 'assets/svgs/heart_issues_icon.svg';
 
+  /// File path: assets/svgs/height_indicator_main.svg
+  String get heightIndicatorMain => 'assets/svgs/height_indicator_main.svg';
+
+  /// File path: assets/svgs/height_indicator_triangle.svg
+  String get heightIndicatorTriangle =>
+      'assets/svgs/height_indicator_triangle.svg';
+
   /// File path: assets/svgs/highly_active_icon.svg
   String get highlyActiveIcon => 'assets/svgs/highly_active_icon.svg';
 
@@ -169,6 +176,8 @@ class $AssetsSvgsGen {
     fireIcon,
     googleLogo,
     heartIssuesIcon,
+    heightIndicatorMain,
+    heightIndicatorTriangle,
     highlyActiveIcon,
     jointRelatedIssueIcon,
     lightlyActiveIcon,

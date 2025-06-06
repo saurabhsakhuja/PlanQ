@@ -44,7 +44,15 @@ class _PersonalDescriptorQuestionWidgetState
     return Container(
       margin: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-          color: ColorConstant.lightBlueColor,
+          // color: ColorConstant.mainContentGradientColor,
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                ColorConstant.blackColor.withOpacity(0.5),
+                ColorConstant.mainContentGradientColor
+              ]),
+          // color: ColorConstant.lightBlueColor,
           border: Border.all(color: ColorConstant.lightGreyColor, width: 0.5),
           borderRadius: BorderRadius.circular(20)),
       child: Padding(
@@ -87,7 +95,7 @@ class _PersonalDescriptorQuestionWidgetState
             const SizedBox(height: 20),
 
             RulerHeightWidget(),
-            const SizedBox(height: 40),
+            const SizedBox(height: 20),
             // Age Question
             Text(
               "How Old Are You?",
