@@ -1,5 +1,7 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plan_q/gen/assets.gen.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
@@ -15,28 +17,24 @@ class WorkoutQuestionWidget extends StatefulWidget {
 }
 
 class _WorkoutQuestionWidgetState extends State<WorkoutQuestionWidget> {
-  // Use a Set to store multiple selected missions
-  Set<String> _selectedMissions = {};
+  String? _selectedMission;
+
   final List<Map<String, String>> _missions = [
     {
       'title': 'Boutique Gym',
-      'image':
-          'https://images.pexels.com/photos/416486/pexels-photo-416486.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+      'image': Assets.images.whereDoYouPreferToGym2.path,
     },
     {
       'title': 'Big Box Gym',
-      'image':
-          'https://img.freepik.com/free-vector/physical-assessment-illustration_23-2150076865.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+      'image': Assets.images.whereDoYouPreferToGym1.path,
     },
     {
       'title': 'Garage Gym',
-      'image':
-          'https://images.pexels.com/photos/1552101/pexels-photo-1552101.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+      'image': Assets.images.whereDoYouPreferToGym3.path,
     },
     {
       'title': 'Home Gym',
-      'image':
-          'https://images.pexels.com/photos/1145720/pexels-photo-1145720.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+      'image': Assets.images.whereDoYouPreferToGym1.path,
     },
   ];
 
@@ -63,49 +61,60 @@ class _WorkoutQuestionWidgetState extends State<WorkoutQuestionWidget> {
                 itemCount: _missions.length,
                 itemBuilder: (context, index) {
                   final mission = _missions[index];
-                  final isSelected =
-                      _selectedMissions.contains(mission['title']);
+                  final isSelected = _selectedMission == mission['title'];
+
                   return Padding(
-                    padding: const EdgeInsets.only(
-                      right: 10,
-                    ),
+                    padding: const EdgeInsets.only(right: 13),
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
-                          if (isSelected) {
-                            _selectedMissions.remove(mission['title']);
-                          } else {
-                            _selectedMissions.add(mission['title'] ?? '');
-                          }
+                          _selectedMission =
+                              isSelected ? null : mission['title'];
                         });
                       },
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 300),
                         width: 200,
-                        padding: EdgeInsets.zero,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
                             color: isSelected
                                 ? ColorConstant.redBorderColor
-                                : ColorConstant.lightGreyColor,
+                                : ColorConstant.darkGreyBorderColor,
                             width: 1,
-                          ),
-                          image: DecorationImage(
-                            image: NetworkImage(mission['image']!),
-                            fit: BoxFit.cover,
-                            colorFilter: isSelected
-                                ? ColorFilter.mode(
-                                    ColorConstant.redBorderColor.withOpacity(
-                                        0.3), // Apply red with opacity
-                                    BlendMode
-                                        .srcOver, // Use srcOver to overlay color
-                                  )
-                                : null, // No color filter if not selected
                           ),
                         ),
                         child: Stack(
                           children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.asset(
+                                width: 200,
+                                mission['image']!,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+
+                            // Red overlay on selection
+                            if (isSelected)
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: ColorConstant.redBorderColor
+                                      .withOpacity(0.3),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+
+                            // Black overlay for text readability
+                            Container(
+                              decoration: BoxDecoration(
+                                color:
+                                    ColorConstant.blackColor.withOpacity(0.7),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+
+                            // Title + Checkmark
                             Positioned(
                               bottom: 8,
                               left: 12,
@@ -131,8 +140,7 @@ class _WorkoutQuestionWidgetState extends State<WorkoutQuestionWidget> {
                                     alignment: Alignment.center,
                                     child: isSelected
                                         ? SvgPicture.asset(
-                                            Assets.svgs.redCheckIcon,
-                                          )
+                                            Assets.svgs.redCheckIcon)
                                         : Icon(
                                             Icons.check_circle_outline,
                                             color: ColorConstant.whiteColor,
@@ -149,9 +157,9 @@ class _WorkoutQuestionWidgetState extends State<WorkoutQuestionWidget> {
                 },
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 50),
             CommonSubmitButton(
-              onPressed: widget.onContinue, // Call the callback when pressed
+              onPressed: widget.onContinue,
               child: Text(
                 'Continue',
                 style: Theme.of(context).textTheme.titleMedium,

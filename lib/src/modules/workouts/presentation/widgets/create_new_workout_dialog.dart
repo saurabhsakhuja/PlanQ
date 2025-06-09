@@ -14,7 +14,7 @@ class CreateNewWorkoutDialog extends StatefulWidget {
 }
 
 class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
-  String? _selectedOption; // Keep track of the selected option
+  String? _selectedOption; 
 
   @override
   Widget build(BuildContext context) {
@@ -23,55 +23,65 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
-      backgroundColor: ColorConstant.extralightBlueColor,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _buildDialogHeader(context),
-            const SizedBox(height: 20),
-            _buildOptionTile(
-              context,
-              option: 'AI Made',
-              icon: Assets.svgs.aiMadeBlueIcon,
-              description: 'Customize AI generated workout',
-              onTap: () {
-                setState(() {
-                  _selectedOption = 'AI Made';
-                });
-              },
-            ),
-            const SizedBox(height: 12),
-            _buildOptionTile(
-              context,
-              option: 'Marketplace',
-              icon: Assets.svgs.marketPlaceBlueIcon,
-              description: 'Choose from expert workouts',
-              onTap: () {
-                setState(() {
-                  _selectedOption = 'Marketplace';
-                });
-              },
-            ),
-            const SizedBox(height: 12),
-            _buildOptionTile(
-              context,
-              option: 'Create Custom',
-              icon: Assets.svgs.addBlueIcon,
-              description: 'Build your own from scratch',
-              onTap: () {
-                setState(() {
-                  _selectedOption = 'Create Custom';
-                });
-                Navigator.of(context).pop();
-                locator<GoRouter>()
-                    .pushNamed(AppRoutes.CREATE_NEW_WORKOUT_SCREEN_ROUTE_NAME);
-              },
-            ),
-            const SizedBox(height: 12),
-          ],
+      backgroundColor: Colors.transparent,
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color(0xff1A1F2C),
+          borderRadius: BorderRadius.circular(20.0),
+          border: Border.all(
+            color: ColorConstant.darkGreyBorderColor,
+            width: 1.5,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _buildDialogHeader(context),
+              const SizedBox(height: 20),
+              _buildOptionTile(
+                context,
+                option: 'AI Made',
+                icon: Assets.images.aiMadeBlueIcon.path,
+                description: 'Customize AI generated workout',
+                onTap: () {
+                  setState(() {
+                    _selectedOption = 'AI Made';
+                  });
+                },
+              ),
+              const SizedBox(height: 14),
+              _buildOptionTile(
+                context,
+                option: 'Marketplace',
+                icon: Assets.images.marketPlaceBlueIcon.path,
+                description: 'Choose from expert workouts',
+                onTap: () {
+                  setState(() {
+                    _selectedOption = 'Marketplace';
+                  });
+                },
+              ),
+              const SizedBox(height: 14),
+              _buildOptionTile(
+                context,
+                option: 'Create Custom',
+                icon: Assets.images.addBlueIcon.path,
+                description: 'Build your own from scratch',
+                onTap: () {
+                  setState(() {
+                    _selectedOption = 'Create Custom';
+                  });
+                  Navigator.of(context).pop();
+                  locator<GoRouter>().pushNamed(
+                      AppRoutes.MY_WORKOUTS_SCREEN_ROUTE_NAME);
+                },
+              ),
+              const SizedBox(height: 13),
+            ],
+          ),
         ),
       ),
     );
@@ -84,24 +94,23 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
         Text(
           'Create New Workout',
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
+              color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20),
         ),
         InkWell(
           onTap: () {
             Navigator.of(context).pop();
           },
           child: Container(
-            padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
               color: ColorConstant.greyColor.withOpacity(0.2),
             ),
+            height: 32,
+            width: 32,
             child: const Icon(
               Icons.close,
               color: Colors.white,
-              size: 14,
+              size: 20,
             ),
           ),
         ),
@@ -120,12 +129,13 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
     return InkWell(
       onTap: onTap,
       child: Container(
+        height: 98,
         padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
         decoration: BoxDecoration(
           border: Border.all(
             color: isSelected
                 ? ColorConstant.redBorderColor
-                : ColorConstant.lightGreyColor,
+                : ColorConstant.darkGreyBorderColor,
             width: 1,
           ),
           borderRadius: BorderRadius.circular(14),
@@ -141,26 +151,35 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
           ),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SvgPicture.asset(icon),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 5),
+              child: Image.asset(
+                icon,
+                scale: 3.5,
+              ),
+            ),
             const SizedBox(width: 8),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       option,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: Colors.white,
-                          ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(color: Colors.white, fontSize: 16),
                     ),
                     Text(
                       description,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: ColorConstant.greyColor,
-                          ),
+                          color: ColorConstant.greyColor, fontSize: 14),
                     ),
                   ],
                 ),

@@ -12,6 +12,7 @@ class ColorConstant {
   static const Color greyColor = Colors.grey;
   static const Color lightGreyColor = Color(0xFFadb5bd);
   static const Color darkGreyColor = Color(0xFF212121);
+  static const Color darkGreyBorderColor = Color.fromARGB(255, 63, 63, 63);
   static const Color buttonGradient1Color = Color(0xFF2737CF);
   static const Color buttonGradient2Color = Color(0xFFDA1A41);
   static const Color buttonBorderGradient1Color =

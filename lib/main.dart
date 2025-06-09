@@ -1,15 +1,13 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:plan_q/src/core/constants/string_constant.dart';
-import 'package:plan_q/src/core/routes/gorouter.dart';
 import 'package:plan_q/src/core/services/secure_storage_service.dart';
 import 'package:plan_q/src/locator.dart';
 import 'package:plan_q/src/modules/auth/presentation/cubit/login_status_cubit.dart';
+import 'package:plan_q/src/modules/dashboard/cubits/manage_workout_list_cubit/manage_workout_list_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +25,10 @@ Future<void> main() async {
   // }
   runApp(
     MultiBlocProvider(
-      providers: [BlocProvider(create: (_) => loginStatusCubit)],
+      providers: [
+        BlocProvider(create: (_) => loginStatusCubit),
+        BlocProvider(create: (_) => ManageWorkoutListCubit())
+      ],
       child: const MyApp(),
     ),
   );

@@ -67,7 +67,7 @@ class _FitnessExperianceQuestionWidgetState
                 // Removed Slider
                 Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                      const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                   decoration: BoxDecoration(
                       color: ColorConstant.darkGreyColor,
                       borderRadius: BorderRadius.circular(50)),
@@ -131,7 +131,7 @@ class _FitnessExperianceQuestionWidgetState
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.only(top: 50),
             child: CommonSubmitButton(
               onPressed: widget.onContinue, // Call the callback when pressed
               child: Text(

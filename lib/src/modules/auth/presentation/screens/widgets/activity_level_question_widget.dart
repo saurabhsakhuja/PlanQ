@@ -65,50 +65,48 @@ class _ActivityLevelQuestionWidgetState
                 ),
                 const SizedBox(height: 20),
                 // Use GridView for the first 4 items
-                SizedBox(
-                  height: 2 * 152, //  2 rows * item height
-                  child: GridView.builder(
-                    physics:
-                        const NeverScrollableScrollPhysics(), // Disable scrolling of GridView
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 15,
-                      mainAxisSpacing: 15,
-                      childAspectRatio: 170 / 152, //width/height
-                      // childAspectRatio: 1.12
-                    ),
-                    itemCount: 4,
-                    itemBuilder: (context, index) {
-                      final level = _levels[index];
-                      final isSelected = _selectedLevel == level['title'];
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _selectedLevel = level['title'];
-                          });
-                        },
-                        child:
-                            _buildActivityLevelItem(level, isSelected, false),
-                      );
-                    },
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 15,
+                    mainAxisSpacing: 15,
+                    childAspectRatio: 170 / 130,
+                    // childAspectRatio: 1.12
                   ),
+                  itemCount: 4,
+                  itemBuilder: (context, index) {
+                    final level = _levels[index];
+                    final isSelected = _selectedLevel == level['title'];
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _selectedLevel = level['title'];
+                        });
+                      },
+                      child: _buildActivityLevelItem(level, isSelected, false),
+                    );
+                  },
                 ),
                 if (_levels.length > 4)
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _selectedLevel = _levels[4]['title'];
-                      });
-                    },
-                    child: _buildActivityLevelItem(_levels[4],
-                        _selectedLevel == _levels[4]['title'], true),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _selectedLevel = _levels[4]['title'];
+                        });
+                      },
+                      child: _buildActivityLevelItem(_levels[4],
+                          _selectedLevel == _levels[4]['title'], true),
+                    ),
                   ),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 6),
             child: CommonSubmitButton(
               onPressed: widget.onContinue, // Call the callback when pressed
               child: Text(
@@ -129,22 +127,30 @@ class _ActivityLevelQuestionWidgetState
       duration: const Duration(milliseconds: 200),
       width: isLastItem ? double.maxFinite : 170,
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-          // color: ColorConstant.lightBlueColor,
-          gradient: LinearGradient(colors: [
-            isSelected
-                ? ColorConstant.redTileGradient1Color
-                : ColorConstant.lightBlueColor,
-            isSelected
-                ? ColorConstant.redTileGradient2Color
-                : ColorConstant.lightBlueColor
-          ]),
-          border: Border.all(
-              color: isSelected
-                  ? ColorConstant.redBorderColor
-                  : ColorConstant.lightGreyColor,
-              width: isSelected ? 0.8 : 0.5),
-          borderRadius: BorderRadius.circular(20)),
+      decoration: isSelected
+          ? BoxDecoration(
+              // color: ColorConstant.lightBlueColor,
+              gradient: LinearGradient(colors: [
+                ColorConstant.redTileGradient1Color,
+                ColorConstant.redTileGradient2Color
+              ]),
+              border: Border.all(
+                  color: ColorConstant.redBorderColor,
+                  width: isSelected ? 0.8 : 0.5),
+              borderRadius: BorderRadius.circular(20))
+          : BoxDecoration(
+      
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    ColorConstant.blackColor.withOpacity(0.5),
+                    ColorConstant.mainContentGradientColor
+                  ]),
+              // color: ColorConstant.lightBlueColor,
+              border:
+                  Border.all(color: ColorConstant.darkGreyBorderColor, width: 0.5),
+              borderRadius: BorderRadius.circular(20)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

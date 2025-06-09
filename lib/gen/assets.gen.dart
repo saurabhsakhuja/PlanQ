@@ -62,15 +62,58 @@ class $AssetsFontsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/add_blue_icon.png
+  AssetGenImage get addBlueIcon =>
+      const AssetGenImage('assets/images/add_blue_icon.png');
+
+  /// File path: assets/images/ai_made_blue_icon.png
+  AssetGenImage get aiMadeBlueIcon =>
+      const AssetGenImage('assets/images/ai_made_blue_icon.png');
+
   /// File path: assets/images/exercise_detail.png
   AssetGenImage get exerciseDetail =>
       const AssetGenImage('assets/images/exercise_detail.png');
 
+  /// File path: assets/images/introBg.jpeg
+  AssetGenImage get introBg =>
+      const AssetGenImage('assets/images/introBg.jpeg');
+
   /// File path: assets/images/logo.jpg
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.jpg');
 
+  /// File path: assets/images/market_place_blue_icon.png
+  AssetGenImage get marketPlaceBlueIcon =>
+      const AssetGenImage('assets/images/market_place_blue_icon.png');
+
+  /// File path: assets/images/whereDoYouPreferToGym1.png
+  AssetGenImage get whereDoYouPreferToGym1 =>
+      const AssetGenImage('assets/images/whereDoYouPreferToGym1.png');
+
+  /// File path: assets/images/whereDoYouPreferToGym2.png
+  AssetGenImage get whereDoYouPreferToGym2 =>
+      const AssetGenImage('assets/images/whereDoYouPreferToGym2.png');
+
+  /// File path: assets/images/whereDoYouPreferToGym3.png
+  AssetGenImage get whereDoYouPreferToGym3 =>
+      const AssetGenImage('assets/images/whereDoYouPreferToGym3.png');
+
+  /// File path: assets/images/workoutIconBg.png
+  AssetGenImage get workoutIconBg =>
+      const AssetGenImage('assets/images/workoutIconBg.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [exerciseDetail, logo];
+  List<AssetGenImage> get values => [
+    addBlueIcon,
+    aiMadeBlueIcon,
+    exerciseDetail,
+    introBg,
+    logo,
+    marketPlaceBlueIcon,
+    whereDoYouPreferToGym1,
+    whereDoYouPreferToGym2,
+    whereDoYouPreferToGym3,
+    workoutIconBg,
+  ];
 }
 
 class $AssetsSvgsGen {

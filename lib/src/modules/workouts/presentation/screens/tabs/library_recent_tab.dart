@@ -64,7 +64,7 @@ class _LibraryRecentTabState extends State<LibraryRecentTab> {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           decoration: BoxDecoration(
-            border: Border.all(color: ColorConstant.lightGreyColor, width: 0.5),
+            border: Border.all(color: ColorConstant.darkGreyBorderColor, width: 0.5),
             borderRadius: BorderRadius.circular(8),
             color: ColorConstant.lightBlueColor,
           ),
@@ -118,10 +118,10 @@ class _LibraryRecentTabState extends State<LibraryRecentTab> {
         Expanded(
           child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, // Number of columns
-              crossAxisSpacing: 8.0, // Spacing between columns
-              mainAxisSpacing: 8.0, // Spacing between rows
-              childAspectRatio: 1.2, // adjust as needed
+              crossAxisCount: 2,
+              crossAxisSpacing: 8.0,
+              mainAxisSpacing: 8.0,
+              childAspectRatio: 1.4,
             ),
             itemCount: _exercises.length,
             itemBuilder: (context, index) {
@@ -183,19 +183,53 @@ class _LibraryRecentTabState extends State<LibraryRecentTab> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  padding: const EdgeInsets.all(10),
+                  padding: EdgeInsets.all(.7),
                   decoration: BoxDecoration(
-                    border: Border.all(
-                      color: ColorConstant.white60Color,
-                      width: 0.3,
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomLeft,
+                      end: Alignment.topRight,
+                      colors: [
+                        isSelected
+                            ? const Color.fromARGB(255, 111, 126, 255)
+                            : Color.fromARGB(255, 38, 40, 41),
+                        Colors.white,
+                      ],
                     ),
                     borderRadius: BorderRadius.circular(10),
-                    color: ColorConstant.whiteColor.withOpacity(0.1),
                   ),
-                  child: const Icon(
-                    Icons.fitness_center,
-                    color: Colors.white,
-                    size: 20,
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: ColorConstant.white60Color,
+                        width: 0.3,
+                      ),
+                      gradient: isSelected
+                          ? const LinearGradient(
+                              begin: Alignment.bottomLeft,
+                              end: Alignment.topRight,
+                              colors: [
+                                ColorConstant.buttonBorderGradient1Color,
+                                // ColorConstant.buttonBorderGradient2Color,
+                                Color.fromARGB(255, 206, 64, 92),
+                              ],
+                            )
+                          : const LinearGradient(
+                              begin: Alignment.bottomLeft,
+                              end: Alignment.topRight,
+                              colors: [
+                                Color.fromARGB(255, 38, 40, 41),
+                                Color.fromARGB(255, 56, 63, 64),
+                                Color.fromARGB(255, 81, 81, 81),
+                              ],
+                            ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Icon(
+                      Icons.fitness_center,
+                      color: Colors.white,
+                      size: 20,
+                    ),
                   ),
                 ),
                 IconButton(
@@ -203,7 +237,7 @@ class _LibraryRecentTabState extends State<LibraryRecentTab> {
                     _toggleExerciseSelection(exercise['name']!);
                   },
                   icon: Icon(
-                    isSelected ? Icons.check_circle : Icons.add,
+                    isSelected ? Icons.close : Icons.add,
                     color: Colors.white,
                     size: 16,
                   ),

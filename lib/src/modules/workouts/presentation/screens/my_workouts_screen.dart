@@ -68,11 +68,12 @@ class _MyWorkoutsScreenState extends State<MyWorkoutsScreen> {
                         child: Column(
                           children: [
                             const Divider(
+                              
                               color: ColorConstant.greyColor,
                               thickness: 0.5,
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 14),
+                              padding: const EdgeInsets.symmetric(vertical: 6),
                               child: _buildWorkoutRow(context, category),
                             ),
                             const Divider(
@@ -104,9 +105,10 @@ class _MyWorkoutsScreenState extends State<MyWorkoutsScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(category,
+        textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontSize: 20,
-                color: ColorConstant.greyColor,
+                color:category == 'Back'?ColorConstant.whiteColor: ColorConstant.greyColor,
                 fontWeight: FontWeight.w500)),
         if (category == 'Back')
           GestureDetector(

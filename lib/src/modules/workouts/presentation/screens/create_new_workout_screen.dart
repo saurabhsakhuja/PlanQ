@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/common/widgets/custom_appbar.dart';
 import 'package:plan_q/src/core/constants/app_routes.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:plan_q/src/locator.dart';
+import 'package:plan_q/src/modules/dashboard/cubits/manage_workout_list_cubit/manage_workout_list_cubit.dart';
 import 'package:plan_q/src/modules/workouts/presentation/widgets/gradient_progressbar.dart';
 
 class CreateNewWorkoutScreen extends StatefulWidget {
@@ -38,6 +40,7 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
         showBackButton: true,
         onBackButtonPressed: () {
           locator<GoRouter>().pop();
+       
         },
       ),
       body: SafeArea(
@@ -71,20 +74,19 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
                   },
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: ColorConstant.mediumBlueColor,
+                    fillColor: Color(0xff121624),
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 20, vertical: 14),
                     hintText: 'Starting Strength',
                     hintStyle: Theme.of(context).textTheme.bodyLarge,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(50),
-                      borderSide: BorderSide(
-                          color: ColorConstant.lightGreyColor, width: 0.1),
+                      borderSide:
+                          BorderSide(color: Colors.transparent, width: 0.1),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(50),
-                      borderSide:
-                          BorderSide(color: ColorConstant.lightGreyColor),
+                      borderSide: BorderSide(color: Colors.transparent),
                     ),
                   ),
                   style: Theme.of(context).textTheme.bodyLarge,
@@ -128,7 +130,7 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
                         padding:
                             EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: ColorConstant.mediumBlueColor,
+                          color: Color(0xff161A20),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: RichText(
@@ -163,7 +165,7 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   decoration: BoxDecoration(
-                    color: ColorConstant.mediumBlueColor,
+                    color: Color(0xff161A20),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
@@ -179,15 +181,21 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                              border: Border.all(
-                                color: ColorConstant.white60Color,
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                              gradient: LinearGradient(colors: [
-                                ColorConstant.lightBlueColor,
-                                ColorConstant.mediumBlueColor
-                              ])),
+                            border: Border.all(
+                              color: ColorConstant.darkGreyBorderColor,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                            gradient: const LinearGradient(
+                              begin: Alignment.bottomLeft,
+                              end: Alignment.topRight,
+                              colors: [
+                                Color.fromARGB(255, 38, 40, 41),
+                                Color.fromARGB(255, 56, 63, 64),
+                                Color.fromARGB(255, 81, 81, 81),
+                              ],
+                            ),
+                          ),
                           child: Padding(
                             padding: const EdgeInsets.all(4),
                             child: const Icon(
@@ -202,7 +210,7 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
                         child: Text(
                           '$programDuration',
                           style: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 36,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
@@ -215,15 +223,21 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                              border: Border.all(
-                                color: ColorConstant.white60Color,
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                              gradient: LinearGradient(colors: [
-                                ColorConstant.lightBlueColor,
-                                ColorConstant.mediumBlueColor
-                              ])),
+                            border: Border.all(
+                              color: ColorConstant.darkGreyBorderColor,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                            gradient: const LinearGradient(
+                              begin: Alignment.bottomLeft,
+                              end: Alignment.topRight,
+                              colors: [
+                                Color.fromARGB(255, 38, 40, 41),
+                                Color.fromARGB(255, 56, 63, 64),
+                                Color.fromARGB(255, 81, 81, 81),
+                              ],
+                            ),
+                          ),
                           child: Padding(
                             padding: const EdgeInsets.all(4),
                             child: const Icon(
@@ -243,14 +257,19 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Next',
+                        'Create',
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ],
                   ),
                   onPressed: () {
-                    locator<GoRouter>().pushNamed(
-                        AppRoutes.WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_NAME);
+                    // locator<GoRouter>().pushNamed(
+                    //     AppRoutes.WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_NAME);
+                    context
+                        .read<ManageWorkoutListCubit>()
+                        .addWorkout('New Workout');
+                    locator<GoRouter>()
+                        .goNamed(AppRoutes.WORKOUTS_MAIN_SCREEN_ROUTE_NAME);
                   },
                 ),
               ],
@@ -273,15 +292,15 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
             gradient: LinearGradient(colors: [
               isSelected
                   ? ColorConstant.redTileGradient1Color
-                  : ColorConstant.mediumBlueColor,
+                  : Color(0xff1F2937),
               isSelected
                   ? ColorConstant.redTileGradient2Color
-                  : ColorConstant.mediumBlueColor
+                  : Color(0xff1F2937)
             ]),
             border: Border.all(
                 color: isSelected
                     ? ColorConstant.redBorderColor
-                    : ColorConstant.lightGreyColor,
+                    : ColorConstant.darkGreyBorderColor,
                 width: isSelected ? 0.8 : 0.5),
             borderRadius: BorderRadius.circular(8)),
         child: Text(day),
@@ -294,12 +313,12 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
     for (int i = 0; i < days.length; i++) {
       spans.add(TextSpan(
         text: days[i],
-        style: const TextStyle(color: Colors.red),
+        style: const TextStyle(color: Color(0xffFDA4AF)),
       ));
       if (i < days.length - 1) {
         spans.add(const TextSpan(
           text: ' & ',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontSize: 16),
         ));
       }
     }

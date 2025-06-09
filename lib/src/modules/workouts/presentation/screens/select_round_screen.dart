@@ -85,11 +85,10 @@ class _SelectRoundScreenState extends State<SelectRoundScreen> {
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       border: Border.all(
-                          color: ColorConstant.lightGreyColor,
+                          color: ColorConstant.darkGreyBorderColor,
                           width: 0.5), // Use from your constants
                       borderRadius: BorderRadius.circular(20),
-                      color: ColorConstant
-                          .lightBlueColor, // Use from your constants
+                      color: Color(0xff151515), // Use from your constants
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -139,7 +138,7 @@ class _SelectRoundScreenState extends State<SelectRoundScreen> {
                                         .textTheme
                                         .titleSmall
                                         ?.copyWith(
-                                          color: Colors.white,
+                                          color: ColorConstant.lightGreyColor,
                                         ),
                                   ),
                                 ],
@@ -172,9 +171,10 @@ class _SelectRoundScreenState extends State<SelectRoundScreen> {
                             Icon(
                               Icons.watch_later_outlined,
                               color: ColorConstant.lightGreyColor,
+                              size: 16,
                             ),
                             Text(
-                              'Total time: ${formattedTime} (min:sec)',
+                              ' Total time: ${formattedTime} (min:sec)',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium
@@ -227,11 +227,10 @@ class _SelectRoundScreenState extends State<SelectRoundScreen> {
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   border: Border.all(
-                      color: ColorConstant.lightGreyColor,
+                      color: ColorConstant.darkGreyBorderColor,
                       width: 0.5), // Use from your constants
                   borderRadius: BorderRadius.circular(12),
-                  color:
-                      ColorConstant.lightBlueColor, // Use from your constants
+                  color: Color(0xff151515), // Use from your constants
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -368,7 +367,7 @@ class _SelectRoundScreenState extends State<SelectRoundScreen> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           decoration: BoxDecoration(
-              color: isSelected ? null : ColorConstant.lightBlueColor,
+              color: isSelected ? null : Color(0xff151515),
               gradient: isSelected
                   ? const LinearGradient(
                       colors: [
@@ -382,7 +381,7 @@ class _SelectRoundScreenState extends State<SelectRoundScreen> {
                   : null,
               borderRadius: BorderRadius.circular(12),
               border:
-                  Border.all(color: ColorConstant.lightGreyColor, width: 0.3)),
+                  Border.all(color: ColorConstant.darkGreyBorderColor, width: 0.3)),
           child: Column(
             children: [
               Padding(
@@ -416,17 +415,17 @@ class _SelectRoundScreenState extends State<SelectRoundScreen> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         border: Border.all(
-            color: ColorConstant.lightGreyColor,
+            color: ColorConstant.darkGreyBorderColor,
             width: 0.5), // Use from your constants
         borderRadius: BorderRadius.circular(12),
-        color: ColorConstant.lightBlueColor, // Use from your constants
+        color: Color(0xff151515), // Use from your constants
       ),
       child: Row(
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Icon(
             Icons.watch_later_outlined,
-            color: ColorConstant.whiteColor,
+            color: Color.fromARGB(255, 157, 154, 154),
           ),
           SizedBox(width: 8),
           Expanded(
@@ -437,12 +436,14 @@ class _SelectRoundScreenState extends State<SelectRoundScreen> {
                   title,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Colors.white,
+                        fontSize: 14
                       ),
                 ),
                 Text(
                   '$value sec',
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Colors.white,
+                        fontSize: 16
                       ),
                 ),
               ],
@@ -453,23 +454,29 @@ class _SelectRoundScreenState extends State<SelectRoundScreen> {
               GestureDetector(
                 onTap: onDecrement,
                 child: Container(
+                    padding: EdgeInsets.all(4),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
-                        border: Border.all(
-                            width: 0.3, color: ColorConstant.lightGreyColor),
-                        color: ColorConstant.whiteColor.withOpacity(0.1)),
-                    child: const Icon(Icons.remove, color: Colors.white)),
+                        color: Color(0xff2A2A2A)),
+                    child: const Icon(
+                      Icons.remove,
+                      color: Colors.white,
+                      size: 18,
+                    )),
               ),
               SizedBox(width: 10),
               GestureDetector(
                 onTap: onIncrement,
                 child: Container(
+                    padding: EdgeInsets.all(4),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
-                        border: Border.all(
-                            width: 0.3, color: ColorConstant.lightGreyColor),
-                        color: ColorConstant.whiteColor.withOpacity(0.1)),
-                    child: const Icon(Icons.add, color: Colors.white)),
+                        color: Color(0xff2A2A2A)),
+                    child: const Icon(
+                      Icons.add,
+                      color: Colors.white,
+                      size: 18,
+                    )),
               ),
             ],
           ),

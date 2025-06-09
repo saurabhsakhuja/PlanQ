@@ -9,6 +9,7 @@ class WorkoutFrequencyQuestionWidget extends StatefulWidget {
   const WorkoutFrequencyQuestionWidget({super.key, required this.onContinue});
 
   @override
+  // ignore: library_private_types_in_public_api
   _WorkoutFrequencyQuestionWidgetState createState() =>
       _WorkoutFrequencyQuestionWidgetState();
 }
@@ -62,30 +63,17 @@ class _WorkoutFrequencyQuestionWidgetState
                   ),
             ),
             const SizedBox(height: 70),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "LEVEL 4",
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelLarge
-                      ?.copyWith(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            const SizedBox(height: 30),
             SizedBox(
-              height: 56,
+              height: 42,
               child: Stack(
                 children: [
                   // Background line
                   Positioned.fill(
                     child: Container(
-                      margin: const EdgeInsets.symmetric(vertical: 6),
-                      height: 46,
+                      // margin: const EdgeInsets.symmetric(vertical: 12),
+                      height: double.infinity,
                       decoration: BoxDecoration(
-                          color: ColorConstant.blueisGreyColor,
+                          color: Color(0xff1F2937),
                           borderRadius: BorderRadius.circular(50)),
                     ),
                   ),
@@ -97,11 +85,11 @@ class _WorkoutFrequencyQuestionWidgetState
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: List.generate(_maxDays, (index) {
                           return Container(
-                            height: 8,
-                            width: 8,
+                            height: 10,
+                            width: 10,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                  color: ColorConstant.darkGreyColor),
+                                  color: Color.fromARGB(255, 49, 66, 89)),
                               shape: BoxShape.circle,
                             ),
                           );
@@ -114,62 +102,73 @@ class _WorkoutFrequencyQuestionWidgetState
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: List.generate(_maxDays - 1, (index) {
-                        return Container(
-                          height: 30,
-                          width: 2,
-                          color: ColorConstant.greyColor,
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: Container(
+                            height: double.infinity,
+                            width: 1.2,
+                            color: const Color.fromARGB(255, 85, 83, 83),
+                          ),
                         );
                       }),
                     ),
                   ),
+
                   AnimatedPositioned(
                     duration: const Duration(milliseconds: 300),
-                    left: containerPosition - 56, //changed from 56 to 25
-                    top: 3,
+                    left: containerPosition - 56,
                     child: GestureDetector(
-                      onHorizontalDragUpdate: (details) {
-                        setState(() {
-                          double newPosition = details.globalPosition.dx -
-                              (context
-                                      .findRenderObject()
-                                      ?.getTransformTo(null)
-                                      .getTranslation()
-                                      .x ??
-                                  0) -
-                              25;
-                          newPosition = newPosition.clamp(0, _screenWidth);
+                        onHorizontalDragUpdate: (details) {
+                          setState(() {
+                            double newPosition = details.globalPosition.dx -
+                                (context
+                                        .findRenderObject()
+                                        ?.getTransformTo(null)
+                                        .getTranslation()
+                                        .x ??
+                                    0) -
+                                25;
+                            newPosition = newPosition.clamp(0, _screenWidth);
 
-                          _selectedDays =
-                              (_maxDays * newPosition / _screenWidth).round();
-                          _selectedDays = _selectedDays.clamp(1, _maxDays);
-                        });
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: ColorConstant.redBorderColor,
-                            width: 3,
-                          ),
-                          borderRadius: BorderRadius.circular(50),
-                          gradient: const LinearGradient(colors: [
-                            ColorConstant.redTileGradient1Color,
-                            ColorConstant.redTileGradient2Color
-                          ]),
-                        ),
-                        child: Center(
-                          child: Container(
-                            height: 8,
-                            width: 8,
-                            decoration: BoxDecoration(
-                              color: ColorConstant.redBorderColor,
-                              shape: BoxShape.circle,
+                            _selectedDays =
+                                (_maxDays * newPosition / _screenWidth).round();
+                            _selectedDays = _selectedDays.clamp(1, _maxDays);
+                          });
+                        },
+                        child: Container(
+                          height: 42,
+                          width: 42,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.red,
+                                ColorConstant.redBorderColor,
+                                Color.fromARGB(255, 117, 31, 31),
+                              ],
                             ),
                           ),
-                        ),
-                      ),
-                    ),
+                          child: Center(
+                            child: Container(
+                              height: 34,
+                              width: 34,
+                              decoration: BoxDecoration(
+                                color: Color(0xff832c33),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: Container(
+                                  height: 8,
+                                  width: 8,
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xff963d42),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )),
                   ),
                 ],
               ),

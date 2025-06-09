@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:plan_q/gen/assets.gen.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/app_routes.dart';
-import 'package:plan_q/src/core/common/widgets/custom_network_image.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 
 class IntroScreen extends StatelessWidget {
@@ -22,9 +21,9 @@ class IntroScreen extends StatelessWidget {
               children: [
                 Stack(
                   children: [
-                    CustomNetworkImage(
-                      imageUrl:
-                          'https://images.pexels.com/photos/17898148/pexels-photo-17898148/free-photo-of-a-muscular-man-exercising-at-the-gym.jpeg',
+                    Image.asset(
+                      Assets.images.introBg.path,
+                      width: double.maxFinite,
                       height: MediaQuery.of(context).size.height * 0.66,
                       fit: BoxFit.cover,
                     ),
@@ -51,14 +50,13 @@ class IntroScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       CommonSubmitButton(
-                          child: Text('Get Started',
-                          style: 
-                          Theme.of(context).textTheme.titleMedium
-                          ,),
+                          child: Text(
+                            'Get Started',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
                           onPressed: () {
-                            GoRouter.of(context).pushNamed(
-                                AppRoutes
-                                    .GENERAL_DETAIL_FILLUP_SCREEN_ROUTE_NAME);
+                            GoRouter.of(context).pushNamed(AppRoutes
+                                .GENERAL_DETAIL_FILLUP_SCREEN_ROUTE_NAME);
                             // GoRouter.of(context).goNamed(
                             //     AppRoutes.WORKOUTS_MAIN_SCREEN_ROUTE_NAME);
                           }),

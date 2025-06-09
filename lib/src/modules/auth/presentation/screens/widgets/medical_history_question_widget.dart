@@ -16,19 +16,17 @@ class MedicalHistoryQuestionWidget extends StatefulWidget {
 
 class _MedicalHistoryQuestionWidgetState
     extends State<MedicalHistoryQuestionWidget> {
-  // Use a Set to store selected options.
-  final Set<String> _selectedOptions = <String>{};
+  // Single selected option
+  String? _selectedOption;
 
-  // Define a map to hold the specific color for each option
   final Map<String, Color> _optionColors = {
-    'Joint related issues': Colors.redAccent,
-    'Heart related conditions': Colors.pinkAccent,
+    'Joint related issues': Colors.pink,
+    'Heart related conditions': Colors.tealAccent,
     'Spine issues': Colors.orangeAccent,
     'Recently recovered from surgery': Colors.purpleAccent,
-    'Other': Colors.tealAccent,
+    'Other': Colors.deepPurple,
   };
 
-  // Options data with SVG icon paths
   final List<Map<String, String>> _options = [
     {
       'label': 'No injuries/medical conditions',
@@ -56,14 +54,9 @@ class _MedicalHistoryQuestionWidgetState
     },
   ];
 
-  // Function to handle option selection/deselection
-  void _toggleOption(String optionLabel) {
+  void _selectOption(String optionLabel) {
     setState(() {
-      if (_selectedOptions.contains(optionLabel)) {
-        _selectedOptions.remove(optionLabel);
-      } else {
-        _selectedOptions.add(optionLabel);
-      }
+      _selectedOption = _selectedOption == optionLabel ? null : optionLabel;
     });
   }
 
@@ -86,27 +79,38 @@ class _MedicalHistoryQuestionWidgetState
             Wrap(
               spacing: 10,
               runSpacing: 10,
+              alignment: WrapAlignment.center,
               children: _options.map((optionData) {
-                final String label = optionData['label'] ?? '';
-                final String iconPath = optionData['icon'] ?? '';
-                final bool isSelected = _selectedOptions.contains(label);
-                final Color? specificColor = _optionColors[label];
+                final label = optionData['label'] ?? '';
+                final iconPath = optionData['icon'] ?? '';
+                final isSelected = _selectedOption == label;
+                final color = _optionColors[label];
 
                 return GestureDetector(
-                  onTap: () => _toggleOption(label),
+                  onTap: () => _selectOption(label),
                   child: Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     decoration: BoxDecoration(
                       color: isSelected
-                          ? specificColor?.withOpacity(0.5) ??
+                          ? color?.withOpacity(0.5) ??
                               ColorConstant.redBorderColor.withOpacity(0.5)
                           : ColorConstant.blueisGreyColor,
+                      gradient: !isSelected
+                          ? LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                ColorConstant.blackColor.withOpacity(0.5),
+                                ColorConstant.mainContentGradientColor,
+                              ],
+                            )
+                          : null,
                       borderRadius: BorderRadius.circular(50),
                       border: Border.all(
                         color: isSelected
-                            ? specificColor ?? ColorConstant.redBorderColor
-                            : ColorConstant.darkGreyColor,
+                            ? color ?? ColorConstant.redBorderColor
+                            : ColorConstant.darkGreyBorderColor,
                         width: 1,
                       ),
                     ),
@@ -137,7 +141,7 @@ class _MedicalHistoryQuestionWidgetState
             ),
             const SizedBox(height: 20),
             CommonSubmitButton(
-              onPressed: widget.onContinue, // Call the callback when pressed
+              onPressed: widget.onContinue,
               child: Text(
                 'Continue',
                 style: Theme.of(context).textTheme.titleMedium,

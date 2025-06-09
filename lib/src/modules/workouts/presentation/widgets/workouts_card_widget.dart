@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plan_q/gen/assets.gen.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:plan_q/src/modules/workouts/presentation/widgets/gradient_progressbar.dart';
 
@@ -24,9 +25,10 @@ class WorkoutsCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: ColorConstant.lightGreyColor, width: 0.5),
+        border:
+            Border.all(color: ColorConstant.darkGreyBorderColor, width: 0.5),
         borderRadius: BorderRadius.circular(20),
-        color: ColorConstant.lightBlueColor,
+        color: Color(0xff121624),
       ),
       padding: const EdgeInsets.all(15),
       child: Column(
@@ -54,20 +56,8 @@ class WorkoutsCardWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                      color: ColorConstant.lightGreyColor, width: 0.5),
-                  borderRadius: BorderRadius.circular(50),
-                  color: ColorConstant.extralightBlueColor,
-                ),
-                padding: const EdgeInsets.all(12),
-                child: const Icon(
-                  Icons.fitness_center,
-                  color: Colors.white,
-                  size: 20,
-                ),
-              ),
+              Image.asset(Assets.images.workoutIconBg.path,scale: 4),
+                 
             ],
           ),
           const SizedBox(height: 10),
@@ -87,8 +77,8 @@ class WorkoutsCardWidget extends StatelessWidget {
                           child: Text(
                             "$exercisesCount exercises", // Display the exercise count
                             style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 14,
+                              color: Colors.white,
+                              fontSize: 16 ,
                             ),
                           ),
                         )
@@ -100,7 +90,7 @@ class WorkoutsCardWidget extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 4),
                             decoration: BoxDecoration(
-                                color: ColorConstant.extralightBlueColor,
+                                color: Color(0xff22283D),
                                 borderRadius: BorderRadius.circular(50)),
                             child: Text(
                               "ADD EXERCISES",
@@ -127,7 +117,7 @@ class WorkoutsCardWidget extends StatelessWidget {
                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
-                        fontSize: 24,
+                        fontSize: 34,
                       ),
                 ),
             ],

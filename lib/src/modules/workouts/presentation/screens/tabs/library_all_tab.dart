@@ -71,7 +71,7 @@ class _LibraryAllTabState extends State<LibraryAllTab> {
             color: ColorConstant.lightBlueColor, // Use from your constants
           ),
           child: Row(
-            children: [
+           children: [
               AdvancedSwitch(
                 controller: _controller,
                 activeColor: Colors.pink,
@@ -90,12 +90,11 @@ class _LibraryAllTabState extends State<LibraryAllTab> {
               const SizedBox(width: 8),
               const Text('Circuit Mode'),
               const SizedBox(width: 20),
-              const Expanded(
-                child: Text(
-                  'Add exercises individually',
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
+              Spacer(),
+              Text(
+                'Add exercises individually',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
               ),
             ],
           ),
@@ -106,7 +105,13 @@ class _LibraryAllTabState extends State<LibraryAllTab> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('EXERCISE LIBRARY'),
+              Text(
+                'EXERCISE LIBRARY',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(color: Color(0xff9CA3AF), fontSize: 14),
+              ),
               Text(
                 'Select Multiple',
                 style: Theme.of(context)
@@ -127,6 +132,7 @@ class _LibraryAllTabState extends State<LibraryAllTab> {
             },
           ),
         ),
+        SizedBox(height: 8),
         CommonSubmitButton(
           height: 52,
           child: Row(
@@ -153,10 +159,11 @@ class _LibraryAllTabState extends State<LibraryAllTab> {
         _toggleExerciseSelection(exercise['name']!);
       },
       child: Container(
+        height: 72,
         margin: const EdgeInsets.symmetric(vertical: 4),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-            color: isSelected ? null : ColorConstant.lightBlueColor,
+            color: isSelected ? null : Color(0xff19212C),
             gradient: isSelected
                 ? const LinearGradient(
                     colors: [
@@ -174,18 +181,50 @@ class _LibraryAllTabState extends State<LibraryAllTab> {
         child: Row(
           children: [
             Container(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.all(.7),
               decoration: BoxDecoration(
-                  border: Border.all(
-                    color: ColorConstant.white60Color,
-                    width: 0.3,
-                  ),
+                gradient: LinearGradient(
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.topRight,
+                  colors: [
+                    isSelected
+                        ? const Color.fromARGB(255, 111, 126, 255)
+                        : Color.fromARGB(255, 38, 40, 41),
+                    Colors.white,
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  gradient: isSelected
+                      ? const LinearGradient(
+                          begin: Alignment.bottomLeft,
+                          end: Alignment.topRight,
+                       
+                          colors: [
+                            ColorConstant.buttonBorderGradient1Color,
+                            // ColorConstant.buttonBorderGradient2Color,
+                            Color.fromARGB(255, 206, 64, 92),
+                          ],
+                        )
+                      : const LinearGradient(
+                          begin: Alignment.bottomLeft,
+                          end: Alignment.topRight,
+                          colors: [
+                            Color.fromARGB(255, 38, 40, 41),
+                            Color.fromARGB(255, 56, 63, 64),
+                            Color.fromARGB(255, 81, 81, 81),
+                          ],
+                        ),
                   borderRadius: BorderRadius.circular(10),
-                  color: ColorConstant.whiteColor.withOpacity(0.1)),
-              child: const Icon(
-                Icons.fitness_center,
-                color: Colors.white,
-                size: 20,
+                ),
+                child: const Icon(
+                  Icons.fitness_center,
+                  color: Colors.white,
+                  size: 20,
+                ),
               ),
             ),
             const SizedBox(width: 12),
@@ -196,31 +235,31 @@ class _LibraryAllTabState extends State<LibraryAllTab> {
                   Text(
                     exercise['name'] ?? 'Unknown Exercise',
                     style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                    ),
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        height: 0),
                   ),
-                  Text(
-                    exercise['muscle'] ?? 'Unknown Muscle',
-                    style: TextStyle(
-                      color: Colors.grey[400],
-                      fontSize: 14,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 2.0),
+                    child: Text(
+                      exercise['muscle'] ?? 'Unknown Muscle',
+                      style: TextStyle(
+                          color: Colors.grey[400], fontSize: 14, height: 0),
                     ),
                   ),
                 ],
               ),
             ),
-            IconButton(
-              onPressed: () {
-                _toggleExerciseSelection(exercise['name']!);
-              },
-              icon: Icon(
-                isSelected ? Icons.check_circle : Icons.add,
-                color: Colors.white,
-                size: 16,
+            if (!isSelected)
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                  size: 16,
+                ),
               ),
-            ),
           ],
         ),
       ),
