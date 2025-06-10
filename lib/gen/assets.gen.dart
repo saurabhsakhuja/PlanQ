@@ -70,6 +70,10 @@ class $AssetsImagesGen {
   AssetGenImage get aiMadeBlueIcon =>
       const AssetGenImage('assets/images/ai_made_blue_icon.png');
 
+  /// File path: assets/images/arrowRight.png
+  AssetGenImage get arrowRight =>
+      const AssetGenImage('assets/images/arrowRight.png');
+
   /// File path: assets/images/exercise_detail.png
   AssetGenImage get exerciseDetail =>
       const AssetGenImage('assets/images/exercise_detail.png');
@@ -89,6 +93,10 @@ class $AssetsImagesGen {
   AssetGenImage get marketPlaceBlueIcon =>
       const AssetGenImage('assets/images/market_place_blue_icon.png');
 
+  /// File path: assets/images/polygonIcons.png
+  AssetGenImage get polygonIcons =>
+      const AssetGenImage('assets/images/polygonIcons.png');
+
   /// File path: assets/images/pulsIcon.png
   AssetGenImage get pulsIcon =>
       const AssetGenImage('assets/images/pulsIcon.png');
@@ -96,6 +104,14 @@ class $AssetsImagesGen {
   /// File path: assets/images/replaceIcon.png
   AssetGenImage get replaceIcon =>
       const AssetGenImage('assets/images/replaceIcon.png');
+
+  /// File path: assets/images/settingsIcon.png
+  AssetGenImage get settingsIcon =>
+      const AssetGenImage('assets/images/settingsIcon.png');
+
+  /// File path: assets/images/tropyIcon.png
+  AssetGenImage get tropyIcon =>
+      const AssetGenImage('assets/images/tropyIcon.png');
 
   /// File path: assets/images/whereDoYouPreferToGym.png
   AssetGenImage get whereDoYouPreferToGym =>
@@ -125,13 +141,17 @@ class $AssetsImagesGen {
   List<AssetGenImage> get values => [
     addBlueIcon,
     aiMadeBlueIcon,
+    arrowRight,
     exerciseDetail,
     introBg,
     lightningIcon,
     logo,
     marketPlaceBlueIcon,
+    polygonIcons,
     pulsIcon,
     replaceIcon,
+    settingsIcon,
+    tropyIcon,
     whereDoYouPreferToGym,
     whereDoYouPreferToGym1,
     whereDoYouPreferToGym2,
@@ -197,6 +217,9 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/lightly_active_icon.svg
   String get lightlyActiveIcon => 'assets/svgs/lightly_active_icon.svg';
 
+  /// File path: assets/svgs/longTermFitnessIcon.svg
+  String get longTermFitnessIcon => 'assets/svgs/longTermFitnessIcon.svg';
+
   /// File path: assets/svgs/market_place_blue_icon.svg
   String get marketPlaceBlueIcon => 'assets/svgs/market_place_blue_icon.svg';
 
@@ -224,6 +247,9 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/reverse_arrow_icon.svg
   String get reverseArrowIcon => 'assets/svgs/reverse_arrow_icon.svg';
 
+  /// File path: assets/svgs/shortPrepIcon.svg
+  String get shortPrepIcon => 'assets/svgs/shortPrepIcon.svg';
+
   /// File path: assets/svgs/spine_issue_icon.svg
   String get spineIssueIcon => 'assets/svgs/spine_issue_icon.svg';
 
@@ -249,6 +275,7 @@ class $AssetsSvgsGen {
     highlyActiveIcon,
     jointRelatedIssueIcon,
     lightlyActiveIcon,
+    longTermFitnessIcon,
     marketPlaceBlueIcon,
     moderatelyActiveIcon,
     noInjuriesIcon,
@@ -258,6 +285,7 @@ class $AssetsSvgsGen {
     recentlyRecoverIcon,
     redCheckIcon,
     reverseArrowIcon,
+    shortPrepIcon,
     spineIssueIcon,
     standPersonIcon,
   ];

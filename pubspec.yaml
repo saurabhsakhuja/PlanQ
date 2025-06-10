@@ -40,6 +40,9 @@ dependencies:
   flutter_unit_ruler: ^1.0.1
   vertical_weight_slider: ^2.6.0
   flutter_advanced_switch: ^3.1.0
+  muscle_selector: ^1.0.3
+ 
+
 
 
 dev_dependencies:

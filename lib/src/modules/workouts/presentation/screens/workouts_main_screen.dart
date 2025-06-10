@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plan_q/gen/assets.gen.dart';
+import 'package:plan_q/src/core/common/widgets/filter_button.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/tabs/all_workouts_tab.dart';
 
@@ -43,7 +44,7 @@ class _WorkoutsMainScreenState extends State<WorkoutsMainScreen>
                 children: [
                   SizedBox(width: 40),
                   _buildTitle(),
-                  _buildFilterButton(),
+                  buildFilterButton(onTap: (){}),
                 ],
               ),
               const SizedBox(height: 20),
@@ -70,10 +71,7 @@ class _WorkoutsMainScreenState extends State<WorkoutsMainScreen>
     );
   }
 
-  // Method to build the filter button
-  Widget _buildFilterButton() {
-    return SvgPicture.asset(Assets.svgs.filterIcon);
-  }
+ 
 
   // Method to build the workout tabs using TabBar
   Widget _buildWorkoutTabs() {

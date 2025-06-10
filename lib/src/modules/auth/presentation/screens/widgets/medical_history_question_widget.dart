@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:plan_q/src/modules/auth/presentation/screens/general_detail_fillup_screen.dart';
+import 'package:plan_q/src/modules/auth/presentation/screens/general_detail_fillup_screen.dart'; // Ensure this import is correct
 
 class MedicalHistoryQuestionWidget extends StatefulWidget {
   final QuestionCallback onContinue;
-
   const MedicalHistoryQuestionWidget({super.key, required this.onContinue});
 
   @override
@@ -16,11 +15,11 @@ class MedicalHistoryQuestionWidget extends StatefulWidget {
 
 class _MedicalHistoryQuestionWidgetState
     extends State<MedicalHistoryQuestionWidget> {
-  // Single selected option
-  String? _selectedOption;
+  final Set<String> _selectedOptions = {};
 
   final Map<String, Color> _optionColors = {
-    'Joint related issues': Colors.pink,
+    'No injuries/medical conditions': ColorConstant.buttonBorderGradient1Color,
+    'Joint related issues': Colors.pinkAccent,
     'Heart related conditions': Colors.tealAccent,
     'Spine issues': Colors.orangeAccent,
     'Recently recovered from surgery': Colors.purpleAccent,
@@ -54,9 +53,15 @@ class _MedicalHistoryQuestionWidgetState
     },
   ];
 
-  void _selectOption(String optionLabel) {
+  void _toggleOption(String optionLabel) {
     setState(() {
-      _selectedOption = _selectedOption == optionLabel ? null : optionLabel;
+         if (_selectedOptions.contains(optionLabel)) {
+          // If already selected, deselect it
+          _selectedOptions.remove(optionLabel);
+        } else {
+          
+          _selectedOptions.add(optionLabel);
+        }
     });
   }
 
@@ -71,9 +76,10 @@ class _MedicalHistoryQuestionWidgetState
             Text(
               "Do you have any Medical History?",
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 26,
-                  color: Colors.white),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 26,
+                    color: Colors.white,
+                  ),
             ),
             const SizedBox(height: 20),
             Center(
@@ -84,18 +90,18 @@ class _MedicalHistoryQuestionWidgetState
                 children: _options.map((optionData) {
                   final label = optionData['label'] ?? '';
                   final iconPath = optionData['icon'] ?? '';
-                  final isSelected = _selectedOption == label;
+                  final isSelected = _selectedOptions.contains(label);
                   final color = _optionColors[label];
-              
+
                   return GestureDetector(
-                    onTap: () => _selectOption(label),
+                    onTap: () => _toggleOption(label),
                     child: Container(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? color?.withOpacity(0.5) ??
-                                ColorConstant.redBorderColor.withOpacity(0.5)
+                            ? color?.withOpacity(0.2) ??
+                                ColorConstant.redBorderColor.withOpacity(0.2)
                             : ColorConstant.blueisGreyColor,
                         gradient: !isSelected
                             ? LinearGradient(
@@ -124,13 +130,20 @@ class _MedicalHistoryQuestionWidgetState
                             margin: const EdgeInsets.only(right: 4),
                             child: SvgPicture.asset(
                               iconPath,
-                              color: isSelected ? Colors.white : Colors.grey[400],
+                              colorFilter: ColorFilter.mode(
+                                isSelected
+                                    ? Colors.white
+                                    : Colors.grey[400]!,
+                                BlendMode.srcIn,
+                              ),
                             ),
                           ),
                           Text(
                             label,
                             style: TextStyle(
-                              color: isSelected ? Colors.white : Colors.grey[400],
+                              color: isSelected
+                                  ? Colors.white
+                                  : Colors.grey[400],
                               fontSize: 12,
                             ),
                           ),
@@ -143,7 +156,7 @@ class _MedicalHistoryQuestionWidgetState
             ),
             const SizedBox(height: 20),
             CommonSubmitButton(
-              onPressed: widget.onContinue,
+              onPressed: () => widget.onContinue(),
               child: Text(
                 'Continue',
                 style: Theme.of(context).textTheme.titleMedium,

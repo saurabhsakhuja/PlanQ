@@ -4,9 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:plan_q/gen/assets.gen.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/common/widgets/custom_appbar.dart';
-import 'package:plan_q/src/core/constants/app_routes.dart';
 import 'package:plan_q/src/locator.dart';
-import 'package:plan_q/src/core/constants/color_constant.dart'; // Import your color constants
+import 'package:plan_q/src/core/constants/color_constant.dart';
 
 class SelectRoundScreen extends StatefulWidget {
   const SelectRoundScreen({super.key});
@@ -69,8 +68,9 @@ class _SelectRoundScreenState extends State<SelectRoundScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: const Text('Confirm'),
                   onPressed: () {
-                    locator<GoRouter>()
-                        .goNamed(AppRoutes.WORKOUTS_MAIN_SCREEN_ROUTE_NAME);
+                    locator<GoRouter>().pop();
+                    // locator<GoRouter>()
+                    //     .goNamed(AppRoutes.WORKOUTS_MAIN_SCREEN_ROUTE_NAME);
                   },
                 ),
                 const SizedBox(
@@ -227,10 +227,9 @@ class _SelectRoundScreenState extends State<SelectRoundScreen> {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 border: Border.all(
-                    color: ColorConstant.darkGreyBorderColor,
-                    width: 0.5), // Use from your constants
+                    color: ColorConstant.darkGreyBorderColor, width: 0.5),
                 borderRadius: BorderRadius.circular(12),
-                color: Color(0xff151515), // Use from your constants
+                color: Color(0xff151515),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -391,7 +390,7 @@ class _SelectRoundScreenState extends State<SelectRoundScreen> {
             children: [
               Padding(
                   padding: const EdgeInsets.only(bottom: 8),
-                  child: Image.asset(iconPath)),
+                  child: Image.asset(iconPath,scale: 4,)),
               Text(
                 type,
                 style: TextStyle(

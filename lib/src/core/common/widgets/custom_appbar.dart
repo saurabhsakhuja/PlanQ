@@ -5,7 +5,7 @@ import 'package:plan_q/gen/assets.gen.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String? title; // Made title nullable
+  final String? title;
   final List<Widget>? actions;
   final bool showBackButton;
   final bool centerTitle;
@@ -16,7 +16,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   const CustomAppBar({
     Key? key,
-    this.title, // Made this.title nullable
+    this.title,
     this.actions,
     this.showBackButton = false,
     this.centerTitle = false,
@@ -55,7 +55,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               )
             : null,
         title: child ??
-            (title != null // Added null check here
+            (title != null
                 ? Text(
                     title!,
                     style: Theme.of(context)
@@ -63,7 +63,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         .bodyLarge
                         ?.copyWith(fontWeight: FontWeight.w400),
                   )
-                : null), //  returning null, if title is null
+                : null),
         centerTitle: centerTitle,
         actions: actions,
         bottom: bottom,

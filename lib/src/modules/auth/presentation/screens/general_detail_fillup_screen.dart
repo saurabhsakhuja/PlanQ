@@ -231,17 +231,16 @@
 //   }
 // }
 
-
-
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart'; // This might become unused
 import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:plan_q/src/core/constants/app_routes.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/widgets/activity_level_question_widget.dart';
+import 'package:plan_q/src/modules/auth/presentation/screens/widgets/body_part_selection_widget.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/widgets/fitness_experiance_question_widget.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/widgets/fitness_mission_question_widget.dart';
+import 'package:plan_q/src/modules/auth/presentation/screens/widgets/goal_urgency_selection_widget.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/widgets/medical_history_question_widget.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/widgets/personal_descriptor_question_widget.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/widgets/readblock_question_widget.dart';
@@ -254,7 +253,8 @@ class GeneralDetailFillupScreen extends StatefulWidget {
   const GeneralDetailFillupScreen({super.key});
 
   @override
-  _GeneralDetailFillupScreenState createState() => _GeneralDetailFillupScreenState();
+  _GeneralDetailFillupScreenState createState() =>
+      _GeneralDetailFillupScreenState();
 }
 
 class _GeneralDetailFillupScreenState extends State<GeneralDetailFillupScreen> {
@@ -275,6 +275,8 @@ class _GeneralDetailFillupScreenState extends State<GeneralDetailFillupScreen> {
       WorkoutQuestionWidget(onContinue: _nextQuestion),
       WorkoutFrequencyQuestionWidget(onContinue: _nextQuestion),
       MedicalHistoryQuestionWidget(onContinue: _nextQuestion),
+      BodyPartSelectionWidget(onContinue: _nextQuestion),
+      GoalUrgencySelectionWidget(onContinue: _nextQuestion)
     ];
   }
 

@@ -13,6 +13,7 @@ import 'package:plan_q/src/modules/dashboard/presentation/screens/home/home_scre
 import 'package:plan_q/src/modules/auth/presentation/screens/splash_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/arm_circuit_detail_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/create_new_workout_screen.dart';
+import 'package:plan_q/src/modules/workouts/presentation/screens/created_workout_main_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/custom_workout_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/exercise_detail_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/library_screen.dart';
@@ -114,6 +115,11 @@ final router = GoRouter(
       name: AppRoutes.ARM_CIRCUIT_DETAIL_SCREEN_ROUTE_NAME,
       path: AppRoutes.ARM_CIRCUIT_DETAIL_SCREEN_ROUTE_PATH,
       builder: (_, __) => ArmCircuitDetailScreen(),
+    ),
+    GoRoute(
+      name: AppRoutes.CREATED_WORKOUT_MAIN_SCREEN_ROUTE_NAME,
+      path: AppRoutes.CREATED_WORKOUT_MAIN_SCREEN_ROUTE_PATH,
+      builder: (_, __) => CreatedWorkoutMainScreen(),
     ),
     StatefulShellRoute.indexedStack(
       builder: (_, __, navigationShell) {

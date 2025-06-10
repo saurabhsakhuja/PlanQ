@@ -42,11 +42,15 @@ class AppRoutes {
   static const String LIBRARY_SCREEN_ROUTE_NAME = 'libraryScreen';
   static const String LIBRARY_SCREEN_ROUTE_PATH = '/libraryScreen';
 
-  static const String CREATE_NEW_WORKOUT_SCREEN_ROUTE_NAME = 'createNewWorkoutScreen';
-  static const String CREATE_NEW_WORKOUT_SCREEN_ROUTE_PATH = '/createNewWorkoutScreen';
+  static const String CREATE_NEW_WORKOUT_SCREEN_ROUTE_NAME =
+      'createNewWorkoutScreen';
+  static const String CREATE_NEW_WORKOUT_SCREEN_ROUTE_PATH =
+      '/createNewWorkoutScreen';
 
-  static const String WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_NAME = 'workoutPlayerManualScreen';
-  static const String WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_PATH = '/workoutPlayerManualScreen';
+  static const String WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_NAME =
+      'workoutPlayerManualScreen';
+  static const String WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_PATH =
+      '/workoutPlayerManualScreen';
 
   static const String SELECT_ROUND_SCREEN_ROUTE_NAME = 'selectRoundScreen';
   static const String SELECT_ROUND_SCREEN_ROUTE_PATH = '/selectRoundScreen';
@@ -54,9 +58,18 @@ class AppRoutes {
   static const String CUSTOM_WORKOUT_SCREEN_ROUTE_NAME = 'customWorkoutScreen';
   static const String CUSTOM_WORKOUT_SCREEN_ROUTE_PATH = '/customWorkoutScreen';
 
-  static const String EXERCISE_DETAIL_SCREEN_ROUTE_NAME = 'exerciseDetailScreen';
-  static const String EXERCISE_DETAIL_SCREEN_ROUTE_PATH = '/exerciseDetailScreen';
+  static const String CREATED_WORKOUT_MAIN_SCREEN_ROUTE_NAME =
+      'createdWorkoutMainScreen';
+  static const String CREATED_WORKOUT_MAIN_SCREEN_ROUTE_PATH =
+      '/createdWorkoutMainScreen';
 
-  static const String ARM_CIRCUIT_DETAIL_SCREEN_ROUTE_NAME = 'armCircuitDetailScreen';
-  static const String ARM_CIRCUIT_DETAIL_SCREEN_ROUTE_PATH = '/armCircuitDetailScreen';
+  static const String EXERCISE_DETAIL_SCREEN_ROUTE_NAME =
+      'exerciseDetailScreen';
+  static const String EXERCISE_DETAIL_SCREEN_ROUTE_PATH =
+      '/exerciseDetailScreen';
+
+  static const String ARM_CIRCUIT_DETAIL_SCREEN_ROUTE_NAME =
+      'armCircuitDetailScreen';
+  static const String ARM_CIRCUIT_DETAIL_SCREEN_ROUTE_PATH =
+      '/armCircuitDetailScreen';
 }
