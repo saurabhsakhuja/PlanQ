@@ -96,4 +96,5 @@ class AllWorkoutsTab extends StatelessWidget {
       ],
     );
   }
+  
 }

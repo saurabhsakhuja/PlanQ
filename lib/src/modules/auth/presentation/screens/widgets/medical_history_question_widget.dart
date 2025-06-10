@@ -76,68 +76,70 @@ class _MedicalHistoryQuestionWidgetState
                   color: Colors.white),
             ),
             const SizedBox(height: 20),
-            Wrap(
-              spacing: 10,
-              runSpacing: 10,
-              alignment: WrapAlignment.center,
-              children: _options.map((optionData) {
-                final label = optionData['label'] ?? '';
-                final iconPath = optionData['icon'] ?? '';
-                final isSelected = _selectedOption == label;
-                final color = _optionColors[label];
-
-                return GestureDetector(
-                  onTap: () => _selectOption(label),
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: isSelected
-                          ? color?.withOpacity(0.5) ??
-                              ColorConstant.redBorderColor.withOpacity(0.5)
-                          : ColorConstant.blueisGreyColor,
-                      gradient: !isSelected
-                          ? LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                ColorConstant.blackColor.withOpacity(0.5),
-                                ColorConstant.mainContentGradientColor,
-                              ],
-                            )
-                          : null,
-                      borderRadius: BorderRadius.circular(50),
-                      border: Border.all(
+            Center(
+              child: Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                alignment: WrapAlignment.center,
+                children: _options.map((optionData) {
+                  final label = optionData['label'] ?? '';
+                  final iconPath = optionData['icon'] ?? '';
+                  final isSelected = _selectedOption == label;
+                  final color = _optionColors[label];
+              
+                  return GestureDetector(
+                    onTap: () => _selectOption(label),
+                    child: Container(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      decoration: BoxDecoration(
                         color: isSelected
-                            ? color ?? ColorConstant.redBorderColor
-                            : ColorConstant.darkGreyBorderColor,
-                        width: 1,
+                            ? color?.withOpacity(0.5) ??
+                                ColorConstant.redBorderColor.withOpacity(0.5)
+                            : ColorConstant.blueisGreyColor,
+                        gradient: !isSelected
+                            ? LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  ColorConstant.blackColor.withOpacity(0.5),
+                                  ColorConstant.mainContentGradientColor,
+                                ],
+                              )
+                            : null,
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(
+                          color: isSelected
+                              ? color ?? ColorConstant.redBorderColor
+                              : ColorConstant.darkGreyBorderColor,
+                          width: 1,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: 20,
+                            height: 20,
+                            margin: const EdgeInsets.only(right: 4),
+                            child: SvgPicture.asset(
+                              iconPath,
+                              color: isSelected ? Colors.white : Colors.grey[400],
+                            ),
+                          ),
+                          Text(
+                            label,
+                            style: TextStyle(
+                              color: isSelected ? Colors.white : Colors.grey[400],
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          width: 20,
-                          height: 20,
-                          margin: const EdgeInsets.only(right: 4),
-                          child: SvgPicture.asset(
-                            iconPath,
-                            color: isSelected ? Colors.white : Colors.grey[400],
-                          ),
-                        ),
-                        Text(
-                          label,
-                          style: TextStyle(
-                            color: isSelected ? Colors.white : Colors.grey[400],
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              }).toList(),
+                  );
+                }).toList(),
+              ),
             ),
             const SizedBox(height: 20),
             CommonSubmitButton(

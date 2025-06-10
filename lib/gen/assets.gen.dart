@@ -78,12 +78,28 @@ class $AssetsImagesGen {
   AssetGenImage get introBg =>
       const AssetGenImage('assets/images/introBg.jpeg');
 
+  /// File path: assets/images/lightningIcon.png
+  AssetGenImage get lightningIcon =>
+      const AssetGenImage('assets/images/lightningIcon.png');
+
   /// File path: assets/images/logo.jpg
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.jpg');
 
   /// File path: assets/images/market_place_blue_icon.png
   AssetGenImage get marketPlaceBlueIcon =>
       const AssetGenImage('assets/images/market_place_blue_icon.png');
+
+  /// File path: assets/images/pulsIcon.png
+  AssetGenImage get pulsIcon =>
+      const AssetGenImage('assets/images/pulsIcon.png');
+
+  /// File path: assets/images/replaceIcon.png
+  AssetGenImage get replaceIcon =>
+      const AssetGenImage('assets/images/replaceIcon.png');
+
+  /// File path: assets/images/whereDoYouPreferToGym.png
+  AssetGenImage get whereDoYouPreferToGym =>
+      const AssetGenImage('assets/images/whereDoYouPreferToGym.png');
 
   /// File path: assets/images/whereDoYouPreferToGym1.png
   AssetGenImage get whereDoYouPreferToGym1 =>
@@ -97,6 +113,10 @@ class $AssetsImagesGen {
   AssetGenImage get whereDoYouPreferToGym3 =>
       const AssetGenImage('assets/images/whereDoYouPreferToGym3.png');
 
+  /// File path: assets/images/whereDoYouPreferToGym4.png
+  AssetGenImage get whereDoYouPreferToGym4 =>
+      const AssetGenImage('assets/images/whereDoYouPreferToGym4.png');
+
   /// File path: assets/images/workoutIconBg.png
   AssetGenImage get workoutIconBg =>
       const AssetGenImage('assets/images/workoutIconBg.png');
@@ -107,11 +127,16 @@ class $AssetsImagesGen {
     aiMadeBlueIcon,
     exerciseDetail,
     introBg,
+    lightningIcon,
     logo,
     marketPlaceBlueIcon,
+    pulsIcon,
+    replaceIcon,
+    whereDoYouPreferToGym,
     whereDoYouPreferToGym1,
     whereDoYouPreferToGym2,
     whereDoYouPreferToGym3,
+    whereDoYouPreferToGym4,
     workoutIconBg,
   ];
 }

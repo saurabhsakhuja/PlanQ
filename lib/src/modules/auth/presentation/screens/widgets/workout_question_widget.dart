@@ -26,7 +26,7 @@ class _WorkoutQuestionWidgetState extends State<WorkoutQuestionWidget> {
     },
     {
       'title': 'Big Box Gym',
-      'image': Assets.images.whereDoYouPreferToGym1.path,
+      'image': Assets.images.whereDoYouPreferToGym.path,
     },
     {
       'title': 'Garage Gym',
@@ -34,7 +34,7 @@ class _WorkoutQuestionWidgetState extends State<WorkoutQuestionWidget> {
     },
     {
       'title': 'Home Gym',
-      'image': Assets.images.whereDoYouPreferToGym1.path,
+      'image': Assets.images.whereDoYouPreferToGym4.path,
     },
   ];
 
@@ -90,6 +90,7 @@ class _WorkoutQuestionWidgetState extends State<WorkoutQuestionWidget> {
                               borderRadius: BorderRadius.circular(20),
                               child: Image.asset(
                                 width: 200,
+                                height: 260,
                                 mission['image']!,
                                 fit: BoxFit.cover,
                               ),
@@ -100,7 +101,7 @@ class _WorkoutQuestionWidgetState extends State<WorkoutQuestionWidget> {
                               Container(
                                 decoration: BoxDecoration(
                                   color: ColorConstant.redBorderColor
-                                      .withOpacity(0.3),
+                                      .withOpacity(0.5),
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                               ),

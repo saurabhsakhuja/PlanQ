@@ -5,6 +5,7 @@ import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/app_routes.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:plan_q/src/locator.dart';
+import 'package:plan_q/src/modules/workouts/presentation/screens/select_round_screen.dart';
 
 class LibraryAllTab extends StatefulWidget {
   const LibraryAllTab({super.key});
@@ -85,6 +86,9 @@ class _LibraryAllTabState extends State<LibraryAllTab> {
                   setState(() {
                     _isCircuitMode = value;
                   });
+                  if(value){
+                    showSelectRoundBottomSheet();
+                  }
                 },
               ),
               const SizedBox(width: 8),
@@ -144,10 +148,7 @@ class _LibraryAllTabState extends State<LibraryAllTab> {
               ),
             ],
           ),
-          onPressed: () {
-            locator<GoRouter>()
-                .pushNamed(AppRoutes.SELECT_ROUND_SCREEN_ROUTE_NAME);
-          },
+          onPressed: () =>showSelectRoundBottomSheet(),
         ),
       ],
     );
@@ -263,6 +264,23 @@ class _LibraryAllTabState extends State<LibraryAllTab> {
           ],
         ),
       ),
+    );
+  }
+    void showSelectRoundBottomSheet() {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (context) {
+        return Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15)),
+                border: Border.all(color: ColorConstant.darkGreyBorderColor),
+                color: ColorConstant.backgroundColor),
+            child: SelectRoundScreen());
+      },
     );
   }
 }
