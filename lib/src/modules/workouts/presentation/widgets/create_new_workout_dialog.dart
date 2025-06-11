@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plan_q/gen/assets.gen.dart';
 import 'package:plan_q/src/core/constants/app_routes.dart';
@@ -14,7 +13,7 @@ class CreateNewWorkoutDialog extends StatefulWidget {
 }
 
 class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
-  String? _selectedOption; 
+  String? _selectedOption;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,7 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
       backgroundColor: Colors.transparent,
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xff1A1F2C),
+          color: const Color(0xff151515),
           borderRadius: BorderRadius.circular(20.0),
           border: Border.all(
             color: ColorConstant.darkGreyBorderColor,
@@ -44,7 +43,7 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
               _buildOptionTile(
                 context,
                 option: 'AI Made',
-                icon: Assets.images.aiMadeBlueIcon.path,
+                icon: Assets.images.aiMadeIcon.path,
                 description: 'Customize AI generated workout',
                 onTap: () {
                   setState(() {
@@ -56,7 +55,7 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
               _buildOptionTile(
                 context,
                 option: 'Marketplace',
-                icon: Assets.images.marketPlaceBlueIcon.path,
+                icon: Assets.images.marcketPlaceIcon.path,
                 description: 'Choose from expert workouts',
                 onTap: () {
                   setState(() {
@@ -75,8 +74,8 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
                     _selectedOption = 'Create Custom';
                   });
                   Navigator.of(context).pop();
-                  locator<GoRouter>().pushNamed(
-                      AppRoutes.MY_WORKOUTS_SCREEN_ROUTE_NAME);
+                  locator<GoRouter>()
+                      .pushNamed(AppRoutes.MY_WORKOUTS_SCREEN_ROUTE_NAME);
                 },
               ),
               const SizedBox(height: 13),
@@ -133,22 +132,13 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
         padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
         decoration: BoxDecoration(
           border: Border.all(
-            color: isSelected
-                ? ColorConstant.redBorderColor
-                : ColorConstant.darkGreyBorderColor,
+            color: ColorConstant.darkGreyBorderColor,
             width: 1,
           ),
-          borderRadius: BorderRadius.circular(14),
-          gradient: LinearGradient(
-            colors: [
-              isSelected
-                  ? ColorConstant.redTileGradient1Color
-                  : ColorConstant.greyColor.withOpacity(0.1),
-              isSelected
-                  ? ColorConstant.redTileGradient2Color
-                  : ColorConstant.greyColor.withOpacity(0.1),
-            ],
-          ),
+          borderRadius: BorderRadius.circular(16),
+          color: isSelected
+              ? ColorConstant.whiteColor
+              : ColorConstant.greyColor.withOpacity(0.1),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -156,9 +146,12 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
           children: [
             Padding(
               padding: const EdgeInsets.only(bottom: 5),
-              child: Image.asset(
-                icon,
-                scale: 3.5,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(50),
+                child: Image.asset(
+                  icon,
+                  scale: 3.5,
+                ),
               ),
             ),
             const SizedBox(width: 8),
@@ -171,10 +164,9 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
                   children: [
                     Text(
                       option,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(color: Colors.white, fontSize: 16),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          color: isSelected ? Colors.black : Colors.white,
+                          fontSize: 16),
                     ),
                     Text(
                       description,

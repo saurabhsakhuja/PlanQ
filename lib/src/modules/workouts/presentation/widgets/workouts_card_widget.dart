@@ -28,7 +28,7 @@ class WorkoutsCardWidget extends StatelessWidget {
         border:
             Border.all(color: ColorConstant.darkGreyBorderColor, width: 0.5),
         borderRadius: BorderRadius.circular(20),
-        color: Color(0xff121624),
+        color: Color(0xff151515),
       ),
       padding: const EdgeInsets.all(15),
       child: Column(
@@ -56,8 +56,14 @@ class WorkoutsCardWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              Image.asset(Assets.images.workoutIconBg.path,scale: 4),
-                 
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: Stack(
+                    children: [
+                      Assets.images.circleButtonIcon.image(scale: 4),
+                      Positioned.fill(child: Assets.images.dumbleIcon.image(scale: 5))
+                    ],
+                  )),
             ],
           ),
           const SizedBox(height: 10),
@@ -67,40 +73,40 @@ class WorkoutsCardWidget extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  exercisesCount != 0
-                      ? Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 4),
-                          decoration: BoxDecoration(
-                              color: ColorConstant.extralightBlueColor,
-                              borderRadius: BorderRadius.circular(50)),
-                          child: Text(
-                            "$exercisesCount exercises", // Display the exercise count
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16 ,
-                            ),
-                          ),
-                        )
-                      : InkWell(
-                          onTap: () {
-                            // Add your action here
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 4),
-                            decoration: BoxDecoration(
-                                color: Color(0xff22283D),
-                                borderRadius: BorderRadius.circular(50)),
-                            child: Text(
-                              "ADD EXERCISES",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(fontWeight: FontWeight.w400),
-                            ),
-                          ),
-                        ),
+                  // exercisesCount != 0
+                  //     ? Container(
+                  //         padding: const EdgeInsets.symmetric(
+                  //             horizontal: 10, vertical: 4),
+                  //         decoration: BoxDecoration(
+                  //             color: ColorConstant.extralightBlueColor,
+                  //             borderRadius: BorderRadius.circular(50)),
+                  //         child: Text(
+                  //           "$exercisesCount exercises", // Display the exercise count
+                  //           style: const TextStyle(
+                  //             color: Colors.white,
+                  //             fontSize: 16,
+                  //           ),
+                  //         ),
+                  //       )
+                  //     : InkWell(
+                  //         onTap: () {
+                  //           // Add your action here
+                  //         },
+                  //         child: Container(
+                  //           padding: const EdgeInsets.symmetric(
+                  //               horizontal: 10, vertical: 4),
+                  //           decoration: BoxDecoration(
+                  //               color: Color(0xff22283D),
+                  //               borderRadius: BorderRadius.circular(50)),
+                  //           child: Text(
+                  //             "ADD EXERCISES",
+                  //             style: Theme.of(context)
+                  //                 .textTheme
+                  //                 .bodySmall
+                  //                 ?.copyWith(fontWeight: FontWeight.w400),
+                  //           ),
+                  //         ),
+                  //       ),
                   const SizedBox(height: 4),
                   Text(
                     workoutDays,

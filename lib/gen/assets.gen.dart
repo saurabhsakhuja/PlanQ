@@ -66,13 +66,21 @@ class $AssetsImagesGen {
   AssetGenImage get addBlueIcon =>
       const AssetGenImage('assets/images/add_blue_icon.png');
 
-  /// File path: assets/images/ai_made_blue_icon.png
-  AssetGenImage get aiMadeBlueIcon =>
-      const AssetGenImage('assets/images/ai_made_blue_icon.png');
+  /// File path: assets/images/aiMadeIcon.png
+  AssetGenImage get aiMadeIcon =>
+      const AssetGenImage('assets/images/aiMadeIcon.png');
 
   /// File path: assets/images/arrowRight.png
   AssetGenImage get arrowRight =>
       const AssetGenImage('assets/images/arrowRight.png');
+
+  /// File path: assets/images/circleButtonIcon.png
+  AssetGenImage get circleButtonIcon =>
+      const AssetGenImage('assets/images/circleButtonIcon.png');
+
+  /// File path: assets/images/dumbleIcon.png
+  AssetGenImage get dumbleIcon =>
+      const AssetGenImage('assets/images/dumbleIcon.png');
 
   /// File path: assets/images/exercise_detail.png
   AssetGenImage get exerciseDetail =>
@@ -89,9 +97,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/logo.jpg
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.jpg');
 
-  /// File path: assets/images/market_place_blue_icon.png
-  AssetGenImage get marketPlaceBlueIcon =>
-      const AssetGenImage('assets/images/market_place_blue_icon.png');
+  /// File path: assets/images/marcketPlaceIcon.png
+  AssetGenImage get marcketPlaceIcon =>
+      const AssetGenImage('assets/images/marcketPlaceIcon.png');
 
   /// File path: assets/images/polygonIcons.png
   AssetGenImage get polygonIcons =>
@@ -140,13 +148,15 @@ class $AssetsImagesGen {
   /// List of all assets
   List<AssetGenImage> get values => [
     addBlueIcon,
-    aiMadeBlueIcon,
+    aiMadeIcon,
     arrowRight,
+    circleButtonIcon,
+    dumbleIcon,
     exerciseDetail,
     introBg,
     lightningIcon,
     logo,
-    marketPlaceBlueIcon,
+    marcketPlaceIcon,
     polygonIcons,
     pulsIcon,
     replaceIcon,

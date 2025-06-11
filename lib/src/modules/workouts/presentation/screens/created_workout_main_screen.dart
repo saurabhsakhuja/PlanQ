@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plan_q/gen/assets.gen.dart';
+import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/common/widgets/custom_appbar.dart';
 import 'package:plan_q/src/core/common/widgets/filter_button.dart';
+import 'package:plan_q/src/core/constants/app_routes.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:plan_q/src/locator.dart';
 import 'package:plan_q/src/modules/workouts/presentation/widgets/gradient_progressbar.dart';
@@ -78,7 +81,26 @@ class _CreatedWorkoutMainScreenState extends State<CreatedWorkoutMainScreen> {
               },
             ),
             SizedBox(height: 20),
-            _predictionContainer()
+            _predictionContainer(),
+            SizedBox(height: 20),
+            CommonSubmitButton(
+              height: 52,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Create New Workout',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  SizedBox(width: 8),
+                  SvgPicture.asset(Assets.svgs.fireIcon)
+                ],
+              ),
+              onPressed: () {
+                locator<GoRouter>().pushNamed(
+                    AppRoutes.WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_NAME);
+              },
+            ),
           ],
         ),
       )),
@@ -256,13 +278,13 @@ class _CreatedWorkoutMainScreenState extends State<CreatedWorkoutMainScreen> {
         ),
         borderRadius: BorderRadius.circular(12),
       ),
-      padding: const EdgeInsets.symmetric(vertical: 1,horizontal: 1),
+      padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 1),
       child: Container(
           decoration: BoxDecoration(
             gradient: const LinearGradient(
               colors: [
                 ColorConstant.buttonGradient1Color,
-                  Color.fromARGB(255, 112, 43, 95),
+                Color.fromARGB(255, 112, 43, 95),
               ],
             ),
             borderRadius: BorderRadius.circular(12),
@@ -271,7 +293,7 @@ class _CreatedWorkoutMainScreenState extends State<CreatedWorkoutMainScreen> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(right:  18),
+                padding: const EdgeInsets.only(right: 18),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -287,7 +309,7 @@ class _CreatedWorkoutMainScreenState extends State<CreatedWorkoutMainScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 14, right: 6,bottom: 14),
+                padding: const EdgeInsets.only(left: 14, right: 6, bottom: 14),
                 child: Text(
                   "Based on your consistent training and progress rate, here's what you can expect to achieve in the next 12 weeks.",
                   style: Theme.of(context)

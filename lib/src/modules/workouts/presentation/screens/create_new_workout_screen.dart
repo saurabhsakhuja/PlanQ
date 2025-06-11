@@ -17,6 +17,9 @@ class CreateNewWorkoutScreen extends StatefulWidget {
 }
 
 class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
+  FixedExtentScrollController _scrollController =
+      FixedExtentScrollController(initialItem: 4); // Index = value - 1
+
   String workoutName = '';
   List<String> selectedDays = [];
   int programDuration = 4;
@@ -32,6 +35,19 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _scrollController =
+        FixedExtentScrollController(initialItem: programDuration - 1);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
@@ -40,7 +56,6 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
         showBackButton: true,
         onBackButtonPressed: () {
           locator<GoRouter>().pop();
-       
         },
       ),
       body: SafeArea(
@@ -74,19 +89,25 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
                   },
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Color(0xff121624),
+                    fillColor: Color(0xff151515),
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 20, vertical: 14),
                     hintText: 'Starting Strength',
                     hintStyle: Theme.of(context).textTheme.bodyLarge,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(50),
-                      borderSide:
-                          BorderSide(color: Colors.transparent, width: 0.1),
+                      borderSide: BorderSide(
+                          color: ColorConstant.darkGreyBorderColor, width: 0.1),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      borderSide: BorderSide(
+                          color: ColorConstant.darkGreyBorderColor, width: 0.1),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(50),
-                      borderSide: BorderSide(color: Colors.transparent),
+                      borderSide:
+                          BorderSide(color: ColorConstant.darkGreyBorderColor),
                     ),
                   ),
                   style: Theme.of(context).textTheme.bodyLarge,
@@ -130,7 +151,7 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
                         padding:
                             EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: Color(0xff161A20),
+                          color: Color(0xff151515),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: RichText(
@@ -163,91 +184,42 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
                 ),
                 const SizedBox(height: 10),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  height: 96, 
+                  padding: EdgeInsets.symmetric(horizontal: 20),
                   decoration: BoxDecoration(
-                    color: Color(0xff161A20),
+                    color: Color(0xff151515),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            if (programDuration > 1) {
-                              programDuration--;
-                            }
-                          });
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: ColorConstant.darkGreyBorderColor,
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                            gradient: const LinearGradient(
-                              begin: Alignment.bottomLeft,
-                              end: Alignment.topRight,
-                              colors: [
-                                Color.fromARGB(255, 38, 40, 41),
-                                Color.fromARGB(255, 56, 63, 64),
-                                Color.fromARGB(255, 81, 81, 81),
-                              ],
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(4),
-                            child: const Icon(
-                              Icons.remove,
-                              color: Colors.white,
+                  child: ListWheelScrollView.useDelegate(
+                    controller: _scrollController,
+                    itemExtent: 50,
+                    physics: FixedExtentScrollPhysics(),
+                    perspective: 0.005,
+                    diameterRatio: 1.5,
+                    onSelectedItemChanged: (index) {
+                      setState(() {
+                        programDuration = index + 1;
+                      });
+                    },
+                    childDelegate: ListWheelChildBuilderDelegate(
+                      builder: (context, index) {
+                        if (index < 0 || index > 29)
+                          return null; // allow 1–30 range
+                        final isSelected = programDuration == index + 1;
+                        return Center(
+                          child: Text(
+                            '${index + 1}',
+                            style: TextStyle(
+                              fontSize: isSelected ? 32 : 20,
+                              fontWeight: isSelected
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              color: isSelected ? Colors.white : Colors.grey,
                             ),
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Text(
-                          '$programDuration',
-                          style: const TextStyle(
-                              fontSize: 36,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            programDuration++;
-                          });
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: ColorConstant.darkGreyBorderColor,
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                            gradient: const LinearGradient(
-                              begin: Alignment.bottomLeft,
-                              end: Alignment.topRight,
-                              colors: [
-                                Color.fromARGB(255, 38, 40, 41),
-                                Color.fromARGB(255, 56, 63, 64),
-                                Color.fromARGB(255, 81, 81, 81),
-                              ],
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(4),
-                            child: const Icon(
-                              Icons.add,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                        );
+                      },
+                    ),
                   ),
                 ),
                 SizedBox(height: 20),
@@ -289,21 +261,15 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-              isSelected
-                  ? ColorConstant.redTileGradient1Color
-                  : Color(0xff1F2937),
-              isSelected
-                  ? ColorConstant.redTileGradient2Color
-                  : Color(0xff1F2937)
-            ]),
-            border: Border.all(
-                color: isSelected
-                    ? ColorConstant.redBorderColor
-                    : ColorConstant.darkGreyBorderColor,
-                width: isSelected ? 0.8 : 0.5),
-            borderRadius: BorderRadius.circular(8)),
-        child: Text(day),
+            color: isSelected ? Colors.white : Color(0xff151515),
+            borderRadius: BorderRadius.circular(12)),
+        child: Text(
+          day,
+          style: TextStyle(
+              color: isSelected ? Colors.black : Colors.white,
+              fontSize: 14,
+              fontWeight: FontWeight.w400),
+        ),
       ),
     );
   }

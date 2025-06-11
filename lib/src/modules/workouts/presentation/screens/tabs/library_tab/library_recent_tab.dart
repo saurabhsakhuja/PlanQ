@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
-import 'package:plan_q/src/core/constants/app_routes.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
-import 'package:plan_q/src/locator.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/select_round_screen.dart';
 
 class LibraryRecentTab extends StatefulWidget {
@@ -68,37 +65,44 @@ class _LibraryRecentTabState extends State<LibraryRecentTab> {
             border: Border.all(
                 color: ColorConstant.darkGreyBorderColor, width: 0.5),
             borderRadius: BorderRadius.circular(8),
-            color: ColorConstant.lightBlueColor,
+            color: Color(0xff151515),
           ),
           child: Row(
             children: [
-              AdvancedSwitch(
-                controller: _controller,
-                activeColor: Colors.pink,
-                inactiveColor: Color(0xff121624),
-                borderRadius: BorderRadius.circular(50),
-                width: 40,
-                height: 22,
-                enabled: true,
-                disabledOpacity: 0.5,
-                onChanged: (value) {
-                  setState(() {
-                    _isCircuitMode = value;
-                  });
-                  if (value) {
-                    showSelectRoundBottomSheet();
-                  }
-                },
+              Container(
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        color: _isCircuitMode
+                            ? ColorConstant.blackColor
+                            : ColorConstant.darkGreyBorderColor),
+                    borderRadius: BorderRadius.circular(25)),
+                child: AdvancedSwitch(
+                  controller: _controller,
+                  activeColor: Colors.white,
+                  inactiveColor: Color(0xff121624),
+                  borderRadius: BorderRadius.circular(50),
+                  width: 40,
+                  height: 22,
+                  enabled: true,
+                  disabledOpacity: 0.5,
+                  onChanged: (value) {
+                    setState(() {
+                      _isCircuitMode = value;
+                    });
+                    if (value) {
+                      showSelectRoundBottomSheet();
+                    }
+                  },
+                ),
               ),
               const SizedBox(width: 8),
               const Text('Circuit Mode'),
               const SizedBox(width: 20),
-              const Expanded(
-                child: Text(
-                  'Add exercises individually',
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
+              Spacer(),
+              Text(
+                'Add exercises individually',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
               ),
             ],
           ),
@@ -179,37 +183,24 @@ class _LibraryRecentTabState extends State<LibraryRecentTab> {
         margin: const EdgeInsets.symmetric(vertical: 2),
         padding: EdgeInsets.all(.8),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: isSelected
-                ? [
-                    const Color.fromARGB(255, 74, 92, 255),
-                    const Color.fromARGB(255, 255, 105, 135)
-                  ]
-                : [
-                    ColorConstant.lightBlueColor,
-                    Color.fromARGB(255, 56, 65, 70),
-                  ],
+          color: isSelected ? Colors.white : const Color(0xff151515),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: ColorConstant.darkGreyBorderColor,
+            width: 0.3,
           ),
-          borderRadius: BorderRadius.circular(10),
         ),
         child: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: isSelected ? null : ColorConstant.lightBlueColor,
-            gradient: isSelected
-                ? const LinearGradient(
-                    colors: [
-                      ColorConstant.buttonBorderGradient1Color,
-                      ColorConstant.buttonBorderGradient3Color,
-                    ],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                  )
-                : null,
+            color: isSelected ? Colors.white : const Color(0xff151515),
             borderRadius: BorderRadius.circular(12),
-            // border: Border.all(color: ColorConstant.lightGreyColor, width: 0.3),
+            border: Border.all(
+              color: isSelected
+                  ? Colors.transparent
+                  : ColorConstant.darkGreyBorderColor,
+              width: 0.3,
+            ),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -219,15 +210,13 @@ class _LibraryRecentTabState extends State<LibraryRecentTab> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    padding: EdgeInsets.all(.7),
+                    padding: const EdgeInsets.all(.7),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.bottomLeft,
                         end: Alignment.topRight,
                         colors: [
-                          isSelected
-                              ? const Color.fromARGB(255, 111, 126, 255)
-                              : Color.fromARGB(255, 38, 40, 41),
+                          isSelected ? Colors.white : const Color(0xFF262829),
                           Colors.white,
                         ],
                       ),
@@ -236,57 +225,55 @@ class _LibraryRecentTabState extends State<LibraryRecentTab> {
                     child: Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        border: Border.all(
-                          color: ColorConstant.white60Color,
-                          width: 0.3,
-                        ),
                         gradient: isSelected
                             ? const LinearGradient(
                                 begin: Alignment.bottomLeft,
                                 end: Alignment.topRight,
                                 colors: [
-                                  ColorConstant.buttonBorderGradient1Color,
-                                  // ColorConstant.buttonBorderGradient2Color,
-                                  Color.fromARGB(255, 206, 64, 92),
+                                  Color(0xFFE0D9D9),
+                                  Colors.white,
                                 ],
                               )
                             : const LinearGradient(
                                 begin: Alignment.bottomLeft,
                                 end: Alignment.topRight,
                                 colors: [
-                                  Color.fromARGB(255, 38, 40, 41),
-                                  Color.fromARGB(255, 56, 63, 64),
-                                  Color.fromARGB(255, 81, 81, 81),
+                                  Color(0xFF262829),
+                                  Color(0xFF383F40),
+                                  Color(0xFF515151),
                                 ],
                               ),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.fitness_center,
-                        color: Colors.white,
+                        color: isSelected ? Colors.black : Colors.white,
                         size: 20,
                       ),
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
+                  InkWell(
+                    onTap: () {
                       _toggleExerciseSelection(exercise['name']!);
                     },
-                    icon: isSelected
+                    child: isSelected
                         ? Container(
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle, color: Colors.black12),
-                            padding: EdgeInsets.all(4),
-                            child: Icon(
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color(0xffe5e7eb),
+                            ),
+                            padding: const EdgeInsets.all(10),
+                            margin: const EdgeInsets.only(left: 6),
+                            child: const Icon(
                               Icons.close,
-                              color: Colors.white,
-                              size: 16,
+                              color: Colors.black,
+                              size: 20,
                             ),
                           )
-                        : Icon(
+                        : const Icon(
                             Icons.add,
                             color: Color(0xff9CA3AF),
-                            size: 16,
+                            size: 20,
                           ),
                   ),
                 ],
@@ -294,8 +281,8 @@ class _LibraryRecentTabState extends State<LibraryRecentTab> {
               const SizedBox(height: 8), // Added spacing
               Text(
                 exercise['name'] ?? 'Unknown Exercise',
-                style: const TextStyle(
-                    color: Colors.white,
+                style: TextStyle(
+                    color: isSelected ? Colors.black : Colors.white,
                     fontWeight: FontWeight.w500,
                     fontSize: 14, // Adjusted font size
                     overflow: TextOverflow.ellipsis),
@@ -304,7 +291,7 @@ class _LibraryRecentTabState extends State<LibraryRecentTab> {
               Text(
                 exercise['muscle'] ?? 'Unknown Muscle',
                 style: TextStyle(
-                  color: Colors.grey[400],
+                  color: isSelected ? Colors.black : Colors.grey[400],
                   fontSize: 12, // Adjusted font size
                 ),
                 textAlign: TextAlign.center,

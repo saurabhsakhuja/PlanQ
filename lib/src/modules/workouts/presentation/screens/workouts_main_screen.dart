@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plan_q/gen/assets.gen.dart';
 import 'package:plan_q/src/core/common/widgets/filter_button.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
-import 'package:plan_q/src/modules/workouts/presentation/screens/tabs/all_workouts_tab.dart';
+import 'package:plan_q/src/modules/workouts/presentation/screens/tabs/library_tab/all_workouts_tab.dart';
 
 class WorkoutsMainScreen extends StatefulWidget {
   const WorkoutsMainScreen({super.key});
@@ -106,7 +106,7 @@ class _WorkoutsMainScreenState extends State<WorkoutsMainScreen>
         decoration: BoxDecoration(
           border: Border.all(color: ColorConstant.lightGreyColor, width: 0.5),
           borderRadius: BorderRadius.circular(50),
-          color: isSelected ? ColorConstant.lightBlueColor : Colors.transparent,
+          color: isSelected ? Color(0xff121624) : Colors.transparent,
         ),
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         child: Text(

@@ -53,8 +53,7 @@ class AllWorkoutsTab extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: InkWell(
                       onTap: () {
-                        // locator<GoRouter>().pushNamed(
-                        //     AppRoutes.WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_NAME);
+                      
                         locator<GoRouter>().pushNamed(
                             AppRoutes.CREATED_WORKOUT_MAIN_SCREEN_ROUTE_NAME);
                       },
