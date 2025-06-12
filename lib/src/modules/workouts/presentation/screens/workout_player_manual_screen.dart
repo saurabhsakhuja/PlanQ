@@ -7,7 +7,8 @@ import 'package:plan_q/src/modules/workouts/presentation/screens/tabs/library_ta
 import 'package:plan_q/src/modules/workouts/presentation/screens/tabs/selected_tab/selected_tab.dart';
 
 class WorkoutPlayerManualScreen extends StatefulWidget {
-  const WorkoutPlayerManualScreen({super.key});
+  final bool isShowSelected;
+  const WorkoutPlayerManualScreen({super.key, this.isShowSelected = false});
 
   @override
   State<WorkoutPlayerManualScreen> createState() =>
@@ -22,7 +23,8 @@ class _WorkoutPlayerManualScreenState extends State<WorkoutPlayerManualScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(
+        length: 2, vsync: this, initialIndex: widget.isShowSelected ? 2 : 1);
     _filterTabController = TabController(length: 4, vsync: this);
     _filterTabController.addListener(_updateTabStyle); //listen
   }

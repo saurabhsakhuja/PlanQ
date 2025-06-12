@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plan_q/gen/assets.gen.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
+import 'package:plan_q/src/locator.dart';
 
 class SelectedTab extends StatelessWidget {
   const SelectedTab({super.key});
@@ -49,7 +51,7 @@ class SelectedTab extends StatelessWidget {
                   ),
                 ],
               ),
-              onPressed: () {},
+              onPressed: () => locator<GoRouter>().pop(),
             ),
           ),
         ],
@@ -185,13 +187,20 @@ class SelectedTab extends StatelessWidget {
           bottom: 0,
           child: Column(
             children: [
+              // Top line
+              Expanded(
+                child: Container(
+                  width: 2,
+                  color: const Color(0xff18181B),
+                ),
+              ),
+              // Circle
               Container(
-                height: isCircuit ? 45 : 35,
-                width: isCircuit ? 45 : 35,
+                height: isCircuit ? 35 : 35,
+                width: isCircuit ? 35 : 35,
                 decoration: BoxDecoration(
-                  color: isCircuit ? Colors.white : Color(0xff18181B),
+                  color: isCircuit ? Colors.white : const Color(0xff18181B),
                   shape: BoxShape.circle,
-                  // border: Border.all(color: Colors.white, width: 1.5),
                 ),
                 alignment: Alignment.center,
                 child: isCircuit
@@ -205,11 +214,11 @@ class SelectedTab extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                       ),
               ),
+              // Bottom line
               Expanded(
                 child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 4),
                   width: 2,
-                  color: Color(0xff18181B),
+                  color: const Color(0xff18181B),
                 ),
               ),
             ],

@@ -93,7 +93,8 @@ final router = GoRouter(
     GoRoute(
       name: AppRoutes.WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_NAME,
       path: AppRoutes.WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_PATH,
-      builder: (_, __) => const WorkoutPlayerManualScreen(),
+      builder: (_, state) =>
+          WorkoutPlayerManualScreen(isShowSelected: state.extra as bool),
     ),
     GoRoute(
       name: AppRoutes.SELECT_ROUND_SCREEN_ROUTE_NAME,

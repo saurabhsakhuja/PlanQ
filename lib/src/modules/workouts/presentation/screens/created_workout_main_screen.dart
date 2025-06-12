@@ -98,7 +98,8 @@ class _CreatedWorkoutMainScreenState extends State<CreatedWorkoutMainScreen> {
               ),
               onPressed: () {
                 locator<GoRouter>().pushNamed(
-                    AppRoutes.WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_NAME);
+                    AppRoutes.WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_NAME,
+                    extra: false);
               },
             ),
           ],
@@ -189,78 +190,85 @@ class _CreatedWorkoutMainScreenState extends State<CreatedWorkoutMainScreen> {
       {required String count,
       required String title,
       required String daysCount}) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Color(0xff1F2937), width: 0.5),
-        borderRadius: BorderRadius.circular(20),
-        color: const Color(0xff111111),
-      ),
-      padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                height: 57,
-                width: 57,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color(0xff202020),
-                        Color(0xff1A1919),
-                        Color(0xff202020),
-                      ],
-                    )),
-                child: Center(
-                  child: Text(
-                    count,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(color: Colors.white, fontSize: 24),
+    return InkWell(
+      onTap: () {
+        locator<GoRouter>().pushNamed(
+            AppRoutes.WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_NAME,
+            extra: true);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Color(0xff1F2937), width: 0.5),
+          borderRadius: BorderRadius.circular(20),
+          color: const Color(0xff111111),
+        ),
+        padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height: 57,
+                  width: 57,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color(0xff202020),
+                          Color(0xff1A1919),
+                          Color(0xff202020),
+                        ],
+                      )),
+                  child: Center(
+                    child: Text(
+                      count,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(color: Colors.white, fontSize: 24),
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: Image.asset(Assets.images.settingsIcon.path, scale: 4),
-              )
-            ],
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(fontSize: 18, fontWeight: FontWeight.w500),
-              ),
-              Text(
-                'Days $daysCount',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleSmall!
-                    .copyWith(fontSize: 14, color: Color(0xff9CA3AF)),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 4,
-            child: GradientProgressBar(
-              progress: .2,
-              backGroundColor: ColorConstant.blackColor,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: Image.asset(Assets.images.settingsIcon.path, scale: 4),
+                )
+              ],
             ),
-          ),
-        ],
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(fontSize: 18, fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  'Days $daysCount',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleSmall!
+                      .copyWith(fontSize: 14, color: Color(0xff9CA3AF)),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 4,
+              child: GradientProgressBar(
+                progress: .2,
+                backGroundColor: ColorConstant.blackColor,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
