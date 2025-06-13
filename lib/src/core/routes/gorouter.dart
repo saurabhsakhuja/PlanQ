@@ -29,98 +29,104 @@ final shellNavigatorKeyD = GlobalKey<NavigatorState>();
 final shellNavigatorKeyE = GlobalKey<NavigatorState>();
 final shellNavigatorKeyF = GlobalKey<NavigatorState>();
 
+CustomTransitionPage<T> buildPageWithTransition<T>(Widget child) {
+  return CustomTransitionPage<T>(
+    transitionDuration: const Duration(milliseconds: 300),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      final tween = Tween(begin: const Offset(1, 0), end: Offset.zero)
+          .chain(CurveTween(curve: Curves.easeInOut));
+      return SlideTransition(position: animation.drive(tween), child: child);
+    },
+    child: child,
+  );
+}
+
 final router = GoRouter(
   navigatorKey: locator<GlobalKey<NavigatorState>>(),
   initialLocation: AppRoutes.INTRO_SCREEN_ROUTE_PATH,
   redirect: (context, state) {
     final loginStatus = context.read<LoginStatusCubit>().state;
-    // if (loginStatus == false) {
-    //   if (state.matchedLocation == AppRoutes.LOGIN_SCREEN_ROUTE_PATH ||
-    //       state.matchedLocation == AppRoutes.REGISTER_SCREEN_ROUTE_PATH ||
-    //       state.matchedLocation == AppRoutes.FORGOT_SCREEN_ROUTE_PATH) {
-    //     return null;
-    //   }
-    //   return AppRoutes.INTRO_SCREEN_ROUTE_PATH;
-    // }
     return null;
   },
   routes: [
     GoRoute(
       name: AppRoutes.SPLASH_SCREEN_ROUTE_NAME,
       path: AppRoutes.SPLASH_SCREEN_ROUTE_PATH,
-      builder: (_, __) => const SplashScreen(),
+      pageBuilder: (_, __) => buildPageWithTransition(const SplashScreen()),
     ),
     GoRoute(
       name: AppRoutes.INTRO_SCREEN_ROUTE_NAME,
       path: AppRoutes.INTRO_SCREEN_ROUTE_PATH,
-      builder: (_, __) => const IntroScreen(),
+      pageBuilder: (_, __) => buildPageWithTransition(const IntroScreen()),
     ),
     GoRoute(
       name: AppRoutes.REGISTER_SCREEN_ROUTE_NAME,
       path: AppRoutes.REGISTER_SCREEN_ROUTE_PATH,
-      builder: (_, __) => const RegisterScreen(),
+      pageBuilder: (_, __) => buildPageWithTransition(const RegisterScreen()),
     ),
     GoRoute(
       name: AppRoutes.LOGIN_SCREEN_ROUTE_NAME,
       path: AppRoutes.LOGIN_SCREEN_ROUTE_PATH,
-      builder: (_, __) => LoginScreen(),
+      pageBuilder: (_, __) => buildPageWithTransition(LoginScreen()),
     ),
     GoRoute(
       name: AppRoutes.GENERAL_DETAIL_FILLUP_SCREEN_ROUTE_NAME,
       path: AppRoutes.GENERAL_DETAIL_FILLUP_SCREEN_ROUTE_PATH,
-      builder: (_, __) => const GeneralDetailFillupScreen(),
+      pageBuilder: (_, __) => buildPageWithTransition(const GeneralDetailFillupScreen()),
     ),
     GoRoute(
       name: AppRoutes.WORKOUTS_MAIN_SCREEN_ROUTE_NAME,
       path: AppRoutes.WORKOUTS_MAIN_SCREEN_ROUTE_PATH,
-      builder: (_, __) => const WorkoutsMainScreen(),
+      pageBuilder: (_, __) => buildPageWithTransition(const WorkoutsMainScreen()),
     ),
     GoRoute(
       name: AppRoutes.MY_WORKOUTS_SCREEN_ROUTE_NAME,
       path: AppRoutes.MY_WORKOUTS_SCREEN_ROUTE_PATH,
-      builder: (_, __) => const MyWorkoutsScreen(),
+      pageBuilder: (_, __) => buildPageWithTransition(const MyWorkoutsScreen()),
     ),
     GoRoute(
       name: AppRoutes.LIBRARY_SCREEN_ROUTE_NAME,
       path: AppRoutes.LIBRARY_SCREEN_ROUTE_PATH,
-      builder: (_, __) => const LibraryScreen(),
+      pageBuilder: (_, __) => buildPageWithTransition(const LibraryScreen()),
     ),
     GoRoute(
       name: AppRoutes.CREATE_NEW_WORKOUT_SCREEN_ROUTE_NAME,
       path: AppRoutes.CREATE_NEW_WORKOUT_SCREEN_ROUTE_PATH,
-      builder: (_, __) => const CreateNewWorkoutScreen(),
+      pageBuilder: (_, __) => buildPageWithTransition(const CreateNewWorkoutScreen()),
     ),
     GoRoute(
       name: AppRoutes.WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_NAME,
       path: AppRoutes.WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_PATH,
-      builder: (_, state) =>
-          WorkoutPlayerManualScreen(isShowSelected: state.extra as bool),
+      pageBuilder: (_, state) => buildPageWithTransition(
+          WorkoutPlayerManualScreen(isShowSelected: state.extra as bool)),
     ),
     GoRoute(
       name: AppRoutes.SELECT_ROUND_SCREEN_ROUTE_NAME,
       path: AppRoutes.SELECT_ROUND_SCREEN_ROUTE_PATH,
-      builder: (_, __) => SelectRoundScreen(),
+      pageBuilder: (_, __) => buildPageWithTransition(SelectRoundScreen()),
     ),
     GoRoute(
       name: AppRoutes.CUSTOM_WORKOUT_SCREEN_ROUTE_NAME,
       path: AppRoutes.CUSTOM_WORKOUT_SCREEN_ROUTE_PATH,
-      builder: (_, __) => CustomWorkoutScreen(),
+      pageBuilder: (_, __) => buildPageWithTransition(CustomWorkoutScreen()),
     ),
     GoRoute(
       name: AppRoutes.EXERCISE_DETAIL_SCREEN_ROUTE_NAME,
       path: AppRoutes.EXERCISE_DETAIL_SCREEN_ROUTE_PATH,
-      builder: (_, state) => ExerciseDetailScreen(
-          exerciseName: state.uri.queryParameters['exerciseName'] ?? ''),
+      pageBuilder: (_, state) => buildPageWithTransition(
+          ExerciseDetailScreen(
+              exerciseName:
+                  state.uri.queryParameters['exerciseName'] ?? '')),
     ),
     GoRoute(
       name: AppRoutes.ARM_CIRCUIT_DETAIL_SCREEN_ROUTE_NAME,
       path: AppRoutes.ARM_CIRCUIT_DETAIL_SCREEN_ROUTE_PATH,
-      builder: (_, __) => ArmCircuitDetailScreen(),
+      pageBuilder: (_, __) => buildPageWithTransition(ArmCircuitDetailScreen()),
     ),
     GoRoute(
       name: AppRoutes.CREATED_WORKOUT_MAIN_SCREEN_ROUTE_NAME,
       path: AppRoutes.CREATED_WORKOUT_MAIN_SCREEN_ROUTE_PATH,
-      builder: (_, __) => CreatedWorkoutMainScreen(),
+      pageBuilder: (_, __) => buildPageWithTransition(CreatedWorkoutMainScreen()),
     ),
     StatefulShellRoute.indexedStack(
       builder: (_, __, navigationShell) {
@@ -133,7 +139,7 @@ final router = GoRouter(
             GoRoute(
               name: AppRoutes.HOME_SCREEN_ROUTE_NAME,
               path: AppRoutes.HOME_SCREEN_ROUTE_PATH,
-              builder: (_, __) => const HomeScreen(),
+              pageBuilder: (_, __) => buildPageWithTransition(const HomeScreen()),
             ),
           ],
         ),

@@ -74,6 +74,9 @@ class $AssetsImagesGen {
   AssetGenImage get arrowRight =>
       const AssetGenImage('assets/images/arrowRight.png');
 
+  /// File path: assets/images/check.png
+  AssetGenImage get check => const AssetGenImage('assets/images/check.png');
+
   /// File path: assets/images/circleButtonIcon.png
   AssetGenImage get circleButtonIcon =>
       const AssetGenImage('assets/images/circleButtonIcon.png');
@@ -90,6 +93,14 @@ class $AssetsImagesGen {
   AssetGenImage get introBg =>
       const AssetGenImage('assets/images/introBg.jpeg');
 
+  /// File path: assets/images/introBg2.png
+  AssetGenImage get introBg2 =>
+      const AssetGenImage('assets/images/introBg2.png');
+
+  /// File path: assets/images/introBg3.png
+  AssetGenImage get introBg3 =>
+      const AssetGenImage('assets/images/introBg3.png');
+
   /// File path: assets/images/lightningIcon.png
   AssetGenImage get lightningIcon =>
       const AssetGenImage('assets/images/lightningIcon.png');
@@ -100,6 +111,14 @@ class $AssetsImagesGen {
   /// File path: assets/images/marcketPlaceIcon.png
   AssetGenImage get marcketPlaceIcon =>
       const AssetGenImage('assets/images/marcketPlaceIcon.png');
+
+  /// File path: assets/images/minusIcon.png
+  AssetGenImage get minusIcon =>
+      const AssetGenImage('assets/images/minusIcon.png');
+
+  /// File path: assets/images/plusIcon.png
+  AssetGenImage get plusIcon =>
+      const AssetGenImage('assets/images/plusIcon.png');
 
   /// File path: assets/images/polygonIcons.png
   AssetGenImage get polygonIcons =>
@@ -113,6 +132,10 @@ class $AssetsImagesGen {
   AssetGenImage get replaceIcon =>
       const AssetGenImage('assets/images/replaceIcon.png');
 
+  /// File path: assets/images/selectedCircleButton.png
+  AssetGenImage get selectedCircleButton =>
+      const AssetGenImage('assets/images/selectedCircleButton.png');
+
   /// File path: assets/images/settingsIcon.png
   AssetGenImage get settingsIcon =>
       const AssetGenImage('assets/images/settingsIcon.png');
@@ -120,6 +143,14 @@ class $AssetsImagesGen {
   /// File path: assets/images/tropyIcon.png
   AssetGenImage get tropyIcon =>
       const AssetGenImage('assets/images/tropyIcon.png');
+
+  /// File path: assets/images/visibilityIocn.png
+  AssetGenImage get visibilityIocn =>
+      const AssetGenImage('assets/images/visibilityIocn.png');
+
+  /// File path: assets/images/visibilityOffIcon.png
+  AssetGenImage get visibilityOffIcon =>
+      const AssetGenImage('assets/images/visibilityOffIcon.png');
 
   /// File path: assets/images/whereDoYouPreferToGym.png
   AssetGenImage get whereDoYouPreferToGym =>
@@ -150,18 +181,26 @@ class $AssetsImagesGen {
     addBlueIcon,
     aiMadeIcon,
     arrowRight,
+    check,
     circleButtonIcon,
     dumbleIcon,
     exerciseDetail,
     introBg,
+    introBg2,
+    introBg3,
     lightningIcon,
     logo,
     marcketPlaceIcon,
+    minusIcon,
+    plusIcon,
     polygonIcons,
     pulsIcon,
     replaceIcon,
+    selectedCircleButton,
     settingsIcon,
     tropyIcon,
+    visibilityIocn,
+    visibilityOffIcon,
     whereDoYouPreferToGym,
     whereDoYouPreferToGym1,
     whereDoYouPreferToGym2,

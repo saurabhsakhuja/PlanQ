@@ -1,7 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:plan_q/gen/assets.gen.dart';
+import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
+import 'package:plan_q/src/core/common/widgets/common_textfield_widget.dart';
 import 'package:plan_q/src/core/constants/app_routes.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 
@@ -43,19 +47,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
         padding: const EdgeInsets.symmetric(vertical: 4),
         child: Row(
           children: [
-            Icon(
-              isMet ? Icons.check_circle : Icons.radio_button_unchecked,
-              color: isMet
-                  ? ColorConstant.accentMintGeenColor
-                  : ColorConstant.whiteColor,
-              size: 18,
-            ),
+            isMet
+                ? Container(
+                    height: 18,
+                    width: 18,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: Color(0xff77C2BA)),
+                    child: Assets.images.check.image(scale: 4),
+                  )
+                : Icon(
+                    Icons.radio_button_unchecked,
+                    color: Color(0xffBFBFBF),
+                    size: 18,
+                  ),
             const SizedBox(width: 8),
             Text(text,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: ColorConstant.whiteColor)),
+                style:
+                    GoogleFonts.inter(color: Color(0xffBFBFBF), fontSize: 12)),
           ],
         ),
       ),
@@ -69,6 +77,101 @@ class _RegisterScreenState extends State<RegisterScreen> {
       appBar: AppBar(
           backgroundColor: ColorConstant.backgroundColor,
           leading: BackButton()),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 200),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Register New Account',
+                  style: GoogleFonts.inter(
+                      fontSize: 28, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Fill the information to complete the registration',
+                  style: GoogleFonts.inter(
+                      fontSize: 12, color: ColorConstant.secondaryDark),
+                ),
+                const SizedBox(height: 30),
+
+                // Full Name
+                _titleText(title: 'Full name'),
+                const SizedBox(height: 12),
+                CustomTextField(
+                    controller: _fullNameController, hint: "Full Name"),
+
+                const SizedBox(height: 10),
+
+                // Email
+                _titleText(title: 'Email'),
+                const SizedBox(height: 12),
+                CustomTextField(
+                    controller: _emailController, hint: "Email Address"),
+
+                const SizedBox(height: 10),
+
+                // Password
+                _titleText(title: "Password"),
+                const SizedBox(height: 12),
+                CustomTextField(
+                  controller: _passwordController,
+                  hint: "Password",
+                  obscureText: obscurePassword,
+                  toggleObscure: () =>
+                      setState(() => obscurePassword = !obscurePassword),
+                  onChanged: validatePassword,
+                ),
+                //Secure password indicators bars
+                const SizedBox(height: 10),
+                Row(
+                  children: List.generate(4, (index) {
+                    return _buildPasswordBar(
+                        index < _getPasswordStrengthLevel());
+                  }),
+                ),
+
+                const SizedBox(height: 10),
+                //Secure password indicators
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _buildPasswordRequirement(
+                        "Special character", hasSpecialCharacter),
+                    _buildPasswordRequirement("At least a number", hasNumber),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _buildPasswordRequirement(
+                        "Al least 8 characters", hasMinLength),
+                    _buildPasswordRequirement(
+                        "Uppercase character", hasUppercase),
+                  ],
+                ),
+                const SizedBox(height: 16),
+
+                // Confirm Password
+                _titleText(title: "Confirm Password"),
+                const SizedBox(height: 6),
+                CustomTextField(
+                  controller: _confirmPasswordController,
+                  hint: "Confirm Password",
+                  obscureText: obscureConfirmPassword,
+                  toggleObscure: () => setState(
+                      () => obscureConfirmPassword = !obscureConfirmPassword),
+                ),
+
+                const SizedBox(height: 30),
+              ],
+            ),
+          ),
+        ),
+      ),
       bottomSheet: SafeArea(
         child: ColoredBox(
           color: ColorConstant.backgroundColor,
@@ -81,7 +184,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 CommonSubmitButton(
                     child: Text(
                       'Create Account',
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
                     ),
                     onPressed: () {}),
                 const SizedBox(height: 20),
@@ -89,97 +195,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SizedBox(height: 26)
               ],
             ),
-          ),
-        ),
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 10),
-              Text(
-                'Register New Account',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Fill the information to complete the registration',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: ColorConstant.secondaryDark),
-              ),
-              const SizedBox(height: 24),
-
-              // Full Name
-              _titleText(title: 'Full name'),
-              const SizedBox(height: 6),
-              _buildTextField(_fullNameController, "Full Name"),
-
-              const SizedBox(height: 16),
-
-              // Email
-              _titleText(title: 'Email'),
-              const SizedBox(height: 6),
-              _buildTextField(_emailController, "Email Address"),
-
-              const SizedBox(height: 16),
-
-              // Password
-              _titleText(title: "Password"),
-              const SizedBox(height: 6),
-              _buildTextField(
-                _passwordController,
-                "Password",
-                obscureText: obscurePassword,
-                toggleObscure: () =>
-                    setState(() => obscurePassword = !obscurePassword),
-                onChanged: validatePassword,
-              ),
-              //Secure password indicators bars
-              const SizedBox(height: 8),
-              Row(
-                children: List.generate(4, (index) {
-                  return _buildPasswordBar(index < _getPasswordStrengthLevel());
-                }),
-              ),
-
-              const SizedBox(height: 8),
-              //Secure password indicators
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _buildPasswordRequirement(
-                      "Special character", hasSpecialCharacter),
-                  _buildPasswordRequirement("At least a number", hasNumber),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _buildPasswordRequirement(
-                      "Al least 8 characters", hasMinLength),
-                  _buildPasswordRequirement(
-                      "Uppercase character", hasUppercase),
-                ],
-              ),
-              const SizedBox(height: 16),
-
-              // Confirm Password
-              _titleText(title: "Confirm Password"),
-              const SizedBox(height: 6),
-              _buildTextField(
-                _confirmPasswordController,
-                "Confirm Password",
-                obscureText: obscureConfirmPassword,
-                toggleObscure: () => setState(
-                    () => obscureConfirmPassword = !obscureConfirmPassword),
-              ),
-
-              const SizedBox(height: 30),
-            ],
           ),
         ),
       ),
@@ -203,18 +218,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
         children: <TextSpan>[
           TextSpan(
             text: "Already have an account? ",
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(color: ColorConstant.whiteColor),
+            style: GoogleFonts.inter(
+              fontWeight: FontWeight.w400,
+              fontSize: 14,
+            ),
           ),
           TextSpan(
             text: 'Sign In',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: ColorConstant.accentMintGeenColor,
-                  decoration: TextDecoration.underline,
-                ),
+            style: GoogleFonts.inter(
+              fontWeight: FontWeight.w400,
+              fontSize: 14,
+              color: Color(0xff77C2BA),
+            ),
             onEnter: (event) {},
             onExit: (event) {},
             recognizer: TapGestureRecognizer()
@@ -229,49 +244,52 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-//Textfield to fill form fields
-  Widget _buildTextField(TextEditingController controller, String hint,
-      {bool obscureText = false,
-      void Function()? toggleObscure,
-      void Function(String)? onChanged}) {
-    return Container(
-      decoration: BoxDecoration(
-        color: ColorConstant.textFieldBg,
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: TextField(
-        controller: controller,
-        obscureText: obscureText,
-        onChanged: onChanged,
-        style: Theme.of(context)
-            .textTheme
-            .bodyMedium
-            ?.copyWith(color: ColorConstant.whiteColor),
-        decoration: InputDecoration(
-          hintText: hint,
-          hintStyle: TextStyle(color: ColorConstant.offWhite),
-          border: InputBorder.none,
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-          suffixIcon: toggleObscure != null
-              ? IconButton(
-                  icon: Icon(
-                    obscureText ? Icons.visibility_off : Icons.visibility,
-                    color: ColorConstant.whiteColor,
-                  ),
-                  onPressed: toggleObscure,
-                )
-              : null,
-        ),
-      ),
-    );
-  }
+// //Textfield to fill form fields
+//   Widget _buildTextField(TextEditingController controller, String hint,
+//       {bool obscureText = false,
+//       void Function()? toggleObscure,
+//       void Function(String)? onChanged}) {
+//     return Container(
+//       decoration: BoxDecoration(
+//         color: ColorConstant.textFieldBg,
+//         borderRadius: BorderRadius.circular(16),
+//       ),
+//       child: TextField(
+//         controller: controller,
+//         obscureText: obscureText,
+//         onChanged: onChanged,
+//         cursorColor: Colors.white,
+//         style: Theme.of(context)
+//             .textTheme
+//             .bodyMedium
+//             ?.copyWith(color: ColorConstant.whiteColor),
+//         decoration: InputDecoration(
+//           hintText: hint,
+//           hintStyle: TextStyle(color: ColorConstant.offWhite),
+//           border: InputBorder.none,
+//           contentPadding:
+//               const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+//           suffixIcon: toggleObscure != null
+//               ? InkWell(
+//                   onTap: toggleObscure,
+//                   child: obscureText
+//                       ? Assets.images.visibilityOffIcon.image(scale: 3)
+//                       : Icon(
+//                           Icons.visibility,
+//                           color: ColorConstant.whiteColor,
+//                         ),
+//                 )
+//               : null,
+//         ),
+//       ),
+//     );
+//   }
 
 //Strong Password Indicator bar
   Widget _buildPasswordBar(bool isActive) {
     return Expanded(
       child: Container(
-        height: 4,
+        height: 5,
         margin: const EdgeInsets.symmetric(horizontal: 2),
         decoration: BoxDecoration(
           gradient: LinearGradient(

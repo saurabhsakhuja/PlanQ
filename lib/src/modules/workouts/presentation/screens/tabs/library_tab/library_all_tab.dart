@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
+import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/app_routes.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
@@ -150,7 +151,10 @@ class _LibraryAllTabState extends State<LibraryAllTab> {
             children: [
               Text(
                 'Add to Workout (${_selectedExercises.length})',
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
               ),
             ],
           ),

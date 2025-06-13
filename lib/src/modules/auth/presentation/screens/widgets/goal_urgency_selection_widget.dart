@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plan_q/gen/assets.gen.dart';
+import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/general_detail_fillup_screen.dart';
 import 'package:flutter_svg/svg.dart';
@@ -82,7 +83,10 @@ class _GoalUrgencySelectionWidgetState
               onPressed: widget.onContinue,
               child: Text(
                 'Continue',
-                style: Theme.of(context).textTheme.titleMedium,
+                style:  Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
               ),
             ),
           ),

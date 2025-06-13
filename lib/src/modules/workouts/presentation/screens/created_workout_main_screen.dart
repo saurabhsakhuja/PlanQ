@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plan_q/gen/assets.gen.dart';
+import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/common/widgets/custom_appbar.dart';
 import 'package:plan_q/src/core/common/widgets/filter_button.dart';
@@ -90,7 +91,10 @@ class _CreatedWorkoutMainScreenState extends State<CreatedWorkoutMainScreen> {
                 children: [
                   Text(
                     'Create New Workout',
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style:  Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
                   ),
                   SizedBox(width: 8),
                   SvgPicture.asset(Assets.svgs.fireIcon)

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plan_q/gen/assets.gen.dart';
+import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/locator.dart';
 
@@ -47,7 +48,10 @@ class SelectedTab extends StatelessWidget {
                 children: [
                   Text(
                     'Save Workout',
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style:  Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
                   ),
                 ],
               ),

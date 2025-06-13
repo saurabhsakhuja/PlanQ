@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/general_detail_fillup_screen.dart';
@@ -106,12 +107,15 @@ class _ActivityLevelQuestionWidgetState
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 6),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
             child: CommonSubmitButton(
-              onPressed: widget.onContinue, // Call the callback when pressed
+              onPressed: widget.onContinue,
               child: Text(
                 'Continue',
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
               ),
             ),
           ),
@@ -139,7 +143,6 @@ class _ActivityLevelQuestionWidgetState
                   width: isSelected ? 0.8 : 0.5),
               borderRadius: BorderRadius.circular(20))
           : BoxDecoration(
-      
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -148,8 +151,8 @@ class _ActivityLevelQuestionWidgetState
                     ColorConstant.mainContentGradientColor
                   ]),
               // color: ColorConstant.lightBlueColor,
-              border:
-                  Border.all(color: ColorConstant.darkGreyBorderColor, width: 0.5),
+              border: Border.all(
+                  color: ColorConstant.darkGreyBorderColor, width: 0.5),
               borderRadius: BorderRadius.circular(20)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

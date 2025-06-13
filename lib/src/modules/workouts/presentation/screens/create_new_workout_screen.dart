@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/common/widgets/custom_appbar.dart';
 import 'package:plan_q/src/core/constants/app_routes.dart';
@@ -184,7 +185,7 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
                 ),
                 const SizedBox(height: 10),
                 Container(
-                  height: 96, 
+                  height: 96,
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   decoration: BoxDecoration(
                     color: Color(0xff151515),
@@ -230,7 +231,10 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
                     children: [
                       Text(
                         'Create',
-                        style: Theme.of(context).textTheme.titleMedium,
+                        style:  Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
                       ),
                     ],
                   ),

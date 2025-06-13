@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plan_q/gen/assets.gen.dart';
+import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/common/widgets/custom_appbar.dart';
 import 'package:plan_q/src/locator.dart';
@@ -66,7 +67,13 @@ class _SelectRoundScreenState extends State<SelectRoundScreen> {
                   height: 42,
                   width: 96,
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: const Text('Confirm'),
+                  child: Text(
+                    'Confirm',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
+                  ),
                   onPressed: () {
                     locator<GoRouter>().pop();
                     // locator<GoRouter>()
@@ -390,7 +397,10 @@ class _SelectRoundScreenState extends State<SelectRoundScreen> {
             children: [
               Padding(
                   padding: const EdgeInsets.only(bottom: 8),
-                  child: Image.asset(iconPath,scale: 4,)),
+                  child: Image.asset(
+                    iconPath,
+                    scale: 4,
+                  )),
               Text(
                 type,
                 style: TextStyle(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
+import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/select_round_screen.dart';
@@ -147,7 +148,10 @@ class _LibraryRecentTabState extends State<LibraryRecentTab> {
               children: [
                 Text(
                   'Add to Workout (${_selectedExercises.length})',
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
                 ),
               ],
             ),

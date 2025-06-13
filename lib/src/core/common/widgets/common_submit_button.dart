@@ -8,7 +8,7 @@ class CommonSubmitButton extends StatelessWidget {
   final BorderRadius? borderRadius;
   final EdgeInsets? padding;
   final double? width;
-  final double? height; // Added height property
+  final double? height;
 
   const CommonSubmitButton({
     super.key,
@@ -18,7 +18,7 @@ class CommonSubmitButton extends StatelessWidget {
     this.borderRadius,
     this.padding,
     this.width,
-    this.height, // Added this.height
+    this.height,
   });
 
   @override
@@ -29,7 +29,13 @@ class CommonSubmitButton extends StatelessWidget {
         gradient: LinearGradient(
           colors: [
             ColorConstant.buttonBorderGradient1Color,
-            ColorConstant.buttonBorderGradient2Color,
+            const Color(0xfffb65fb),
+            const Color(0xfffb65fb),
+            const Color(0xfffb65fb),
+            const Color(0xfffb65fb),
+            const Color(0xfffb65fb),
+            const Color(0xfffb65fb),
+            const Color(0xfffb65fb),
             ColorConstant.buttonBorderGradient3Color,
           ],
         ),
@@ -37,27 +43,35 @@ class CommonSubmitButton extends StatelessWidget {
       ),
       padding: const EdgeInsets.symmetric(vertical: 1),
       child: Container(
-        height: height, // Use height if provided
+        height: height,
         width: width ?? double.maxFinite,
         decoration: BoxDecoration(
+          
           gradient: const LinearGradient(
             colors: [
               ColorConstant.buttonGradient1Color,
+              
               ColorConstant.buttonGradient2Color,
             ],
           ),
           borderRadius: borderRadius ?? BorderRadius.circular(50),
         ),
-        padding: const EdgeInsets.symmetric(vertical: 4),
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: onPressed,
-            borderRadius: borderRadius ?? BorderRadius.circular(8.0),
-            child: Padding(
-              padding: padding ??
-                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
-              child: Center(child: child),
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: borderRadius ?? BorderRadius.circular(50),
+              color: Colors.white.withOpacity(.12)),
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: onPressed,
+              borderRadius: borderRadius ?? BorderRadius.circular(8.0),
+              child: Padding(
+                padding: padding ??
+                    const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 12.0),
+                child: Center(child: child),
+              ),
             ),
           ),
         ),

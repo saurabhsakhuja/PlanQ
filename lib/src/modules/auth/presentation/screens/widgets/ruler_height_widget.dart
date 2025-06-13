@@ -149,48 +149,23 @@ class _RulerHeightWidgetState extends State<RulerHeightWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             InkWell(
-              onTap: () => _changeHeightBy(-1),
-              child: Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: ColorConstant.blackColor,
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: ColorConstant.lightGreyColor,
-                    width: 0.5,
-                  ),
-                ),
-                child: const Icon(
-                  Icons.remove,
-                  color: Colors.white,
-                  size: 14,
-                ),
-              ),
-            ),
+                onTap: () => _changeHeightBy(-1),
+                child: Assets.images.minusIcon
+                    .image(height: 44, width: 44, fit: BoxFit.fill)),
             const SizedBox(width: 20),
             Text(
               currentHeightInCm.toStringAsFixed(0),
-              style: const TextStyle(
-                fontSize: 34,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 34,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
             ),
             const SizedBox(width: 20),
             InkWell(
               onTap: () => _changeHeightBy(1),
-              child: Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: ColorConstant.blackColor,
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: ColorConstant.lightGreyColor,
-                    width: 0.5,
-                  ),
-                ),
-                child: const Icon(Icons.add, color: Colors.white, size: 14),
-              ),
+              child: Assets.images.plusIcon
+                  .image(height: 44, width: 44, fit: BoxFit.fill),
             ),
           ],
         ),
@@ -198,7 +173,7 @@ class _RulerHeightWidgetState extends State<RulerHeightWidget> {
         Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.only(top: 0),
               child: GestureDetector(
                 onTapDown: (details) {
                   final RenderBox? scrollViewRenderBox =
@@ -243,7 +218,7 @@ class _RulerHeightWidgetState extends State<RulerHeightWidget> {
                 children: [
                   Column(
                     children: [
-                      SvgPicture.asset(Assets.svgs.heightIndicatorMain),
+                      SvgPicture.asset(Assets.svgs.heightIndicatorMain,height: 77,),
                       SizedBox(height: 10),
                       SvgPicture.asset(Assets.svgs.heightIndicatorTriangle),
                     ],

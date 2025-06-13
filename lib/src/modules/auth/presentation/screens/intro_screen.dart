@@ -1,15 +1,29 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:plan_q/gen/assets.gen.dart';
+import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/app_routes.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 
-class IntroScreen extends StatelessWidget {
+class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
+
+  @override
+  State<IntroScreen> createState() => _IntroScreenState();
+}
+
+class _IntroScreenState extends State<IntroScreen> {
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
+  final List<String> introImages = [
+    Assets.images.introBg.path,
+    Assets.images.introBg2.path,
+    Assets.images.introBg3.path,
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +35,39 @@ class IntroScreen extends StatelessWidget {
               children: [
                 Stack(
                   children: [
+                    // SizedBox(
+                    //   height: MediaQuery.of(context).size.height * 0.66,
+                    // child:
                     Image.asset(
                       Assets.images.introBg.path,
                       width: double.maxFinite,
                       height: MediaQuery.of(context).size.height * 0.66,
                       fit: BoxFit.cover,
                     ),
+                    //  PageView.builder(
+                    //   controller: _pageController,
+                    //   physics: ScrollPhysics(),
+                    //   scrollDirection: Axis.horizontal,
+                    //   itemCount: introImages.length,
+                    //   onPageChanged: (index) {
+                    //     setState(() {
+                    //       _currentPage = index;
+                    //     });
+                    //   },
+                    //   itemBuilder: (context, index) {
+                    //     return Image.asset(
+                    //       introImages[index],
+                    //       fit: BoxFit.cover,
+                    //     );
+                    //   },
+                    // ),
+                    // ),
+                    // Positioned(
+                    //   top: 40,
+                    //   left: 10,
+                    //   right: 10,
+                    //   child: _buildIndicators(),
+                    // ),
                     _buildBottomShadow(context),
                     _buildLable(),
                   ],
@@ -40,26 +81,30 @@ class IntroScreen extends StatelessWidget {
                       Text(
                         'Fitness That Fits You',
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            fontSize: 32, fontWeight: FontWeight.w600),
+                            fontSize: 36, fontWeight: FontWeight.w600),
                       ),
-                      // SizedBox(height: 10),
                       Text(
                         "Your journey starts here. We'll craft a plan that bends to your life, goals, and vibe—because getting stronger should feel fun, not forced.",
-                        style:
-                            Theme.of(context).textTheme.bodyMedium?.copyWith(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(fontSize: 14),
                       ),
                       SizedBox(height: 20),
                       CommonSubmitButton(
-                          child: Text(
-                            'Get Started',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
+                          height: 60,
                           onPressed: () {
                             GoRouter.of(context).pushNamed(AppRoutes
                                 .GENERAL_DETAIL_FILLUP_SCREEN_ROUTE_NAME);
-                            // GoRouter.of(context).goNamed(
-                            //     AppRoutes.WORKOUTS_MAIN_SCREEN_ROUTE_NAME);
-                          }),
+                          },
+                          child: Text(
+                            'Get Started',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                    fontSize: 17, fontWeight: FontWeight.w400),
+                          )),
                       SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -77,6 +122,26 @@ class IntroScreen extends StatelessWidget {
       ),
     );
   }
+
+  // Widget _buildIndicators() {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children: List.generate(introImages.length, (index) {
+  //       return AnimatedContainer(
+  //         duration: const Duration(milliseconds: 300),
+  //         margin: const EdgeInsets.symmetric(horizontal: 4),
+  //         width: MediaQuery.sizeOf(context).width / 4,
+  //         height: 7,
+  //         decoration: BoxDecoration(
+  //           borderRadius: BorderRadius.circular(11),
+  //           color: _currentPage == index
+  //               ? ColorConstant.whiteColor
+  //               : Colors.white30,
+  //         ),
+  //       );
+  //     }),
+  //   );
+  // }
 
   Widget _buildBottomShadow(BuildContext context) {
     return Positioned(

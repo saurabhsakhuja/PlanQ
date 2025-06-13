@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/general_detail_fillup_screen.dart';
@@ -47,73 +48,96 @@ class _PersonalDescriptorQuestionWidgetState
       child: Column(
         children: [
           Container(
+            height: 551,
             margin: const EdgeInsets.all(20),
             decoration: BoxDecoration(
                 // color: ColorConstant.mainContentGradientColor,
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
+                    stops: [
+                      0.1,
+                      1.0
+                    ],
                     colors: [
-                      ColorConstant.blackColor.withOpacity(0.5),
-                      ColorConstant.mainContentGradientColor
+                      ColorConstant.blackColor.withOpacity(0),
+                      Color(0xff121624),
                     ]),
                 // color: ColorConstant.lightBlueColor,
                 border:
                     Border.all(color: ColorConstant.lightGreyColor, width: 0.5),
                 borderRadius: BorderRadius.circular(20)),
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Gender Question
-                  Text(
-                    "What's Your Gender?",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(fontWeight: FontWeight.w400),
-                  ),
-                  const SizedBox(height: 20),
-                  Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: ColorConstant.lightGreyColor, width: 0.5),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Row(
-                      children: [
-                        _buildGenderButton('Male', 'Male'),
-                        const SizedBox(width: 12),
-                        _buildGenderButton('Female', 'Female'),
-                      ],
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: [
+                      0.2,
+                      1.0
+                    ],
+                    colors: [
+                      ColorConstant.blackColor.withOpacity(0),
+                      Color(0xffffffff).withOpacity(.03),
+                    ]),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Gender Question
+                    Text(
+                      "What's Your Gender?",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(fontWeight: FontWeight.w400, fontSize: 17),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  // Height Question
-                  Text(
-                    "What's Your Height?",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(fontWeight: FontWeight.w400),
-                  ),
-                  const SizedBox(height: 20),
+                    const SizedBox(height: 20),
+                    Container(
+                      height: 40,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: ColorConstant.darkGreyBorderColor,
+                              width: 0.5),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Row(
+                        children: [
+                          _buildGenderButton('Male', 'Male'),
+                          const SizedBox(width: 12),
+                          _buildGenderButton('Female', 'Female'),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    // Height Question
+                    Text(
+                      "What's Your Height?",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(fontWeight: FontWeight.w400,fontSize: 17),
+                    ),
+                    const SizedBox(height: 20),
 
-                  RulerHeightWidget(),
-                  const SizedBox(height: 20),
-                  // Age Question
-                  Text(
-                    "How Old Are You?",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(fontWeight: FontWeight.w400),
-                  ),
-                  const SizedBox(height: 20),
+                    RulerHeightWidget(),
+                    const SizedBox(height: 20),
+                    // Age Question
+                    Text(
+                      "How Old Are You?",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(height: 20),
 
-                  ScrollableAgeWidget()
-                ],
+                    ScrollableAgeWidget()
+                  ],
+                ),
               ),
             ),
           ),
@@ -123,7 +147,10 @@ class _PersonalDescriptorQuestionWidgetState
               onPressed: widget.onContinue, // Call the callback when pressed
               child: Text(
                 'Continue',
-                style: Theme.of(context).textTheme.titleMedium,
+                style:  Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
               ),
             ),
           ),
@@ -142,21 +169,41 @@ class _PersonalDescriptorQuestionWidgetState
           });
         },
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              gradient: isSelected
-                  ? LinearGradient(colors: [
-                      ColorConstant.buttonGradient1Color,
-                      ColorConstant.buttonGradient2Color
-                    ])
-                  : null),
-          child: Center(
-            child: Text(
-              text,
-              style: TextStyle(
-                color: isSelected ? Colors.white : Colors.white,
-                fontWeight: FontWeight.w500,
+          decoration: isSelected
+              ? BoxDecoration(
+                  borderRadius: BorderRadius.circular(9),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      const Color(0xfffb65fb),
+                      Colors.transparent,
+                      Colors.transparent,
+                    ],
+                  ),
+                )
+              : null,
+          child: Container(
+            margin: EdgeInsets.all(isSelected ? 1 : 0),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(9),
+                gradient: isSelected
+                    ? LinearGradient(
+                        colors: [Color(0xff3A246A), Color(0xffDA1A41)])
+                    : null),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(.02),
+                borderRadius: BorderRadius.circular(9),
+              ),
+              child: Center(
+                child: Text(
+                  text,
+                  style: TextStyle(
+                      color: isSelected ? Colors.white : Colors.white70,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 15),
+                ),
               ),
             ),
           ),

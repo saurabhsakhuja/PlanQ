@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plan_q/gen/assets.gen.dart'; // Assuming this exists
+import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart'; // Assuming this exists
 import 'package:plan_q/src/core/common/widgets/custom_appbar.dart'; // Assuming this exists
 import 'package:plan_q/src/core/constants/color_constant.dart'; // Assuming this exists
@@ -54,7 +55,10 @@ class _LibraryScreenState extends State<LibraryScreen> {
             height: 42,
             width: 80,
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: const Text('Done'),
+            child:  Text('Done',style:  Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),),
             onPressed: () {},
           ),
           const SizedBox(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plan_q/gen/assets.gen.dart';
+import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/app_routes.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
@@ -572,7 +573,10 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
               color: ColorConstant.whiteColor,
             ),
             SizedBox(width: 8),
-            Text('Add Set'),
+            Text('Add Set', style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),),
           ],
         ));
   }
@@ -582,7 +586,10 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
     return CommonSubmitButton(
       height: 42,
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: const Text('Complete Set'),
+      child:  Text('Complete Set',style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),),
       onPressed: () {
         locator<GoRouter>().goNamed(AppRoutes.WORKOUTS_MAIN_SCREEN_ROUTE_NAME);
       },

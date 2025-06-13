@@ -2,8 +2,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:plan_q/gen/assets.gen.dart';
+import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
+import 'package:plan_q/src/core/common/widgets/common_textfield_widget.dart';
 import 'package:plan_q/src/core/constants/app_routes.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 
@@ -33,31 +36,30 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10),
               Text(
                 'Sign In To Your\nAccount',
-                style: Theme.of(context).textTheme.headlineMedium,
+                style: GoogleFonts.inter(
+                    fontSize: 28, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
               Text(
                 "We're so excited to see you again",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: ColorConstant.secondaryDark),
+                style: GoogleFonts.inter(
+                    fontSize: 12, color: ColorConstant.secondaryDark),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 30),
 
               _titleText(title: 'Email'),
-              const SizedBox(height: 6),
-              _buildTextField(_emailController, "Email Address"),
-              const SizedBox(height: 16),
+              const SizedBox(height: 12),
+              CustomTextField(
+                  controller: _emailController, hint: "Email Address"),
+              const SizedBox(height: 10),
 
               _titleText(title: "Password"),
-              const SizedBox(height: 6),
-              _buildTextField(
-                _passwordController,
-                "Password",
+              const SizedBox(height: 12),
+              CustomTextField(
+                controller: _passwordController,
+                hint: "Password",
                 obscureText: obscurePassword,
                 toggleObscure: () =>
                     setState(() => obscurePassword = !obscurePassword),
@@ -79,11 +81,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
 
-              const SizedBox(height: 50),
+              const SizedBox(height: 64),
               CommonSubmitButton(
                   child: Text(
                     'Continue',
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
                   ),
                   onPressed: () {}),
 
@@ -107,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 textColor: ColorConstant.blackColor,
               ),
 
-              const SizedBox(height: 60),
+              const SizedBox(height: 40),
               Center(child: _buildFooterText(context)),
             ],
           ),
@@ -154,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
         children: [
           iconAsset != null
               ? Padding(
-                  padding: const EdgeInsets.only(left: 24),
+                  padding: const EdgeInsets.only(left: 20.5),
                   child: SvgPicture.asset(
                     iconAsset,
                     height: 24,
@@ -165,9 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Text(
             text,
             style: TextStyle(
-              color: textColor,
-              fontWeight: FontWeight.w600,
-            ),
+                color: textColor, fontWeight: FontWeight.w400, fontSize: 16),
           ),
           SizedBox(
             height: 24,
@@ -187,14 +190,14 @@ class _LoginScreenState extends State<LoginScreen> {
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium
-                ?.copyWith(color: ColorConstant.whiteColor),
+                ?.copyWith(color: ColorConstant.whiteColor, fontSize: 14),
           ),
           TextSpan(
             text: 'Sign Up',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: ColorConstant.accentMintGeenColor,
-                  decoration: TextDecoration.underline,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14,
+                  color: Color(0xff77C2BA),
                 ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
@@ -205,43 +208,6 @@ class _LoginScreenState extends State<LoginScreen> {
         ],
       ),
       textAlign: TextAlign.center,
-    );
-  }
-
-  Widget _buildTextField(TextEditingController controller, String hint,
-      {bool obscureText = false,
-      void Function()? toggleObscure,
-      void Function(String)? onChanged}) {
-    return Container(
-      decoration: BoxDecoration(
-        color: ColorConstant.textFieldBg,
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: TextField(
-        controller: controller,
-        obscureText: obscureText,
-        onChanged: onChanged,
-        style: Theme.of(context)
-            .textTheme
-            .bodyMedium
-            ?.copyWith(color: ColorConstant.whiteColor),
-        decoration: InputDecoration(
-          hintText: hint,
-          hintStyle: TextStyle(color: ColorConstant.offWhite),
-          border: InputBorder.none,
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-          suffixIcon: toggleObscure != null
-              ? IconButton(
-                  icon: Icon(
-                    obscureText ? Icons.visibility_off : Icons.visibility,
-                    color: ColorConstant.whiteColor,
-                  ),
-                  onPressed: toggleObscure,
-                )
-              : null,
-        ),
-      ),
     );
   }
 

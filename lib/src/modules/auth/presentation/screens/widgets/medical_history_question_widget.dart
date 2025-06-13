@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -55,13 +56,12 @@ class _MedicalHistoryQuestionWidgetState
 
   void _toggleOption(String optionLabel) {
     setState(() {
-         if (_selectedOptions.contains(optionLabel)) {
-          // If already selected, deselect it
-          _selectedOptions.remove(optionLabel);
-        } else {
-          
-          _selectedOptions.add(optionLabel);
-        }
+      if (_selectedOptions.contains(optionLabel)) {
+        // If already selected, deselect it
+        _selectedOptions.remove(optionLabel);
+      } else {
+        _selectedOptions.add(optionLabel);
+      }
     });
   }
 
@@ -131,9 +131,7 @@ class _MedicalHistoryQuestionWidgetState
                             child: SvgPicture.asset(
                               iconPath,
                               colorFilter: ColorFilter.mode(
-                                isSelected
-                                    ? Colors.white
-                                    : Colors.grey[400]!,
+                                isSelected ? Colors.white : Colors.grey[400]!,
                                 BlendMode.srcIn,
                               ),
                             ),
@@ -141,9 +139,8 @@ class _MedicalHistoryQuestionWidgetState
                           Text(
                             label,
                             style: TextStyle(
-                              color: isSelected
-                                  ? Colors.white
-                                  : Colors.grey[400],
+                              color:
+                                  isSelected ? Colors.white : Colors.grey[400],
                               fontSize: 12,
                             ),
                           ),
@@ -159,7 +156,10 @@ class _MedicalHistoryQuestionWidgetState
               onPressed: () => widget.onContinue(),
               child: Text(
                 'Continue',
-                style: Theme.of(context).textTheme.titleMedium,
+                style:  Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
               ),
             ),
           ],

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plan_q/gen/assets.gen.dart';
+import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/app_routes.dart';
 import 'package:plan_q/src/locator.dart';
@@ -53,7 +54,6 @@ class AllWorkoutsTab extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: InkWell(
                       onTap: () {
-                      
                         locator<GoRouter>().pushNamed(
                             AppRoutes.CREATED_WORKOUT_MAIN_SCREEN_ROUTE_NAME);
                       },
@@ -81,7 +81,10 @@ class AllWorkoutsTab extends StatelessWidget {
             children: [
               Text(
                 'Create New Workout',
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
               ),
               SizedBox(width: 8),
               SvgPicture.asset(Assets.svgs.fireIcon)

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/common/widgets/custom_appbar.dart';
 import 'package:plan_q/src/core/constants/app_routes.dart';
@@ -272,7 +273,13 @@ class _ArmCircuitDetailScreenState extends State<ArmCircuitDetailScreen> {
                 color: ColorConstant.whiteColor,
               ),
               SizedBox(width: 8),
-              Text('Complete'),
+              Text(
+                'Complete',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
+              ),
             ],
           )),
     );
@@ -382,7 +389,13 @@ class _ArmCircuitDetailScreenState extends State<ArmCircuitDetailScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Start Rest (45s)'),
+              Text(
+                'Start Rest (45s)',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
+              ),
             ],
           )),
     );

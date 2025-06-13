@@ -101,56 +101,74 @@ class _ScrollableAgeWidgetState extends State<ScrollableAgeWidget> {
           padding: const EdgeInsets.only(top: 40, bottom: 10),
           child: Container(
             decoration: BoxDecoration(
-              border:
-                  Border.all(color: ColorConstant.lightGreyColor, width: 0.5),
+             color:  Color(0xff121624),
+              // gradient: LinearGradient(
+              //     begin: Alignment.topCenter,
+              //     end: Alignment.bottomCenter,
+              //     colors: [Color(0xff2446D0), Colors.black]),
+              border: Border.all(
+                  color: ColorConstant.darkGreyBorderColor, width: 0.5),
               borderRadius: BorderRadius.circular(10),
             ),
             height: 70,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: _listViewWidth,
-                  child: NotificationListener<ScrollNotification>(
-                    onNotification: (ScrollNotification notification) {
-                      _onScrollEnd(notification);
-                      return true; // Return true to stop the notification from bubbling further
-                    },
-                    child: ListView.builder(
-                      controller: _scrollController,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: _ages.length,
-                      itemBuilder: (context, index) {
-                        final age = _ages[index];
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _selectedAge = age;
-                            });
-                            _scrollToSelectedAge(); // Scroll to the tapped age
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            width: _itemWidth, // Each item takes up itemWidth
-                            child: Text(
-                              age.toString(),
-                              style: TextStyle(
-                                color: _selectedAge == age
-                                    ? Colors.white
-                                    : Colors.grey,
-                                fontSize: 24,
-                                fontWeight: _selectedAge == age
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
+            child: Container(
+               decoration: BoxDecoration(
+             
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0xff2446D0).withOpacity(.3), Colors.black.withOpacity(.3)]),
+              border: Border.all(
+                  color: ColorConstant.darkGreyBorderColor, width: 0.5),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            height: 70,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: _listViewWidth,
+                    child: NotificationListener<ScrollNotification>(
+                      onNotification: (ScrollNotification notification) {
+                        _onScrollEnd(notification);
+                        return true; // Return true to stop the notification from bubbling further
+                      },
+                      child: ListView.builder(
+                        controller: _scrollController,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _ages.length,
+                        itemBuilder: (context, index) {
+                          final age = _ages[index];
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _selectedAge = age;
+                              });
+                              _scrollToSelectedAge(); // Scroll to the tapped age
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: _itemWidth, // Each item takes up itemWidth
+                              child: Text(
+                                age.toString(),
+                                style: TextStyle(
+                                  color: _selectedAge == age
+                                      ? Colors.white
+                                      : Colors.grey,
+                                  fontSize: 24,
+                                  fontWeight: _selectedAge == age
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
