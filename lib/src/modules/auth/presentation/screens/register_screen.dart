@@ -1,9 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:plan_q/gen/assets.gen.dart';
-import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/common/widgets/common_textfield_widget.dart';
 import 'package:plan_q/src/core/constants/app_routes.dart';
@@ -62,8 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
             const SizedBox(width: 8),
             Text(text,
-                style:
-                    GoogleFonts.inter(color: Color(0xffBFBFBF), fontSize: 12)),
+                style: TextStyle(color: Color(0xffBFBFBF), fontSize: 12)),
           ],
         ),
       ),
@@ -79,7 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           leading: BackButton()),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
           child: Padding(
             padding: const EdgeInsets.only(bottom: 200),
             child: Column(
@@ -87,14 +84,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 Text(
                   'Register New Account',
-                  style: GoogleFonts.inter(
-                      fontSize: 28, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   'Fill the information to complete the registration',
-                  style: GoogleFonts.inter(
-                      fontSize: 12, color: ColorConstant.secondaryDark),
+                  style: TextStyle(
+                      fontSize: 14, color: ColorConstant.secondaryDark),
                 ),
                 const SizedBox(height: 30),
 
@@ -218,14 +214,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
         children: <TextSpan>[
           TextSpan(
             text: "Already have an account? ",
-            style: GoogleFonts.inter(
+            style: TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 14,
             ),
           ),
           TextSpan(
             text: 'Sign In',
-            style: GoogleFonts.inter(
+            style: TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 14,
               color: Color(0xff77C2BA),
@@ -315,7 +311,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       title,
       style: Theme.of(context)
           .textTheme
-          .bodySmall
+          .bodyMedium
           ?.copyWith(color: ColorConstant.offWhite),
     );
   }

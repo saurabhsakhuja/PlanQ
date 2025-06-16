@@ -21,6 +21,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 50,
       decoration: BoxDecoration(
         color: ColorConstant.textFieldBg,
         borderRadius: BorderRadius.circular(16),
@@ -36,12 +37,12 @@ class CustomTextField extends StatelessWidget {
             ?.copyWith(color: ColorConstant.whiteColor),
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: TextStyle(color: Color(0xff8D8D8D),fontSize: 12),
+          hintStyle: TextStyle(color: Color(0xff8D8D8D), fontSize: 12),
           border: InputBorder.none,
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
           suffixIcon: toggleObscure != null
-              ? InkWell(
+              ? GestureDetector(
                   onTap: toggleObscure,
                   child: obscureText
                       ? Assets.images.visibilityOffIcon.image(scale: 1.5)

@@ -2,9 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:plan_q/gen/assets.gen.dart';
-import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/common/widgets/common_textfield_widget.dart';
 import 'package:plan_q/src/core/constants/app_routes.dart';
@@ -32,20 +30,20 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          padding:
+              const EdgeInsets.only(left: 20,  right: 20, bottom: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Sign In To Your\nAccount',
-                style: GoogleFonts.inter(
-                    fontSize: 28, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
               Text(
                 "We're so excited to see you again",
-                style: GoogleFonts.inter(
-                    fontSize: 12, color: ColorConstant.secondaryDark),
+                style:
+                    TextStyle(fontSize: 14, color: ColorConstant.secondaryDark),
               ),
               const SizedBox(height: 30),
 
@@ -73,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: () {},
                   child: Text(
                     "Forget Password?",
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: ColorConstant.accentMintGeenColor,
                           decoration: TextDecoration.underline,
                         ),
@@ -216,7 +214,7 @@ class _LoginScreenState extends State<LoginScreen> {
       title,
       style: Theme.of(context)
           .textTheme
-          .bodySmall
+          .bodyMedium
           ?.copyWith(color: ColorConstant.offWhite),
     );
   }
