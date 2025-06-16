@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/general_detail_fillup_screen.dart';
@@ -52,7 +51,7 @@ class _ActivityLevelQuestionWidgetState
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 28),
             color: Colors.black, // Set the background color to black
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,11 +59,9 @@ class _ActivityLevelQuestionWidgetState
                 Text(
                   "How do you typically stay active right now?",
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 26,
-                      ),
+                      fontWeight: FontWeight.w500, fontSize: 30, height: 0),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 28),
                 // Use GridView for the first 4 items
                 GridView.builder(
                   shrinkWrap: true,
@@ -143,14 +140,7 @@ class _ActivityLevelQuestionWidgetState
                   width: isSelected ? 0.8 : 0.5),
               borderRadius: BorderRadius.circular(20))
           : BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    ColorConstant.blackColor.withOpacity(0.5),
-                    ColorConstant.mainContentGradientColor
-                  ]),
-              // color: ColorConstant.lightBlueColor,
+              color: Color(0xff151515),
               border: Border.all(
                   color: ColorConstant.darkGreyBorderColor, width: 0.5),
               borderRadius: BorderRadius.circular(20)),

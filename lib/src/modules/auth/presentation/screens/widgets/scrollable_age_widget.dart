@@ -18,7 +18,8 @@ class _ScrollableAgeWidgetState extends State<ScrollableAgeWidget> {
 
   final int _visibleItemCount = 5;
   late final double _itemWidth;
-  final double _pickerVisibleWidth = 300; // This is the desired visible width of the age picker
+  final double _pickerVisibleWidth =
+      300; // This is the desired visible width of the age picker
 
   late ScrollController _scrollController;
 
@@ -29,7 +30,9 @@ class _ScrollableAgeWidgetState extends State<ScrollableAgeWidget> {
     _scrollController = ScrollController();
 
     final padCount = _visibleItemCount ~/ 2;
-    _paddedAges = List<int?>.filled(padCount, null) + _ages + List<int?>.filled(padCount, null);
+    _paddedAges = List<int?>.filled(padCount, null) +
+        _ages +
+        List<int?>.filled(padCount, null);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollToSelectedAge(animate: false); // Initial centering
@@ -54,11 +57,15 @@ class _ScrollableAgeWidgetState extends State<ScrollableAgeWidget> {
 
       // Calculate the index of the item that is currently most centered in the viewport.
       // This is the item we want to snap to.
-      final int idealIndex = ((currentScrollOffset + (_pickerVisibleWidth / 2)) / _itemWidth).round();
+      final int idealIndex =
+          ((currentScrollOffset + (_pickerVisibleWidth / 2)) / _itemWidth)
+              .round();
 
       // Ensure the idealIndex is within the valid range of _paddedAges.
-      final int newCalculatedSelectedIndex = idealIndex.clamp(0, _paddedAges.length - 1);
-      final int? potentialNewSelectedAge = _paddedAges[newCalculatedSelectedIndex];
+      final int newCalculatedSelectedIndex =
+          idealIndex.clamp(0, _paddedAges.length - 1);
+      final int? potentialNewSelectedAge =
+          _paddedAges[newCalculatedSelectedIndex];
 
       if (potentialNewSelectedAge != null) {
         // If the calculated selected age is different from the current one, update it.
@@ -85,7 +92,9 @@ class _ScrollableAgeWidgetState extends State<ScrollableAgeWidget> {
     if (selectedIndex != -1 && _scrollController.hasClients) {
       // Calculate the offset required to bring the center of the selected item
       // to the center of the list view's visible area.
-      final double offset = selectedIndex * _itemWidth - (_pickerVisibleWidth / 2) + (_itemWidth / 2);
+      final double offset = selectedIndex * _itemWidth -
+          (_pickerVisibleWidth / 2) +
+          (_itemWidth / 2);
 
       final clampedOffset = offset.clamp(
         0.0,
@@ -135,7 +144,8 @@ class _ScrollableAgeWidgetState extends State<ScrollableAgeWidget> {
             height: 70,
             decoration: BoxDecoration(
               color: const Color(0xff121624),
-              border: Border.all(color: ColorConstant.darkGreyBorderColor, width: 0.5),
+              border: Border.all(
+                  color: ColorConstant.darkGreyBorderColor, width: 0.5),
               borderRadius: BorderRadius.circular(14),
             ),
             child: Stack(

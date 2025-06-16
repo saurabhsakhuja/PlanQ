@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/general_detail_fillup_screen.dart';
@@ -31,7 +30,7 @@ class _FitnessExperianceQuestionWidgetState
     } else if (_selectedExperience == 4) {
       return 'Above 4 Years';
     } else {
-      return 'Less than 1 Year'; //For 0
+      return 'Less than 1 Year';
     }
   }
 
@@ -41,32 +40,32 @@ class _FitnessExperianceQuestionWidgetState
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 28),
             color: Colors.black,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "What's your experience with fitness so far?",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineSmall
-                      ?.copyWith(fontWeight: FontWeight.w500, fontSize: 26),
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.w500, fontSize: 30, height: 0),
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 50),
                 Center(
                   child: Text(
                     _selectedExperience.toString(),
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 100,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 128,
+                      height: 0,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 24),
                 // Removed Slider
                 Container(
+                  height: 56,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                   decoration: BoxDecoration(
@@ -86,31 +85,43 @@ class _FitnessExperianceQuestionWidgetState
                           });
                         },
                         child: Container(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-                          decoration: isSelected
-                              ? BoxDecoration(
-                                  border: Border.all(
-                                    color: ColorConstant.redBorderColor,
-                                    width: 1,
+                          decoration: BoxDecoration(
+                            color:
+                                isSelected ? Colors.white : Color(0xff212121),
+                            borderRadius: BorderRadius.circular(1234),
+                          ),
+                          child: Container(
+                            height: 48,
+                            width: 69,
+                            padding: EdgeInsets.symmetric(horizontal: 24),
+                            decoration: isSelected
+                                ? BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.white,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(1234),
+                                    gradient: LinearGradient(colors: [
+                                      ColorConstant.whiteGradient1,
+                                      ColorConstant.whiteGradient2,
+                                      ColorConstant.whiteGradient3,
+                                    ]))
+                                : BoxDecoration(
+                                    color: Color(0xff212121),
+                                    borderRadius: BorderRadius.circular(1234),
                                   ),
-                                  borderRadius: BorderRadius.circular(50),
-                                  gradient: LinearGradient(colors: [
-                                    ColorConstant.redTileGradient1Color,
-                                    ColorConstant.redTileGradient2Color
-                                  ]))
-                              : BoxDecoration(
-                                  color: ColorConstant.darkGreyColor,
-                                  borderRadius: BorderRadius.circular(50),
+                            child: Center(
+                              child: Text(
+                                label,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: isSelected
+                                      ? Colors.black
+                                      : Color(0xffD4D4D4),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
                                 ),
-                          child: Text(
-                            label,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: isSelected
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
+                              ),
                             ),
                           ),
                         ),
@@ -118,12 +129,12 @@ class _FitnessExperianceQuestionWidgetState
                     }).toList(),
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 24),
                 Center(
                   child: Text(
-                    _experienceText, // Use the calculated text here
+                    _experienceText,
                     style: const TextStyle(
-                      color: Colors.white,
+                      color: Color(0xffD4D4D4),
                       fontSize: 16,
                     ),
                   ),
@@ -132,12 +143,12 @@ class _FitnessExperianceQuestionWidgetState
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 50),
+            padding: const EdgeInsets.only(top: 87),
             child: CommonSubmitButton(
               onPressed: widget.onContinue,
               child: Text(
                 'Continue',
-                style:  Theme.of(context)
+                style: Theme.of(context)
                     .textTheme
                     .titleMedium
                     ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),

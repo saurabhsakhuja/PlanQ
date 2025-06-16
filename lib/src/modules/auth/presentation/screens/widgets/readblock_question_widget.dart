@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plan_q/gen/assets.gen.dart';
 import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
@@ -31,64 +32,50 @@ class _RoadblockQuestionWidgetState extends State<RoadblockQuestionWidget> {
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.all(20),
-            color: Colors.black, // Set the background color to black
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 28),
+            color: Colors.black,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "What's Your Biggest Roadblock?",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineSmall
-                      ?.copyWith(fontWeight: FontWeight.w500, fontSize: 26),
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.w500, fontSize: 30, height: 0),
                 ),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 6),
-                  child: Column(
-                    children: _options.map((option) {
-                      final isSelected = _selectedOption == option;
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _selectedOption = option;
-                          });
-                        },
+                const SizedBox(height: 28),
+                Column(
+                  children: _options.map((option) {
+                    final isSelected = _selectedOption == option;
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _selectedOption = option;
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: isSelected ? Colors.white : Colors.transparent,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        margin: const EdgeInsets.symmetric(vertical: 4),
                         child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 4),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 22),
-                          // decoration: BoxDecoration(
-                          //   color: isSelected
-                          //       ? const Color(
-                          //           0xFF450920) // Selected option background color
-                          //       : const Color(
-                          //           0xFF2A2A2A), // Unselected option background color
-                          //   borderRadius: BorderRadius.circular(8),
-                          //   border: Border.all(
-                          //     color: isSelected
-                          //         ? const Color(
-                          //             0xFF880808) // Selected option border color
-                          //         : Colors.transparent,
-                          //     width: 1,
-                          //   ),
-                          // ),
-
+                          height: 68,
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
                           decoration: isSelected
                               ? BoxDecoration(
+                                  color: Colors.white,
                                   border: Border.all(
-                                    color: ColorConstant.redBorderColor,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(14),
+                                      color: ColorConstant.whiteColor,
+                                      width: 1),
+                                  borderRadius: BorderRadius.circular(15),
                                   gradient: LinearGradient(colors: [
-                                    ColorConstant.redTileGradient1Color,
-                                    ColorConstant.redTileGradient2Color
+                                    ColorConstant.whiteGradient1,
+                                    ColorConstant.whiteGradient2,
+                                    ColorConstant.whiteGradient3
                                   ]))
                               : BoxDecoration(
-                                  color: ColorConstant.darkGreyColor,
-                                  borderRadius: BorderRadius.circular(14),
+                                  color: Color(0xff151515),
+                                  borderRadius: BorderRadius.circular(15),
                                   border: Border.all(
                                     color: Colors.transparent,
                                     width: 1,
@@ -100,26 +87,32 @@ class _RoadblockQuestionWidgetState extends State<RoadblockQuestionWidget> {
                               Text(
                                 option,
                                 style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
+                                  color:
+                                      isSelected ? Colors.black : Colors.white,
+                                  fontSize: 18,
                                 ),
                               ),
                               if (isSelected)
-                                const Icon(
-                                  Icons.check_circle,
-                                  color: Colors
-                                      .red, // Selected option checkmark color
+                                Container(
+                                  height: 20.58,
+                                  width: 20.58,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Color(0xffB6B6B6)),
+                                  child: Assets.images.check
+                                      .image(scale: 3, color: Colors.black),
                                 ),
                             ],
                           ),
                         ),
-                      );
-                    }).toList(),
-                  ),
+                      ),
+                    );
+                  }).toList(),
                 ),
               ],
             ),
           ),
+          SizedBox(height: 28),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: CommonSubmitButton(
