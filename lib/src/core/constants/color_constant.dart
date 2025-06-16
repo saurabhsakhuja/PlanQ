@@ -42,4 +42,9 @@ class ColorConstant {
   static const Color blueisGreyColor = Color(0xFF1F2937);
   static const Color greenBgColor = Color(0xFF14532D);
   static const Color redBgColor = Color(0xFFFF3131);
+
+  //White Gradient for selected component
+  static Color whiteGradient1 = Colors.grey.withOpacity(.8);
+  static Color whiteGradient2 = Colors.grey.withOpacity(.4);
+  static Color whiteGradient3 = Color(0xffFFFFFF);
 }

@@ -233,6 +233,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:plan_q/gen/assets.gen.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart'; // This might become unused
 import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:plan_q/src/core/constants/app_routes.dart';
@@ -370,16 +371,14 @@ class _GeneralDetailFillupScreenState extends State<GeneralDetailFillupScreen> {
           }
         },
         child: Container(
+          height: 48,
+          width: 48,
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            border: Border.all(color: ColorConstant.whiteColor),
+            border: Border.all(color: Color(0xff9EA7B8)),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(
-            Icons.arrow_back_ios_new_outlined,
-            size: 20,
-            color: ColorConstant.whiteColor,
-          ),
+          child: Assets.images.chevronLeftIcon.image(scale: 4,height: 7.64)
         ),
       ),
     );

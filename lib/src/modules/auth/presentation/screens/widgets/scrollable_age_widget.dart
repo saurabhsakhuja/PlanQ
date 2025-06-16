@@ -70,6 +70,8 @@ class _ScrollableAgeWidgetState extends State<ScrollableAgeWidget> {
               color: const Color(0xff121624),
               border: Border.all(
                   color: ColorConstant.darkGreyBorderColor, width: 0.5),
+              border: Border.all(
+                  color: ColorConstant.darkGreyBorderColor, width: 0.5),
               borderRadius: BorderRadius.circular(14),
             ),
             child: Stack(
@@ -155,3 +157,4 @@ class _ScrollableAgeWidgetState extends State<ScrollableAgeWidget> {
     );
   }
 }
+

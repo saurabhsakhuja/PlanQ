@@ -77,6 +77,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/check.png
   AssetGenImage get check => const AssetGenImage('assets/images/check.png');
 
+  /// File path: assets/images/chevronLeftIcon.png
+  AssetGenImage get chevronLeftIcon =>
+      const AssetGenImage('assets/images/chevronLeftIcon.png');
+
   /// File path: assets/images/circleButtonIcon.png
   AssetGenImage get circleButtonIcon =>
       const AssetGenImage('assets/images/circleButtonIcon.png');
@@ -182,6 +186,7 @@ class $AssetsImagesGen {
     aiMadeIcon,
     arrowRight,
     check,
+    chevronLeftIcon,
     circleButtonIcon,
     dumbleIcon,
     exerciseDetail,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/general_detail_fillup_screen.dart';
@@ -29,19 +28,17 @@ class _FitnessMissionQuestionWidgetState
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 28),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               "What's Your Ultimate Fitness Mission?",
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineSmall
-                  ?.copyWith(fontWeight: FontWeight.w500, fontSize: 26),
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.w500, fontSize: 30, height: 0),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 16),
             ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
@@ -64,21 +61,21 @@ class _FitnessMissionQuestionWidgetState
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
-                                ColorConstant.buttonBorderGradient1Color,
-                                ColorConstant.buttonBorderGradient2Color,
-                                ColorConstant.buttonBorderGradient3Color,
+                                Colors.white,
+                                Colors.white,
                               ],
                             ),
                             borderRadius: BorderRadius.circular(50),
                           ),
                           padding: const EdgeInsets.symmetric(vertical: 1),
                           child: Container(
-                            height: 50,
+                            height: 53,
                             decoration: BoxDecoration(
-                              gradient: const LinearGradient(
+                              gradient: LinearGradient(
                                 colors: [
-                                  ColorConstant.buttonGradient1Color,
-                                  ColorConstant.buttonGradient2Color,
+                                  ColorConstant.whiteGradient1,
+                                  ColorConstant.whiteGradient2,
+                                  ColorConstant.whiteGradient3
                                 ],
                               ),
                               borderRadius: BorderRadius.circular(50),
@@ -87,7 +84,7 @@ class _FitnessMissionQuestionWidgetState
                               child: Text(
                                 title,
                                 style: const TextStyle(
-                                  color: Color(0xffEDE9FE),
+                                  color: Colors.black,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -111,12 +108,12 @@ class _FitnessMissionQuestionWidgetState
                 );
               },
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 51),
             CommonSubmitButton(
               onPressed: widget.onContinue,
               child: Text(
                 'Continue',
-                style:  Theme.of(context)
+                style: Theme.of(context)
                     .textTheme
                     .titleMedium
                     ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
