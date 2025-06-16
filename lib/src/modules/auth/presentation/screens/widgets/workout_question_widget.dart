@@ -42,19 +42,17 @@ class _WorkoutQuestionWidgetState extends State<WorkoutQuestionWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 28),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               "Where do you prefer to work out?",
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineSmall
-                  ?.copyWith(fontWeight: FontWeight.w500, fontSize: 26),
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.w500, fontSize: 30, height: 0),
             ),
-            const SizedBox(height: 60),
+            const SizedBox(height: 65),
             SizedBox(
               height: 260,
               child: ListView.builder(
@@ -78,12 +76,12 @@ class _WorkoutQuestionWidgetState extends State<WorkoutQuestionWidget> {
                         width: 200,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: isSelected
-                                ? ColorConstant.redBorderColor
-                                : ColorConstant.darkGreyBorderColor,
-                            width: 1,
-                          ),
+                          // border: Border.all(
+                          //   color: isSelected
+                          //       ? ColorConstant.redBorderColor
+                          //       : ColorConstant.darkGreyBorderColor,
+                          //   width: 1,
+                          // ),
                         ),
                         child: Stack(
                           children: [
@@ -101,20 +99,20 @@ class _WorkoutQuestionWidgetState extends State<WorkoutQuestionWidget> {
                             if (isSelected)
                               Container(
                                 decoration: BoxDecoration(
-                                  color: ColorConstant.redBorderColor
-                                      .withOpacity(0.5),
+                                  color: Colors.white60,
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                               ),
 
                             // Black overlay for text readability
-                            Container(
-                              decoration: BoxDecoration(
-                                color:
-                                    ColorConstant.blackColor.withOpacity(0.7),
-                                borderRadius: BorderRadius.circular(20),
+                            if (!isSelected)
+                              Container(
+                                decoration: BoxDecoration(
+                                  color:
+                                      ColorConstant.blackColor.withOpacity(0.7),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
                               ),
-                            ),
 
                             // Title + Checkmark
                             Positioned(
@@ -128,26 +126,37 @@ class _WorkoutQuestionWidgetState extends State<WorkoutQuestionWidget> {
                                   Expanded(
                                     child: Text(
                                       mission['title']!,
-                                      style: const TextStyle(
-                                        color: Colors.white,
+                                      style: TextStyle(
+                                        color: isSelected
+                                            ? Color(0xff020202)
+                                            : Colors.white,
                                         fontWeight: FontWeight.w400,
-                                        fontSize: 16,
+                                        fontSize: 14,
                                       ),
                                       textAlign: TextAlign.start,
                                     ),
                                   ),
-                                  Container(
-                                    width: 24,
-                                    height: 24,
-                                    alignment: Alignment.center,
-                                    child: isSelected
-                                        ? SvgPicture.asset(
-                                            Assets.svgs.redCheckIcon)
-                                        : Icon(
-                                            Icons.check_circle_outline,
-                                            color: ColorConstant.whiteColor,
-                                          ),
-                                  ),
+                                  isSelected
+                                      ? Container(
+                                          height: 24,
+                                          width: 24,
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Color(0xffA1A1A1)),
+                                          child: Assets.images.check.image(
+                                              scale: 3, color: Colors.black),
+                                        )
+                                      : Container(
+                                          height: 24,
+                                          width: 24,
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                  color: Colors.white),
+                                              color: Colors.transparent),
+                                          child: Assets.images.check.image(
+                                              scale: 3, color: Colors.white),
+                                        ),
                                 ],
                               ),
                             ),
@@ -159,12 +168,12 @@ class _WorkoutQuestionWidgetState extends State<WorkoutQuestionWidget> {
                 },
               ),
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 45),
             CommonSubmitButton(
               onPressed: widget.onContinue,
               child: Text(
                 'Continue',
-                style:  Theme.of(context)
+                style: Theme.of(context)
                     .textTheme
                     .titleMedium
                     ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),

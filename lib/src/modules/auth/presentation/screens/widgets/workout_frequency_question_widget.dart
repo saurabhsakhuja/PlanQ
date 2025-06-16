@@ -38,9 +38,14 @@ class _WorkoutFrequencyQuestionWidgetState
   void _calculateSeparatorPositions() {
     _separatorPositions.clear();
     if (_screenWidth <= 0) return;
-    final double sectionWidth = _screenWidth / (_maxDays - 1);
-    for (int i = 1; i < _maxDays; i++) {
-      _separatorPositions.add(sectionWidth * i);
+
+    const double horizontalPadding = 28.0;
+    double usableWidth = _screenWidth - (horizontalPadding * 2);
+    double sectionWidth = usableWidth / (_maxDays - 1);
+
+    for (int i = 0; i < _maxDays; i++) {
+      double position = horizontalPadding + (i * sectionWidth);
+      _separatorPositions.add(position);
     }
   }
 
@@ -50,7 +55,7 @@ class _WorkoutFrequencyQuestionWidgetState
         _screenWidth > 0 ? _screenWidth * (_selectedDays / _maxDays) : 0;
 
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.only(left: 20.0, right: 20, top: 28),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,123 +63,155 @@ class _WorkoutFrequencyQuestionWidgetState
             Text(
               "How often do you want to workout",
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 26,
-                    color: Colors.white,
-                  ),
+                  fontWeight: FontWeight.w500,
+                  fontSize: 30,
+                  color: Colors.white,
+                  height: 0),
             ),
-            const SizedBox(height: 70),
-            SizedBox(
-              height: 42,
-              child: Stack(
-                children: [
-                  // Background line
-                  Positioned.fill(
-                    child: Container(
-                      // margin: const EdgeInsets.symmetric(vertical: 12),
-                      height: double.infinity,
-                      decoration: BoxDecoration(
-                          color: Color(0xff1F2937),
-                          borderRadius: BorderRadius.circular(50)),
-                    ),
+            const SizedBox(height: 28),
+            Padding(
+              padding: const EdgeInsets.only(top: 49.33, bottom: 33.27),
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  'LEVEL 4',
+                  style: TextStyle(
+                      fontSize: 14.55,
+                      color: Color(0xffA3A3A3),
+                      fontWeight: FontWeight.w800),
+                ),
+              ),
+            ),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                // Background track and markers
+                SizedBox(
+                  height: 50,
+                  child: Stack(
+                    children: [
+                      // Background line
+                      Positioned.fill(
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(vertical: 8),
+                          decoration: BoxDecoration(
+                            color: const Color(0xff151515),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                        ),
+                      ),
+
+                      // Circles (dots)
+                      Positioned.fill(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 28),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: List.generate(_maxDays, (index) {
+                              return Container(
+                                height: 10.4,
+                                width: 10.4,
+                                decoration: const BoxDecoration(
+                                  color: Color(0xff1F2937),
+                                  shape: BoxShape.circle,
+                                ),
+                              );
+                            }),
+                          ),
+                        ),
+                      ),
+
+                      // Dividers
+                      Positioned.fill(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: List.generate(_maxDays - 1, (index) {
+                            return Container(
+                              margin: EdgeInsets.symmetric(vertical: 14),
+                              width: 1,
+                              color: Colors.white.withOpacity(.2),
+                            );
+                          }),
+                        ),
+                      ),
+                    ],
                   ),
-                  // Circles
-                  Positioned.fill(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 28),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: List.generate(_maxDays, (index) {
-                          return Container(
-                            height: 10,
-                            width: 10,
+                ),
+
+                // Slider thumb (marker)
+                AnimatedPositioned(
+                  duration: const Duration(milliseconds: 300),
+                  top: 5, // move it slightly above
+                  left: _separatorPositions[_selectedDays - 1] - 21,
+                  // adjust so it centers on point
+                  child: GestureDetector(
+                    onHorizontalDragUpdate: (details) {
+                      setState(() {
+                        final box = context.findRenderObject() as RenderBox?;
+                        if (box == null) return;
+
+                        final localPosition =
+                            box.globalToLocal(details.globalPosition);
+                        const horizontalPadding = 28.0;
+                        final usableWidth =
+                            _screenWidth - (horizontalPadding * 2);
+                        double newPosition =
+                            localPosition.dx - horizontalPadding;
+
+                        // Clamp to usableWidth (not full screen width)
+                        newPosition = newPosition.clamp(0.0, usableWidth);
+
+                        final sectionWidth = usableWidth / (_maxDays - 1);
+                        int calculatedDay =
+                            (newPosition / sectionWidth).round();
+                        calculatedDay = calculatedDay.clamp(0, _maxDays - 1);
+
+                        _selectedDays = calculatedDay + 1;
+                      });
+                    },
+                    child: Container(
+                      height: 41,
+                      width: 41,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: LinearGradient(
+                            colors: [
+                              ColorConstant.whiteGradient1,
+                              ColorConstant.whiteGradient2,
+                              ColorConstant.whiteGradient3
+                            ],
+                          ),
+                        ),
+                        child: Center(
+                          child: Container(
+                            height: 34,
+                            width: 34,
                             decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Color.fromARGB(255, 49, 66, 89)),
+                              color: const Color.fromARGB(255, 79, 73, 73)
+                                  .withOpacity(.4),
                               shape: BoxShape.circle,
                             ),
-                          );
-                        }),
+                            child: const Center(
+                              child: CircleAvatar(
+                                radius: 4,
+                                backgroundColor:
+                                    Color.fromARGB(255, 195, 186, 186),
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                  // Dividers
-                  Positioned.fill(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: List.generate(_maxDays - 1, (index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: Container(
-                            height: double.infinity,
-                            width: 1.2,
-                            color: const Color.fromARGB(255, 85, 83, 83),
-                          ),
-                        );
-                      }),
-                    ),
-                  ),
-
-                  AnimatedPositioned(
-                    duration: const Duration(milliseconds: 300),
-                    left: containerPosition - 56,
-                    child: GestureDetector(
-                        onHorizontalDragUpdate: (details) {
-                          setState(() {
-                            double newPosition = details.globalPosition.dx -
-                                (context
-                                        .findRenderObject()
-                                        ?.getTransformTo(null)
-                                        .getTranslation()
-                                        .x ??
-                                    0) -
-                                25;
-                            newPosition = newPosition.clamp(0, _screenWidth);
-
-                            _selectedDays =
-                                (_maxDays * newPosition / _screenWidth).round();
-                            _selectedDays = _selectedDays.clamp(1, _maxDays);
-                          });
-                        },
-                        child: Container(
-                          height: 42,
-                          width: 42,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.red,
-                                ColorConstant.redBorderColor,
-                                Color.fromARGB(255, 117, 31, 31),
-                              ],
-                            ),
-                          ),
-                          child: Center(
-                            child: Container(
-                              height: 34,
-                              width: 34,
-                              decoration: BoxDecoration(
-                                color: Color(0xff832c33),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Center(
-                                child: Container(
-                                  height: 8,
-                                  width: 8,
-                                  decoration: const BoxDecoration(
-                                    color: Color(0xff963d42),
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        )),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -182,12 +219,12 @@ class _WorkoutFrequencyQuestionWidgetState
                   "$_selectedDays days a week",
                   style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
+                      fontSize: 16.63,
+                      fontWeight: FontWeight.w400),
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 77.33),
             CommonSubmitButton(
               onPressed: widget.onContinue,
               child: Text(

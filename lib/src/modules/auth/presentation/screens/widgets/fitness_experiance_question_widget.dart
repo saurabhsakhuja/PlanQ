@@ -143,7 +143,7 @@ class _FitnessExperianceQuestionWidgetState
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 87),
+            padding: const EdgeInsets.only(top: 87,left: 20,right: 20),
             child: CommonSubmitButton(
               onPressed: widget.onContinue,
               child: Text(

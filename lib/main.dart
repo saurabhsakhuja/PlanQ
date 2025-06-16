@@ -50,65 +50,80 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(
           seedColor: ColorConstant.whiteColor,
         ),
-        textTheme: const TextTheme(
+        textTheme: TextTheme(
           displayLarge: TextStyle(
               fontSize: 57,
+              fontStyle: FontStyle.normal,
               fontWeight: FontWeight.bold,
               color: ColorConstant.whiteColor),
           displayMedium: TextStyle(
               fontSize: 45,
+              fontStyle: FontStyle.normal,
               fontWeight: FontWeight.bold,
               color: ColorConstant.whiteColor),
           displaySmall: TextStyle(
               fontSize: 36,
+              fontStyle: FontStyle.normal,
               fontWeight: FontWeight.bold,
               color: ColorConstant.whiteColor),
           headlineLarge: TextStyle(
               fontSize: 32,
+              fontStyle: FontStyle.normal,
               fontWeight: FontWeight.bold,
               color: ColorConstant.whiteColor),
           headlineMedium: TextStyle(
               fontSize: 28,
+              fontStyle: FontStyle.normal,
               fontWeight: FontWeight.w600,
               color: ColorConstant.whiteColor),
           headlineSmall: TextStyle(
               fontSize: 24,
+              fontStyle: FontStyle.normal,
               fontWeight: FontWeight.w600,
               color: ColorConstant.whiteColor),
           titleLarge: TextStyle(
               fontSize: 22,
+              fontStyle: FontStyle.normal,
               fontWeight: FontWeight.w600,
               color: ColorConstant.whiteColor),
           titleMedium: TextStyle(
               fontSize: 16,
+              fontStyle: FontStyle.normal,
               fontWeight: FontWeight.w500,
               color: ColorConstant.whiteColor),
           titleSmall: TextStyle(
               fontSize: 14,
+              fontStyle: FontStyle.normal,
               fontWeight: FontWeight.w500,
               color: ColorConstant.whiteColor),
           bodyLarge: TextStyle(
               fontSize: 16,
+              fontStyle: FontStyle.normal,
               fontWeight: FontWeight.normal,
               color: ColorConstant.whiteColor),
           bodyMedium: TextStyle(
               fontSize: 14,
+              fontStyle: FontStyle.normal,
               fontWeight: FontWeight.normal,
               color: ColorConstant.whiteColor),
           bodySmall: TextStyle(
               fontSize: 12,
+              fontStyle: FontStyle.normal,
               fontWeight: FontWeight.normal,
               color: ColorConstant.whiteColor),
           labelLarge: TextStyle(
               fontSize: 14,
+              fontStyle: FontStyle.normal,
               fontWeight: FontWeight.w500,
               color: ColorConstant.whiteColor),
           labelMedium: TextStyle(
               fontSize: 12,
+              fontStyle: FontStyle.normal,
               fontWeight: FontWeight.w500,
               color: ColorConstant.whiteColor),
           labelSmall: TextStyle(
               fontSize: 11,
+              fontStyle: FontStyle.normal,
               fontWeight: FontWeight.w500,
               color: ColorConstant.whiteColor),
         ),
