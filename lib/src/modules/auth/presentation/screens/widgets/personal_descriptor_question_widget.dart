@@ -65,7 +65,7 @@ class _PersonalDescriptorQuestionWidgetState
                     ]),
                 // color: ColorConstant.lightBlueColor,
                 border:
-                    Border.all(color: ColorConstant.lightGreyColor, width: 0.5),
+                    Border.all(color: ColorConstant.darkGreyBorderColor, width: 0.5),
                 borderRadius: BorderRadius.circular(20)),
             child: Container(
               decoration: BoxDecoration(
