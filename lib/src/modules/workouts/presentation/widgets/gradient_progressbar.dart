@@ -13,22 +13,23 @@ class GradientProgressBar extends StatelessWidget {
       builder: (context, constraints) {
         final width = constraints.maxWidth;
         return Container(
+          height: 10,
           width: double.maxFinite,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
-            color: backGroundColor, // Background of the progress bar
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white24, // Background of the progress bar
           ),
           child: Stack(
             children: [
               Container(
                 width: width * progress, // Width of the progress
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.circular(10),
                   gradient: const LinearGradient(
                     // Gradient for the progress
                     colors: [
-                      ColorConstant.buttonBorderGradient1Color,
-                      ColorConstant.buttonBorderGradient2Color,
+                      ColorConstant.buttonGradient1Color,
+                      ColorConstant.buttonGradient2Color,
                     ],
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,

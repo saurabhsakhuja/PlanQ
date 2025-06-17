@@ -62,17 +62,12 @@ class $AssetsFontsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/add_blue_icon.png
-  AssetGenImage get addBlueIcon =>
-      const AssetGenImage('assets/images/add_blue_icon.png');
-
-  /// File path: assets/images/aiMadeIcon.png
-  AssetGenImage get aiMadeIcon =>
-      const AssetGenImage('assets/images/aiMadeIcon.png');
-
   /// File path: assets/images/arrowRight.png
   AssetGenImage get arrowRight =>
       const AssetGenImage('assets/images/arrowRight.png');
+
+  /// File path: assets/images/body.png
+  AssetGenImage get body => const AssetGenImage('assets/images/body.png');
 
   /// File path: assets/images/check.png
   AssetGenImage get check => const AssetGenImage('assets/images/check.png');
@@ -111,10 +106,6 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/logo.jpg
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.jpg');
-
-  /// File path: assets/images/marcketPlaceIcon.png
-  AssetGenImage get marcketPlaceIcon =>
-      const AssetGenImage('assets/images/marcketPlaceIcon.png');
 
   /// File path: assets/images/minusIcon.png
   AssetGenImage get minusIcon =>
@@ -182,9 +173,8 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
-    addBlueIcon,
-    aiMadeIcon,
     arrowRight,
+    body,
     check,
     chevronLeftIcon,
     circleButtonIcon,
@@ -195,7 +185,6 @@ class $AssetsImagesGen {
     introBg3,
     lightningIcon,
     logo,
-    marcketPlaceIcon,
     minusIcon,
     plusIcon,
     polygonIcons,
@@ -218,11 +207,20 @@ class $AssetsImagesGen {
 class $AssetsSvgsGen {
   const $AssetsSvgsGen();
 
+  /// File path: assets/svgs/abs.svg
+  String get abs => 'assets/svgs/abs.svg';
+
+  /// File path: assets/svgs/addIcon.svg
+  String get addIcon => 'assets/svgs/addIcon.svg';
+
   /// File path: assets/svgs/add_blue_icon.svg
   String get addBlueIcon => 'assets/svgs/add_blue_icon.svg';
 
   /// File path: assets/svgs/add_dark_blue_icon.svg
   String get addDarkBlueIcon => 'assets/svgs/add_dark_blue_icon.svg';
+
+  /// File path: assets/svgs/aiMadeIcon.svg
+  String get aiMadeIcon => 'assets/svgs/aiMadeIcon.svg';
 
   /// File path: assets/svgs/ai_made_blue_icon.svg
   String get aiMadeBlueIcon => 'assets/svgs/ai_made_blue_icon.svg';
@@ -230,11 +228,20 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/ai_made_purple_icon.svg
   String get aiMadePurpleIcon => 'assets/svgs/ai_made_purple_icon.svg';
 
+  /// File path: assets/svgs/arms.svg
+  String get arms => 'assets/svgs/arms.svg';
+
   /// File path: assets/svgs/arrow_down_icon.svg
   String get arrowDownIcon => 'assets/svgs/arrow_down_icon.svg';
 
   /// File path: assets/svgs/back_button_icon.svg
   String get backButtonIcon => 'assets/svgs/back_button_icon.svg';
+
+  /// File path: assets/svgs/calves.svg
+  String get calves => 'assets/svgs/calves.svg';
+
+  /// File path: assets/svgs/chest.svg
+  String get chest => 'assets/svgs/chest.svg';
 
   /// File path: assets/svgs/dumbbell_icon.svg
   String get dumbbellIcon => 'assets/svgs/dumbbell_icon.svg';
@@ -247,6 +254,9 @@ class $AssetsSvgsGen {
 
   /// File path: assets/svgs/fire_icon.svg
   String get fireIcon => 'assets/svgs/fire_icon.svg';
+
+  /// File path: assets/svgs/forearms.svg
+  String get forearms => 'assets/svgs/forearms.svg';
 
   /// File path: assets/svgs/googleLogo.svg
   String get googleLogo => 'assets/svgs/googleLogo.svg';
@@ -268,11 +278,17 @@ class $AssetsSvgsGen {
   String get jointRelatedIssueIcon =>
       'assets/svgs/joint_related_issue_icon.svg';
 
+  /// File path: assets/svgs/lats.svg
+  String get lats => 'assets/svgs/lats.svg';
+
   /// File path: assets/svgs/lightly_active_icon.svg
   String get lightlyActiveIcon => 'assets/svgs/lightly_active_icon.svg';
 
   /// File path: assets/svgs/longTermFitnessIcon.svg
   String get longTermFitnessIcon => 'assets/svgs/longTermFitnessIcon.svg';
+
+  /// File path: assets/svgs/marketPlaceIcon.svg
+  String get marketPlaceIcon => 'assets/svgs/marketPlaceIcon.svg';
 
   /// File path: assets/svgs/market_place_blue_icon.svg
   String get marketPlaceBlueIcon => 'assets/svgs/market_place_blue_icon.svg';
@@ -289,6 +305,9 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/planq_intro_logo.svg
   String get planqIntroLogo => 'assets/svgs/planq_intro_logo.svg';
 
+  /// File path: assets/svgs/quads.svg
+  String get quads => 'assets/svgs/quads.svg';
+
   /// File path: assets/svgs/rarely_active_icon.svg
   String get rarelyActiveIcon => 'assets/svgs/rarely_active_icon.svg';
 
@@ -304,6 +323,9 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/shortPrepIcon.svg
   String get shortPrepIcon => 'assets/svgs/shortPrepIcon.svg';
 
+  /// File path: assets/svgs/shoulder.svg
+  String get shoulder => 'assets/svgs/shoulder.svg';
+
   /// File path: assets/svgs/spine_issue_icon.svg
   String get spineIssueIcon => 'assets/svgs/spine_issue_icon.svg';
 
@@ -312,34 +334,45 @@ class $AssetsSvgsGen {
 
   /// List of all assets
   List<String> get values => [
+    abs,
+    addIcon,
     addBlueIcon,
     addDarkBlueIcon,
+    aiMadeIcon,
     aiMadeBlueIcon,
     aiMadePurpleIcon,
+    arms,
     arrowDownIcon,
     backButtonIcon,
+    calves,
+    chest,
     dumbbellIcon,
     facebookLogo,
     filterIcon,
     fireIcon,
+    forearms,
     googleLogo,
     heartIssuesIcon,
     heightIndicatorMain,
     heightIndicatorTriangle,
     highlyActiveIcon,
     jointRelatedIssueIcon,
+    lats,
     lightlyActiveIcon,
     longTermFitnessIcon,
+    marketPlaceIcon,
     marketPlaceBlueIcon,
     moderatelyActiveIcon,
     noInjuriesIcon,
     otherIcon,
     planqIntroLogo,
+    quads,
     rarelyActiveIcon,
     recentlyRecoverIcon,
     redCheckIcon,
     reverseArrowIcon,
     shortPrepIcon,
+    shoulder,
     spineIssueIcon,
     standPersonIcon,
   ];

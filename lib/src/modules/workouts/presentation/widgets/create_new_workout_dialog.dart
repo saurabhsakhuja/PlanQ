@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plan_q/gen/assets.gen.dart';
 import 'package:plan_q/src/core/constants/app_routes.dart';
@@ -20,15 +21,15 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
     return Dialog(
       insetPadding: const EdgeInsets.all(20),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
+        borderRadius: BorderRadius.circular(24),
       ),
       backgroundColor: Colors.transparent,
       child: Container(
         decoration: BoxDecoration(
           color: const Color(0xff151515),
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(24),
           border: Border.all(
-            color: ColorConstant.darkGreyBorderColor,
+            color: Colors.white.withOpacity(.1),
             width: 1.5,
           ),
         ),
@@ -43,7 +44,7 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
               _buildOptionTile(
                 context,
                 option: 'AI Made',
-                icon: Assets.images.aiMadeIcon.path,
+                icon: Assets.svgs.aiMadeIcon,
                 description: 'Customize AI generated workout',
                 onTap: () {
                   setState(() {
@@ -51,11 +52,11 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
                   });
                 },
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 16),
               _buildOptionTile(
                 context,
                 option: 'Marketplace',
-                icon: Assets.images.marcketPlaceIcon.path,
+                icon: Assets.svgs.marketPlaceIcon,
                 description: 'Choose from expert workouts',
                 onTap: () {
                   setState(() {
@@ -63,11 +64,11 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
                   });
                 },
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 16),
               _buildOptionTile(
                 context,
                 option: 'Create Custom',
-                icon: Assets.images.addBlueIcon.path,
+                icon: Assets.svgs.addIcon,
                 description: 'Build your own from scratch',
                 onTap: () {
                   setState(() {
@@ -93,7 +94,7 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
         Text(
           'Create New Workout',
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20),
+              color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20),
         ),
         InkWell(
           onTap: () {
@@ -102,14 +103,14 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
-              color: ColorConstant.greyColor.withOpacity(0.2),
+              color: ColorConstant.whiteColor.withOpacity(0.1),
             ),
             height: 32,
             width: 32,
             child: const Icon(
               Icons.close,
               color: Colors.white,
-              size: 20,
+              size: 18,
             ),
           ),
         ),
@@ -132,13 +133,11 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
         padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
         decoration: BoxDecoration(
           border: Border.all(
-            color: ColorConstant.darkGreyBorderColor,
+            color: Colors.white.withOpacity(.1),
             width: 1,
           ),
           borderRadius: BorderRadius.circular(16),
-          color: isSelected
-              ? ColorConstant.whiteColor
-              : ColorConstant.greyColor.withOpacity(0.1),
+          color: isSelected ? ColorConstant.whiteColor : Color(0xff1F1F1F),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -146,11 +145,62 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
           children: [
             Padding(
               padding: const EdgeInsets.only(bottom: 5),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: Image.asset(
-                  icon,
-                  scale: 3.5,
+              child: Container(
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      isSelected
+                          ? BoxShadow(
+                              color: Colors.grey.withOpacity(.4),
+                              offset: Offset(
+                                  0, 10), 
+                              blurRadius: 10,
+                              spreadRadius: 0,
+                            )
+                          : BoxShadow()
+                    ],
+                    gradient: isSelected
+                        ? LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [Colors.white, Colors.white, Colors.grey.withOpacity(.6)])
+                        : LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                                const Color.fromARGB(255, 91, 90, 90),
+                                const Color.fromARGB(255, 140, 137, 137),
+                              ])),
+                child: Container(
+                  width: 44,
+                  height: 44,
+                  margin: EdgeInsets.all(1),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: !isSelected
+                        ? LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomLeft,
+                            colors: [
+                                // const Color.fromARGB(255, 47, 45, 45),
+                                const Color.fromARGB(255, 56, 54, 54),
+                                const Color.fromARGB(255, 95, 95, 95),
+                              ])
+                        : LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: [
+                                Colors.white,
+                                Colors.white,
+                              ]),
+                  ),
+                  child: Center(
+                      child: SvgPicture.asset(
+                    icon,
+                    height: 20,
+                    width: 20,
+                    color: isSelected ? Colors.black : Colors.white,
+                  )),
                 ),
               ),
             ),
@@ -166,12 +216,15 @@ class _CreateNewWorkoutDialogState extends State<CreateNewWorkoutDialog> {
                       option,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           color: isSelected ? Colors.black : Colors.white,
+                          fontWeight: FontWeight.w500,
                           fontSize: 16),
                     ),
                     Text(
                       description,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: ColorConstant.greyColor, fontSize: 14),
+                          color: isSelected ? Colors.black : Color(0xff8E9196),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
                     ),
                   ],
                 ),

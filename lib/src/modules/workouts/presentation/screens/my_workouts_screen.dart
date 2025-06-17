@@ -111,12 +111,15 @@ class _MyWorkoutsScreenState extends State<MyWorkoutsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'My Workouts',
         centerTitle: true,
         showBackButton: true,
         onBackButtonPressed: () {
           locator<GoRouter>().pop();
         },
+        child: Text(
+          'Choose your Muscle Group',
+          style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
+        ),
       ),
       body: SafeArea(
         child: Padding(
@@ -171,23 +174,22 @@ class _MyWorkoutsScreenState extends State<MyWorkoutsScreen> {
                                 child: Column(
                                   children: [
                                     if (isFocused)
-                                      const Divider(
-                                        color: ColorConstant.greyColor,
+                                       Divider(
+                                        color: ColorConstant.whiteColor.withOpacity(.4),
                                         thickness: 0.5,
                                       ),
-                                    SizedBox(
-                                      height: _itemHeight,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 6),
+                                    Padding(
+                                      padding:  EdgeInsets.only(left:isFocused? 12:4),
+                                      child: SizedBox(
+                                        height: _itemHeight,
                                         child: _buildWorkoutRow(
                                             context, category, isFocused),
                                       ),
                                     ),
                                     // Bottom divider: only show if focused
                                     if (isFocused)
-                                      const Divider(
-                                        color: ColorConstant.greyColor,
+                                       Divider(
+                                        color: ColorConstant.whiteColor.withOpacity(.4),
                                         thickness: 0.5,
                                       ),
                                   ],
@@ -223,41 +225,35 @@ class _MyWorkoutsScreenState extends State<MyWorkoutsScreen> {
           category,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontSize: 20,
-                color: isFocused
-                    ? ColorConstant.whiteColor // White for focused item
-                    : ColorConstant.greyColor, // Grey for unfocused items
-                fontWeight: FontWeight.w500,
+                fontSize: 26,
+                color: isFocused ? ColorConstant.whiteColor : Color(0xff69686C),
+                fontWeight:isFocused? FontWeight.w700:FontWeight.w500,
               ),
         ),
         if (isFocused)
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  ColorConstant.buttonBorderGradient1Color,
-                  ColorConstant.buttonBorderGradient2Color,
-                  ColorConstant.buttonBorderGradient3Color,
-                ],
-              ),
-              borderRadius: BorderRadius.circular(50),
-            ),
-            padding: const EdgeInsets.all(0.5),
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [
-                    ColorConstant.buttonGradient1Color,
-                    ColorConstant.buttonGradient2Color,
-                  ],
+          ClipRRect(
+            borderRadius: BorderRadius.circular(50),
+            child: ColoredBox(
+              color: Colors.white,
+              child: Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      ColorConstant.whiteGradient1,
+                      ColorConstant.whiteGradient2,
+                      ColorConstant.whiteGradient3,
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(50),
                 ),
-                borderRadius: BorderRadius.circular(50),
-              ),
-              padding: const EdgeInsets.all(8), // Inner padding for the icon
-              child: Icon(
-                Icons.arrow_forward_ios,
-                color: ColorConstant.whiteColor,
-                size: 20,
+                padding: const EdgeInsets.all(8), // Inner padding for the icon
+                child: Icon(
+                  Icons.arrow_forward_ios,
+                  color: ColorConstant.blackColor,
+                  size: 14,
+                ),
               ),
             ),
           ),

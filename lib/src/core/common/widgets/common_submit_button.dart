@@ -18,7 +18,7 @@ class CommonSubmitButton extends StatelessWidget {
     this.borderRadius,
     this.padding,
     this.width,
-    this.height,
+    this.height=60,
   });
 
   @override
@@ -46,11 +46,9 @@ class CommonSubmitButton extends StatelessWidget {
         height: height,
         width: width ?? double.maxFinite,
         decoration: BoxDecoration(
-          
           gradient: const LinearGradient(
             colors: [
               ColorConstant.buttonGradient1Color,
-              
               ColorConstant.buttonGradient2Color,
             ],
           ),
@@ -59,17 +57,18 @@ class CommonSubmitButton extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
               borderRadius: borderRadius ?? BorderRadius.circular(50),
-              color: Colors.white.withOpacity(.12)),
+              color: Colors.white.withOpacity(.1)),
           padding: const EdgeInsets.symmetric(vertical: 4),
           child: Material(
             color: Colors.transparent,
             child: InkWell(
               onTap: onPressed,
+              overlayColor:  WidgetStateProperty.all(Colors.transparent),
+              splashColor: Colors.transparent,
               borderRadius: borderRadius ?? BorderRadius.circular(8.0),
               child: Padding(
-                padding: padding ??
-                    const EdgeInsets.symmetric(
-                        horizontal: 12.0, vertical: 12.0),
+                padding:
+                    padding ?? const EdgeInsets.symmetric(horizontal: 12.0),
                 child: Center(child: child),
               ),
             ),

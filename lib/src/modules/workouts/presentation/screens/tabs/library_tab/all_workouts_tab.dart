@@ -1,11 +1,9 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plan_q/gen/assets.gen.dart';
-import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/app_routes.dart';
 import 'package:plan_q/src/locator.dart';
@@ -72,7 +70,7 @@ class AllWorkoutsTab extends StatelessWidget {
             },
           ),
         ),
-        SizedBox(height: 26),
+        SizedBox(height: 34),
         // Add the button directly after the ListView.builder
         CommonSubmitButton(
           height: 52,

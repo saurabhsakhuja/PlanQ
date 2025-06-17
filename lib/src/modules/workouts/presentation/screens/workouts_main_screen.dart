@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:plan_q/gen/assets.gen.dart';
 import 'package:plan_q/src/core/common/widgets/filter_button.dart';
-import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/tabs/library_tab/all_workouts_tab.dart';
 
 class WorkoutsMainScreen extends StatefulWidget {
@@ -35,21 +32,24 @@ class _WorkoutsMainScreenState extends State<WorkoutsMainScreen>
       backgroundColor: Colors.black,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(width: 40),
-                  _buildTitle(),
-                  buildFilterButton(onTap: (){}),
-                ],
+              SizedBox(
+                height: 44,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(width: 40),
+                    _buildTitle(),
+                    buildFilterButton(onTap: () {}),
+                  ],
+                ),
               ),
               const SizedBox(height: 20),
               _buildWorkoutTabs(),
-              const SizedBox(height: 12),
+       
               Expanded(
                 child: _buildWorkoutPages(),
               ),
@@ -67,11 +67,9 @@ class _WorkoutsMainScreenState extends State<WorkoutsMainScreen>
       style: Theme.of(context)
           .textTheme
           .bodyLarge
-          ?.copyWith(fontWeight: FontWeight.w400),
+          ?.copyWith(fontWeight: FontWeight.w400, fontSize: 17),
     );
   }
-
- 
 
   // Method to build the workout tabs using TabBar
   Widget _buildWorkoutTabs() {
@@ -104,14 +102,29 @@ class _WorkoutsMainScreenState extends State<WorkoutsMainScreen>
     return Tab(
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: ColorConstant.lightGreyColor, width: 0.5),
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.white.withOpacity(.4), Colors.black]),
           borderRadius: BorderRadius.circular(50),
-          color: isSelected ? Color(0xff121624) : Colors.transparent,
         ),
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-        child: Text(
-          text,
-          style: Theme.of(context).textTheme.bodyMedium,
+        child: Container(
+          height: isSelected ? 37 : 36,
+          margin: EdgeInsets.all(isSelected ? .4 : 0),
+          decoration: BoxDecoration(
+            border: Border.all(
+                color: isSelected ? Colors.transparent : Color(0xff27272A),
+                width: 0.5),
+            borderRadius: BorderRadius.circular(50),
+            color: isSelected ? Color(0xff121624) : Color(0xff09090B),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Center(
+            child: Text(
+              text,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 14,fontWeight: FontWeight.w400),
+            ),
+          ),
         ),
       ),
     );

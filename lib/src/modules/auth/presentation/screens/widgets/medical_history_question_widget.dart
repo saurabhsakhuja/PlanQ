@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:plan_q/src/modules/auth/presentation/screens/general_detail_fillup_screen.dart'; // Ensure this import is correct
+import 'package:plan_q/src/modules/auth/presentation/screens/general_detail_fillup_screen.dart';
 
 class MedicalHistoryQuestionWidget extends StatefulWidget {
   final QuestionCallback onContinue;
@@ -68,7 +67,7 @@ class _MedicalHistoryQuestionWidgetState
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.only(left: 20.0, right: 20, top: 28),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,16 +75,16 @@ class _MedicalHistoryQuestionWidgetState
             Text(
               "Do you have any Medical History?",
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 26,
-                    color: Colors.white,
-                  ),
+                  fontWeight: FontWeight.w500,
+                  fontSize: 30,
+                  color: Colors.white,
+                  height: 0),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 28),
             Center(
               child: Wrap(
-                spacing: 10,
-                runSpacing: 10,
+                spacing: 8,
+                runSpacing: 8,
                 alignment: WrapAlignment.center,
                 children: _options.map((optionData) {
                   final label = optionData['label'] ?? '';
@@ -93,70 +92,75 @@ class _MedicalHistoryQuestionWidgetState
                   final isSelected = _selectedOptions.contains(label);
                   final color = _optionColors[label];
 
-                  return GestureDetector(
-                    onTap: () => _toggleOption(label),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 8),
-                      decoration: BoxDecoration(
-                        color: isSelected
-                            ? color?.withOpacity(0.2) ??
-                                ColorConstant.redBorderColor.withOpacity(0.2)
-                            : ColorConstant.blueisGreyColor,
+                  return Container(
+                    height: 40,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(
+                            color: isSelected
+                                ? color?.withOpacity(0.7) ??
+                                    ColorConstant.redBorderColor
+                                        .withOpacity(0.2)
+                                : Colors.transparent),
                         gradient: !isSelected
                             ? LinearGradient(
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
                                 colors: [
-                                  ColorConstant.blackColor.withOpacity(0.5),
-                                  ColorConstant.mainContentGradientColor,
-                                ],
-                              )
-                            : null,
-                        borderRadius: BorderRadius.circular(50),
-                        border: Border.all(
-                          color: isSelected
-                              ? color ?? ColorConstant.redBorderColor
-                              : ColorConstant.darkGreyBorderColor,
-                          width: 1,
+                                    const Color.fromARGB(255, 70, 68, 68),
+                                    const Color.fromARGB(255, 30, 30, 30)
+                                  ])
+                            : null),
+                    child: GestureDetector(
+                      onTap: () => _toggleOption(label),
+                      child: Container(
+                        height: 40,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
                         ),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            width: 20,
-                            height: 20,
-                            margin: const EdgeInsets.only(right: 4),
-                            child: SvgPicture.asset(
-                              iconPath,
-                              colorFilter: ColorFilter.mode(
-                                isSelected ? Colors.white : Colors.grey[400]!,
-                                BlendMode.srcIn,
+                        decoration: BoxDecoration(
+                          color: isSelected
+                              ? color?.withOpacity(0.2) ??
+                                  ColorConstant.redBorderColor.withOpacity(0.2)
+                              : Color(0xff151515),
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              width: 20,
+                              height: 20,
+                              margin: const EdgeInsets.only(right: 4),
+                              child: SvgPicture.asset(
+                                iconPath,
+                                colorFilter: ColorFilter.mode(
+                                  Colors.white,
+                                  BlendMode.srcIn,
+                                ),
                               ),
                             ),
-                          ),
-                          Text(
-                            label,
-                            style: TextStyle(
-                              color:
-                                  isSelected ? Colors.white : Colors.grey[400],
-                              fontSize: 12,
+                            Text(
+                              label,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   );
                 }).toList(),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 28),
             CommonSubmitButton(
               onPressed: () => widget.onContinue(),
               child: Text(
                 'Continue',
-                style:  Theme.of(context)
+                style: Theme.of(context)
                     .textTheme
                     .titleMedium
                     ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
