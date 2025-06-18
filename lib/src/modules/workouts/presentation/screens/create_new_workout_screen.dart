@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:plan_q/src/core/common/app_textstyles.dart';
+import 'package:plan_q/gen/assets.gen.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/common/widgets/custom_appbar.dart';
 import 'package:plan_q/src/core/constants/app_routes.dart';
@@ -52,12 +53,15 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Create Workout',
         centerTitle: true,
         showBackButton: true,
         onBackButtonPressed: () {
           locator<GoRouter>().pop();
         },
+        child: Text(
+          'Create Workout',
+          style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
+        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -73,65 +77,71 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
                     backGroundColor: ColorConstant.greyColor,
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 15.03),
                 Text(
                   'Name your workout',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(fontWeight: FontWeight.w400, fontSize: 16),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w400, fontSize: 18, height: 0),
                 ),
                 const SizedBox(height: 8),
-                TextFormField(
-                  onChanged: (value) {
-                    setState(() {
-                      workoutName = value;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Color(0xff151515),
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-                    hintText: 'Starting Strength',
-                    hintStyle: Theme.of(context).textTheme.bodyLarge,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50),
-                      borderSide: BorderSide(
-                          color: ColorConstant.darkGreyBorderColor, width: 0.1),
+                SizedBox(
+                  height: 60,
+                  child: TextFormField(
+                    onChanged: (value) {
+                      setState(() {
+                        workoutName = value;
+                      });
+                    },
+                    cursorColor: Colors.white,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Color(0xff151515),
+                      
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                      hintText: 'Starting Strength',
+                      hintStyle: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(fontSize: 18, fontWeight: FontWeight.w400),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(32),
+                        borderSide: BorderSide(
+                            color: Colors.white.withOpacity(.06), width: 0.1),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(32),
+                        borderSide: BorderSide(
+                            color: Colors.white.withOpacity(.06), width: 0.1),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(32),
+                        borderSide: BorderSide(
+                          color: Colors.white.withOpacity(.06),
+                        ),
+                      ),
                     ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50),
-                      borderSide: BorderSide(
-                          color: ColorConstant.darkGreyBorderColor, width: 0.1),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50),
-                      borderSide:
-                          BorderSide(color: ColorConstant.darkGreyBorderColor),
-                    ),
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
-                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 const SizedBox(height: 20),
                 Text(
                   'Workout days',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(fontWeight: FontWeight.w400, fontSize: 16),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w400, fontSize: 18, height: 0),
                 ),
                 Text(
                   "Select which days you'll perform this workout.",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(color: ColorConstant.white60Color),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Color(0xff9CA3AF),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400),
                 ),
                 const SizedBox(height: 10),
                 Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
+                  spacing: 12,
+                  runSpacing: 12,
+                  alignment: WrapAlignment.start,
                   children: [
                     _buildDayButton('Sunday'),
                     _buildDayButton('Monday'),
@@ -144,52 +154,62 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
                 ),
                 selectedDays.isEmpty
                     ? SizedBox.shrink()
-                    : const SizedBox(height: 20),
+                    : const SizedBox(height: 12),
                 selectedDays.isEmpty
                     ? SizedBox.shrink()
                     : Container(
+                        height: 56,
                         width: double.maxFinite,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 18),
                         decoration: BoxDecoration(
-                          color: Color(0xff151515),
-                          borderRadius: BorderRadius.circular(8),
+                          color: Color(0xff151515).withOpacity(.5),
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                        child: RichText(
-                          text: TextSpan(
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(color: Colors.white),
-                            children: [
-                              const TextSpan(text: 'Workout on: '),
-                              ..._buildColoredDaySpans(selectedDays),
-                            ],
+                        child: Center(
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: RichText(
+                              text: TextSpan(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400),
+                                children: [
+                                  const TextSpan(text: 'Workout on '),
+                                  ..._buildColoredDaySpans(selectedDays),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 15),
                 Text(
                   'Program duration',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(fontWeight: FontWeight.w400, fontSize: 16),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w400, fontSize: 18, height: 0),
                 ),
-                Text(
-                  "How many weeks will you follow this program?",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(color: ColorConstant.white60Color),
+                Padding(
+                  padding: const EdgeInsets.only(top: 12),
+                  child: Text(
+                    "How many weeks will you follow this program?",
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Color(0xff9CA3AF),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        height: 0),
+                  ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 8),
                 Container(
                   height: 96,
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   decoration: BoxDecoration(
                     color: Color(0xff151515),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                   child: ListWheelScrollView.useDelegate(
                     controller: _scrollController,
@@ -211,11 +231,9 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
                           child: Text(
                             '${index + 1}',
                             style: TextStyle(
-                              fontSize: isSelected ? 32 : 20,
-                              fontWeight: isSelected
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                              color: isSelected ? Colors.white : Colors.grey,
+                              fontSize: 36,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
                             ),
                           ),
                         );
@@ -230,17 +248,18 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Create',
-                        style:  Theme.of(context)
-                    .textTheme
-                    .titleMedium
-                    ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
+                        'Create New Workout',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(
+                                fontSize: 17, fontWeight: FontWeight.w400),
                       ),
+                      SizedBox(width: 8),
+                      SvgPicture.asset(Assets.svgs.fireIcon)
                     ],
                   ),
                   onPressed: () {
-                    // locator<GoRouter>().pushNamed(
-                    //     AppRoutes.WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_NAME);
                     context
                         .read<ManageWorkoutListCubit>()
                         .addWorkout('New Workout');
@@ -263,16 +282,19 @@ class _CreateNewWorkoutScreenState extends State<CreateNewWorkoutScreen> {
     return GestureDetector(
       onTap: () => _toggleDay(day),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        height: 48,
+        width: 106,
+        padding: EdgeInsets.symmetric(vertical: 11),
         decoration: BoxDecoration(
             color: isSelected ? Colors.white : Color(0xff151515),
             borderRadius: BorderRadius.circular(12)),
         child: Text(
           day,
+          textAlign: TextAlign.center,
           style: TextStyle(
               color: isSelected ? Colors.black : Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.w400),
+              fontSize: 18,
+              fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400),
         ),
       ),
     );

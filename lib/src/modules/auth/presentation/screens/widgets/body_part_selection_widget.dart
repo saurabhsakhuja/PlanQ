@@ -29,95 +29,97 @@ class _BodyPartSelectionWidgetState extends State<BodyPartSelectionWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 28),
-        child: Column(
-          children: [
-            Text(
-              "Where do you want to see the most improvement?",
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 30,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(height: 28),
-            Center(
-              child: SizedBox(
-                width: 195,
-                height: 410,
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      'assets/images/body.png',
-                      fit: BoxFit.contain,
-                    ),
-                    MuscleOverlayItem(
-                      muscleName: 'shoulder',
-                      position: const Offset(52.5, 62),
-                      size: const Size(89, 40),
-                      onSelected: _onMuscleSelected,
-                    ),
-                    MuscleOverlayItem(
-                      muscleName: 'forearms',
-                      position: const Offset(27, 129),
-                      size: const Size(140, 38),
-                      onSelected: _onMuscleSelected,
-                    ),
-                    MuscleOverlayItem(
-                      muscleName: 'arms',
-                      position: const Offset(47, 100),
-                      size: const Size(100, 30),
-                      onSelected: _onMuscleSelected,
-                    ),
-                    MuscleOverlayItem(
-                      muscleName: 'lats',
-                      position: const Offset(65.5, 103),
-                      size: const Size(63, 24),
-                      onSelected: _onMuscleSelected,
-                    ),
-                    MuscleOverlayItem(
-                      muscleName: 'abs',
-                      position: const Offset(72, 106),
-                      size: const Size(50.5, 76.5),
-                      onSelected: _onMuscleSelected,
-                    ),
-                    MuscleOverlayItem(
-                      muscleName: 'chest',
-                      position: const Offset(62, 77),
-                      size: const Size(70, 29),
-                      onSelected: _onMuscleSelected,
-                    ),
-                    MuscleOverlayItem(
-                      muscleName: 'quads',
-                      position: const Offset(64, 162),
-                      size: const Size(66, 90),
-                      onSelected: _onMuscleSelected,
-                    ),
-                    MuscleOverlayItem(
-                      muscleName: 'calves',
-                      position: const Offset(64.5, 259),
-                      size: const Size(65, 82),
-                      onSelected: _onMuscleSelected,
-                    ),
-                  ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 28),
+          child: Column(
+            children: [
+              Text(
+                "Where do you want to see the most improvement?",
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 30,
+                  color: Colors.white,
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
-              child: CommonSubmitButton(
-                onPressed: widget.onContinue,
-                child: Text(
-                  'Continue',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium
-                      ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
+              const SizedBox(height: 28),
+              Center(
+                child: SizedBox(
+                  width: 195,
+                  height: 410,
+                  child: Stack(
+                    children: [
+                      Image.asset(
+                        'assets/images/body.png',
+                        fit: BoxFit.contain,
+                      ),
+                      MuscleOverlayItem(
+                        muscleName: 'shoulder',
+                        position: const Offset(52.5, 62),
+                        size: const Size(89, 40),
+                        onSelected: _onMuscleSelected,
+                      ),
+                      MuscleOverlayItem(
+                        muscleName: 'forearms',
+                        position: const Offset(27, 129),
+                        size: const Size(140, 38),
+                        onSelected: _onMuscleSelected,
+                      ),
+                      MuscleOverlayItem(
+                        muscleName: 'arms',
+                        position: const Offset(47, 100),
+                        size: const Size(100, 30),
+                        onSelected: _onMuscleSelected,
+                      ),
+                      MuscleOverlayItem(
+                        muscleName: 'lats',
+                        position: const Offset(65.5, 103),
+                        size: const Size(63, 24),
+                        onSelected: _onMuscleSelected,
+                      ),
+                      MuscleOverlayItem(
+                        muscleName: 'abs',
+                        position: const Offset(72, 106),
+                        size: const Size(50.5, 76.5),
+                        onSelected: _onMuscleSelected,
+                      ),
+                      MuscleOverlayItem(
+                        muscleName: 'chest',
+                        position: const Offset(62, 77),
+                        size: const Size(70, 29),
+                        onSelected: _onMuscleSelected,
+                      ),
+                      MuscleOverlayItem(
+                        muscleName: 'quads',
+                        position: const Offset(64, 162),
+                        size: const Size(66, 90),
+                        onSelected: _onMuscleSelected,
+                      ),
+                      MuscleOverlayItem(
+                        muscleName: 'calves',
+                        position: const Offset(64.5, 259),
+                        size: const Size(65, 82),
+                        onSelected: _onMuscleSelected,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
+                child: CommonSubmitButton(
+                  onPressed: widget.onContinue,
+                  child: Text(
+                    'Continue',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -206,11 +208,12 @@ class _MuscleOverlayItemState extends State<MuscleOverlayItem>
             child: GestureDetector(
               onTap: _handleTap,
               behavior: HitTestBehavior.translucent,
-              child: SvgPicture.asset('assets/svgs/${widget.muscleName}.svg',
-                  fit: BoxFit.fill,
-                  clipBehavior: Clip.hardEdge,
-                  color:   Color(0xff7E7F96),
-                  ),
+              child: SvgPicture.asset(
+                'assets/svgs/${widget.muscleName}.svg',
+                fit: BoxFit.fill,
+                clipBehavior: Clip.hardEdge,
+                color: Color(0xff7E7F96),
+              ),
             ),
           );
         },

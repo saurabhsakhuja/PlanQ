@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
-import 'package:plan_q/src/core/common/app_textstyles.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:plan_q/gen/assets.gen.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/select_round_screen.dart';
+import 'package:plan_q/src/modules/workouts/presentation/screens/widgets/circuit_mode_toggle_button.dart';
+import 'package:plan_q/src/modules/workouts/presentation/screens/widgets/exercises_library_header_widget.dart';
 
 class LibraryRecentTab extends StatefulWidget {
   const LibraryRecentTab({super.key});
@@ -60,78 +62,28 @@ class _LibraryRecentTabState extends State<LibraryRecentTab> {
     return Column(
       children: [
         // Circuit Mode Toggle
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          decoration: BoxDecoration(
-            border: Border.all(
-                color: ColorConstant.darkGreyBorderColor, width: 0.5),
-            borderRadius: BorderRadius.circular(8),
-            color: Color(0xff151515),
-          ),
-          child: Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        color: _isCircuitMode
-                            ? ColorConstant.blackColor
-                            : ColorConstant.darkGreyBorderColor),
-                    borderRadius: BorderRadius.circular(25)),
-                child: AdvancedSwitch(
-                  controller: _controller,
-                  activeColor: Colors.white,
-                  inactiveColor: Color(0xff121624),
-                  borderRadius: BorderRadius.circular(50),
-                  width: 40,
-                  height: 22,
-                  enabled: true,
-                  disabledOpacity: 0.5,
-                  onChanged: (value) {
-                    setState(() {
-                      _isCircuitMode = value;
-                    });
-                    if (value) {
-                      showSelectRoundBottomSheet();
-                    }
-                  },
-                ),
-              ),
-              const SizedBox(width: 8),
-              const Text('Circuit Mode'),
-              const SizedBox(width: 20),
-              Spacer(),
-              Text(
-                'Add exercises individually',
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
-            ],
-          ),
+        CircuitModeToggle(
+          isCircuitMode: _isCircuitMode,
+          onChanged: (value) {
+            setState(() {
+              _isCircuitMode = value;
+            });
+            if (value) {
+              showSelectRoundBottomSheet();
+            }
+          },
         ),
-        const SizedBox(height: 6),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('EXERCISE LIBRARY'),
-              Text(
-                'Select Multiple',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: ColorConstant.redBorderColor),
-              )
-            ],
-          ),
-        ),
+
+        SizedBox(height: 16),
+        ExerciseLibraryHeader(),
+        SizedBox(height: 12),
         Expanded(
           child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 8.0,
               mainAxisSpacing: 8.0,
-              childAspectRatio: 1.4,
+              childAspectRatio: 1.6,
             ),
             itemCount: _exercises.length,
             itemBuilder: (context, index) {
@@ -149,9 +101,9 @@ class _LibraryRecentTabState extends State<LibraryRecentTab> {
                 Text(
                   'Add to Workout (${_selectedExercises.length})',
                   style: Theme.of(context)
-                    .textTheme
-                    .titleMedium
-                    ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
                 ),
               ],
             ),
@@ -184,123 +136,133 @@ class _LibraryRecentTabState extends State<LibraryRecentTab> {
         _toggleExerciseSelection(exercise['name']!);
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 2),
-        padding: EdgeInsets.all(.8),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.white : const Color(0xff151515),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: ColorConstant.darkGreyBorderColor,
-            width: 0.3,
-          ),
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                const Color.fromARGB(255, 50, 49, 49),
+                const Color.fromARGB(255, 30, 30, 30)
+              ]),
         ),
+        padding: EdgeInsets.all(1),
         child: Container(
-          padding: const EdgeInsets.all(12),
+          padding: EdgeInsets.all(.8),
           decoration: BoxDecoration(
             color: isSelected ? Colors.white : const Color(0xff151515),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: isSelected
-                  ? Colors.transparent
-                  : ColorConstant.darkGreyBorderColor,
-              width: 0.3,
-            ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(.7),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomLeft,
-                        end: Alignment.topRight,
-                        colors: [
-                          isSelected ? Colors.white : const Color(0xFF262829),
-                          Colors.white,
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: isSelected ? Colors.white : const Color(0xff151515),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(1),
                       decoration: BoxDecoration(
-                        gradient: isSelected
-                            ? const LinearGradient(
-                                begin: Alignment.bottomLeft,
-                                end: Alignment.topRight,
-                                colors: [
-                                  Color(0xFFE0D9D9),
-                                  Colors.white,
-                                ],
-                              )
-                            : const LinearGradient(
-                                begin: Alignment.bottomLeft,
-                                end: Alignment.topRight,
-                                colors: [
-                                  Color(0xFF262829),
-                                  Color(0xFF383F40),
-                                  Color(0xFF515151),
-                                ],
-                              ),
-                        borderRadius: BorderRadius.circular(10),
+                        gradient: LinearGradient(
+                            begin: Alignment.bottomLeft,
+                            end: Alignment.topRight,
+                            colors: isSelected
+                                ? [
+                                    Colors.white,
+                                    Colors.white,
+                                  ]
+                                : [
+                                    Color.fromARGB(255, 32, 32, 32),
+                                    Color.fromARGB(255, 151, 151, 151),
+                                  ]),
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Icon(
-                        Icons.fitness_center,
-                        color: isSelected ? Colors.black : Colors.white,
-                        size: 20,
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          gradient: isSelected
+                              ? const LinearGradient(
+                                  begin: Alignment.bottomLeft,
+                                  end: Alignment.topRight,
+                                  colors: [
+                                    Color.fromARGB(255, 236, 231, 231),
+                                    Colors.white,
+                                  ],
+                                )
+                              : const LinearGradient(
+                                  begin: Alignment.topRight,
+                                  end: Alignment.bottomLeft,
+                                  colors: [
+                                    Color.fromARGB(255, 72, 72, 72),
+                                    Color.fromARGB(255, 41, 41, 41),
+                                    Color.fromARGB(255, 27, 27, 27),
+                                  ],
+                                ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: SvgPicture.asset(
+                          Assets.svgs.dumbbellIcon,
+                          height: 20,
+                          width: 20,
+                          color: isSelected ? Colors.black : Colors.white,
+                        ),
                       ),
                     ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      _toggleExerciseSelection(exercise['name']!);
-                    },
-                    child: isSelected
-                        ? Container(
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Color(0xffe5e7eb),
-                            ),
-                            padding: const EdgeInsets.all(10),
-                            margin: const EdgeInsets.only(left: 6),
-                            child: const Icon(
-                              Icons.close,
-                              color: Colors.black,
+                    InkWell(
+                      onTap: () {
+                        _toggleExerciseSelection(exercise['name']!);
+                      },
+                      child: isSelected
+                          ? Container(
+                              height: 28,
+                              width: 28,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Color(0xff525252).withOpacity(.2),
+                              ),
+                              margin: const EdgeInsets.only(left: 6),
+                              child: Icon(
+                                Icons.close,
+                                color: Colors.black,
+                                size: 16,
+                              ),
+                            )
+                          : const Icon(
+                              Icons.add,
+                              color: Color(0xff9CA3AF),
                               size: 20,
                             ),
-                          )
-                        : const Icon(
-                            Icons.add,
-                            color: Color(0xff9CA3AF),
-                            size: 20,
-                          ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8), // Added spacing
-              Text(
-                exercise['name'] ?? 'Unknown Exercise',
-                style: TextStyle(
-                    color: isSelected ? Colors.black : Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14, // Adjusted font size
-                    overflow: TextOverflow.ellipsis),
-                textAlign: TextAlign.center,
-              ),
-              Text(
-                exercise['muscle'] ?? 'Unknown Muscle',
-                style: TextStyle(
-                  color: isSelected ? Colors.black : Colors.grey[400],
-                  fontSize: 12, // Adjusted font size
+                    ),
+                  ],
                 ),
-                textAlign: TextAlign.center,
-              ),
-            ],
+                const SizedBox(height: 8), // Added spacing
+                Text(
+                  exercise['name'] ?? 'Unknown Exercise',
+                  style: TextStyle(
+                      color: isSelected ? Colors.black : Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                      overflow: TextOverflow.ellipsis),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  exercise['muscle'] ?? 'Unknown Muscle',
+                  style: TextStyle(
+                      color: isSelected ? Colors.black : Color(0xff9CA3AF),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
           ),
         ),
       ),

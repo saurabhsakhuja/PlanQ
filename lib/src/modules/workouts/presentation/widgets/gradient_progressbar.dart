@@ -3,9 +3,13 @@ import 'package:plan_q/src/core/constants/color_constant.dart';
 
 class GradientProgressBar extends StatelessWidget {
   final double progress;
-  final Color backGroundColor;
+  final Color? backGroundColor;
+  final bool isWorkoutProgressGradient;
 
-  const GradientProgressBar({required this.progress, required this.backGroundColor});
+  const GradientProgressBar(
+      {required this.progress,
+      required this.backGroundColor,
+      this.isWorkoutProgressGradient = false});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +21,8 @@ class GradientProgressBar extends StatelessWidget {
           width: double.maxFinite,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: Colors.white24, // Background of the progress bar
+            color: backGroundColor ??
+                Colors.white24, // Background of the progress bar
           ),
           child: Stack(
             children: [
@@ -25,12 +30,17 @@ class GradientProgressBar extends StatelessWidget {
                 width: width * progress, // Width of the progress
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  gradient: const LinearGradient(
+                  gradient: LinearGradient(
                     // Gradient for the progress
-                    colors: [
-                      ColorConstant.buttonGradient1Color,
-                      ColorConstant.buttonGradient2Color,
-                    ],
+                    colors: isWorkoutProgressGradient
+                        ? [
+                            ColorConstant.buttonGradient2Color,
+                            ColorConstant.buttonGradient1Color
+                          ]
+                        : [
+                            ColorConstant.buttonGradient1Color,
+                            ColorConstant.buttonGradient2Color,
+                          ],
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
                   ),

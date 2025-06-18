@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ManageWorkoutListState {
   List<String> get workouts => throw _privateConstructorUsedError;
+  List<String> get exercisesWorkouts => throw _privateConstructorUsedError;
 
   /// Create a copy of ManageWorkoutListState
   /// with the given fields replaced by the non-null parameter values.
@@ -31,7 +32,7 @@ abstract class $ManageWorkoutListStateCopyWith<$Res> {
           $Res Function(ManageWorkoutListState) then) =
       _$ManageWorkoutListStateCopyWithImpl<$Res, ManageWorkoutListState>;
   @useResult
-  $Res call({List<String> workouts});
+  $Res call({List<String> workouts, List<String> exercisesWorkouts});
 }
 
 /// @nodoc
@@ -51,11 +52,16 @@ class _$ManageWorkoutListStateCopyWithImpl<$Res,
   @override
   $Res call({
     Object? workouts = null,
+    Object? exercisesWorkouts = null,
   }) {
     return _then(_value.copyWith(
       workouts: null == workouts
           ? _value.workouts
           : workouts // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      exercisesWorkouts: null == exercisesWorkouts
+          ? _value.exercisesWorkouts
+          : exercisesWorkouts // ignore: cast_nullable_to_non_nullable
               as List<String>,
     ) as $Val);
   }
@@ -70,7 +76,7 @@ abstract class _$$ManageWorkoutListStateImplCopyWith<$Res>
       __$$ManageWorkoutListStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<String> workouts});
+  $Res call({List<String> workouts, List<String> exercisesWorkouts});
 }
 
 /// @nodoc
@@ -89,11 +95,16 @@ class __$$ManageWorkoutListStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? workouts = null,
+    Object? exercisesWorkouts = null,
   }) {
     return _then(_$ManageWorkoutListStateImpl(
       workouts: null == workouts
           ? _value._workouts
           : workouts // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      exercisesWorkouts: null == exercisesWorkouts
+          ? _value._exercisesWorkouts
+          : exercisesWorkouts // ignore: cast_nullable_to_non_nullable
               as List<String>,
     ));
   }
@@ -102,8 +113,11 @@ class __$$ManageWorkoutListStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ManageWorkoutListStateImpl implements _ManageWorkoutListState {
-  const _$ManageWorkoutListStateImpl({final List<String> workouts = const []})
-      : _workouts = workouts;
+  const _$ManageWorkoutListStateImpl(
+      {final List<String> workouts = const [],
+      final List<String> exercisesWorkouts = const []})
+      : _workouts = workouts,
+        _exercisesWorkouts = exercisesWorkouts;
 
   final List<String> _workouts;
   @override
@@ -114,9 +128,19 @@ class _$ManageWorkoutListStateImpl implements _ManageWorkoutListState {
     return EqualUnmodifiableListView(_workouts);
   }
 
+  final List<String> _exercisesWorkouts;
+  @override
+  @JsonKey()
+  List<String> get exercisesWorkouts {
+    if (_exercisesWorkouts is EqualUnmodifiableListView)
+      return _exercisesWorkouts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_exercisesWorkouts);
+  }
+
   @override
   String toString() {
-    return 'ManageWorkoutListState(workouts: $workouts)';
+    return 'ManageWorkoutListState(workouts: $workouts, exercisesWorkouts: $exercisesWorkouts)';
   }
 
   @override
@@ -124,12 +148,16 @@ class _$ManageWorkoutListStateImpl implements _ManageWorkoutListState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ManageWorkoutListStateImpl &&
-            const DeepCollectionEquality().equals(other._workouts, _workouts));
+            const DeepCollectionEquality().equals(other._workouts, _workouts) &&
+            const DeepCollectionEquality()
+                .equals(other._exercisesWorkouts, _exercisesWorkouts));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_workouts));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_workouts),
+      const DeepCollectionEquality().hash(_exercisesWorkouts));
 
   /// Create a copy of ManageWorkoutListState
   /// with the given fields replaced by the non-null parameter values.
@@ -142,11 +170,14 @@ class _$ManageWorkoutListStateImpl implements _ManageWorkoutListState {
 }
 
 abstract class _ManageWorkoutListState implements ManageWorkoutListState {
-  const factory _ManageWorkoutListState({final List<String> workouts}) =
-      _$ManageWorkoutListStateImpl;
+  const factory _ManageWorkoutListState(
+      {final List<String> workouts,
+      final List<String> exercisesWorkouts}) = _$ManageWorkoutListStateImpl;
 
   @override
   List<String> get workouts;
+  @override
+  List<String> get exercisesWorkouts;
 
   /// Create a copy of ManageWorkoutListState
   /// with the given fields replaced by the non-null parameter values.

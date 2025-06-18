@@ -62,10 +62,6 @@ class $AssetsFontsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/arrowRight.png
-  AssetGenImage get arrowRight =>
-      const AssetGenImage('assets/images/arrowRight.png');
-
   /// File path: assets/images/body.png
   AssetGenImage get body => const AssetGenImage('assets/images/body.png');
 
@@ -114,10 +110,6 @@ class $AssetsImagesGen {
   /// File path: assets/images/plusIcon.png
   AssetGenImage get plusIcon =>
       const AssetGenImage('assets/images/plusIcon.png');
-
-  /// File path: assets/images/polygonIcons.png
-  AssetGenImage get polygonIcons =>
-      const AssetGenImage('assets/images/polygonIcons.png');
 
   /// File path: assets/images/pulsIcon.png
   AssetGenImage get pulsIcon =>
@@ -173,7 +165,6 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
-    arrowRight,
     body,
     check,
     chevronLeftIcon,
@@ -187,7 +178,6 @@ class $AssetsImagesGen {
     logo,
     minusIcon,
     plusIcon,
-    polygonIcons,
     pulsIcon,
     replaceIcon,
     selectedCircleButton,
@@ -231,8 +221,14 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/arms.svg
   String get arms => 'assets/svgs/arms.svg';
 
+  /// File path: assets/svgs/arrowDownIcon.svg
+  String get arrowDownIconSvg => 'assets/svgs/arrowDownIcon.svg';
+
   /// File path: assets/svgs/arrow_down_icon.svg
-  String get arrowDownIcon => 'assets/svgs/arrow_down_icon.svg';
+  String get arrowDownIconSvg_ => 'assets/svgs/arrow_down_icon.svg';
+
+  /// File path: assets/svgs/arrowRight.svg
+  String get arrowRight => 'assets/svgs/arrowRight.svg';
 
   /// File path: assets/svgs/back_button_icon.svg
   String get backButtonIcon => 'assets/svgs/back_button_icon.svg';
@@ -305,6 +301,9 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/planq_intro_logo.svg
   String get planqIntroLogo => 'assets/svgs/planq_intro_logo.svg';
 
+  /// File path: assets/svgs/polygoneIcon.svg
+  String get polygoneIcon => 'assets/svgs/polygoneIcon.svg';
+
   /// File path: assets/svgs/quads.svg
   String get quads => 'assets/svgs/quads.svg';
 
@@ -320,6 +319,12 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/reverse_arrow_icon.svg
   String get reverseArrowIcon => 'assets/svgs/reverse_arrow_icon.svg';
 
+  /// File path: assets/svgs/searchIcon.svg
+  String get searchIcon => 'assets/svgs/searchIcon.svg';
+
+  /// File path: assets/svgs/settingsSlider.svg
+  String get settingsSlider => 'assets/svgs/settingsSlider.svg';
+
   /// File path: assets/svgs/shortPrepIcon.svg
   String get shortPrepIcon => 'assets/svgs/shortPrepIcon.svg';
 
@@ -332,6 +337,9 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/stand_person_icon.svg
   String get standPersonIcon => 'assets/svgs/stand_person_icon.svg';
 
+  /// File path: assets/svgs/trophy.svg
+  String get trophy => 'assets/svgs/trophy.svg';
+
   /// List of all assets
   List<String> get values => [
     abs,
@@ -342,7 +350,9 @@ class $AssetsSvgsGen {
     aiMadeBlueIcon,
     aiMadePurpleIcon,
     arms,
-    arrowDownIcon,
+    arrowDownIconSvg,
+    arrowDownIconSvg_,
+    arrowRight,
     backButtonIcon,
     calves,
     chest,
@@ -366,15 +376,19 @@ class $AssetsSvgsGen {
     noInjuriesIcon,
     otherIcon,
     planqIntroLogo,
+    polygoneIcon,
     quads,
     rarelyActiveIcon,
     recentlyRecoverIcon,
     redCheckIcon,
     reverseArrowIcon,
+    searchIcon,
+    settingsSlider,
     shortPrepIcon,
     shoulder,
     spineIssueIcon,
     standPersonIcon,
+    trophy,
   ];
 }
 

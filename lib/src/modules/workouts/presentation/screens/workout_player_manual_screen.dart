@@ -23,23 +23,29 @@ class _WorkoutPlayerManualScreenState extends State<WorkoutPlayerManualScreen>
   @override
   void initState() {
     super.initState();
+
+    // Ensure initial index is within valid range (0 to 1)
+
     _tabController = TabController(
-        length: 2, vsync: this, initialIndex: widget.isShowSelected ? 2 : 1);
+      length: 2,
+      vsync: this,
+      initialIndex: widget.isShowSelected ? 1 : 0,
+    );
+
     _filterTabController = TabController(length: 4, vsync: this);
-    _filterTabController.addListener(_updateTabStyle); //listen
+    _filterTabController.addListener(_updateTabStyle);
   }
 
   @override
   void dispose() {
     _tabController.dispose();
-    _filterTabController.removeListener(_updateTabStyle); //remove listener
+    _filterTabController.removeListener(_updateTabStyle);
     _filterTabController.dispose();
     super.dispose();
   }
 
   void _updateTabStyle() {
     if (mounted) {
-      //check mounted
       setState(() {});
     }
   }
@@ -65,14 +71,16 @@ class _WorkoutPlayerManualScreenState extends State<WorkoutPlayerManualScreen>
               // Top Tab Bar
               TabBar(
                 controller: _tabController,
+                labelStyle:
+                    TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 indicatorColor: Colors.white,
                 labelColor: ColorConstant.whiteColor,
-                unselectedLabelColor: Colors.grey,
-                dividerColor: ColorConstant.lightGreyColor,
+                unselectedLabelColor: Color(0xff71717A),
+                dividerColor: Colors.white.withOpacity(.1),
                 indicatorSize: TabBarIndicatorSize.tab,
-                tabs: [
-                  const Tab(text: 'Library'),
-                  const Tab(text: 'Selected (3)'),
+                tabs: const [
+                  Tab(text: 'Library'),
+                  Tab(text: 'Selected (3)'),
                 ],
               ),
               const SizedBox(height: 16),
@@ -83,7 +91,7 @@ class _WorkoutPlayerManualScreenState extends State<WorkoutPlayerManualScreen>
                     LibraryTab(
                       filterTabController: _filterTabController,
                     ),
-                    SelectedTab()
+                    const SelectedTab(),
                   ],
                 ),
               ),

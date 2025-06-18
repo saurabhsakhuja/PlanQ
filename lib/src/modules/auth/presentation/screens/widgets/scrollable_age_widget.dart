@@ -59,7 +59,7 @@ class _ScrollableAgeWidgetState extends State<ScrollableAgeWidget> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Center(child: SvgPicture.asset(Assets.svgs.arrowDownIcon)),
+        Center(child: SvgPicture.asset(Assets.svgs.arrowDownIconSvg_)),
         const SizedBox(height: 10),
 
         /// Stack to layer container + vertical lines on top

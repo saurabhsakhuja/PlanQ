@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -42,35 +41,38 @@ class AllWorkoutsTab extends StatelessWidget {
           // Use Flexible instead of Expanded
           child: BlocBuilder<ManageWorkoutListCubit, ManageWorkoutListState>(
             builder: (context, state) {
-              return ListView.builder(
-                shrinkWrap: true,
-                physics: const ClampingScrollPhysics(),
-                itemCount: state.workouts.length,
-                itemBuilder: (context, index) {
-                  final workout = workouts[0];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: InkWell(
-                      onTap: () {
-                        locator<GoRouter>().pushNamed(
-                            AppRoutes.CREATED_WORKOUT_MAIN_SCREEN_ROUTE_NAME);
+              return state.workouts.isEmpty
+                  ? SizedBox(height: 34)
+                  : ListView.builder(
+                      padding: EdgeInsets.only(bottom: 6),
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      itemCount: state.workouts.length,
+                      itemBuilder: (context, index) {
+                        final workout = workouts[0];
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: InkWell(
+                            onTap: () {
+                              locator<GoRouter>().pushNamed(AppRoutes
+                                  .CREATED_WORKOUT_MAIN_SCREEN_ROUTE_NAME);
+                            },
+                            child: WorkoutsCardWidget(
+                              title: workout['title'],
+                              workoutType: workout['workoutType'],
+                              workoutDays: workout['workoutDays'],
+                              progress: workout['progress'],
+                              isShowProgress: workout['showProgress'],
+                              exercisesCount: workout['exercisesCount'],
+                            ),
+                          ),
+                        );
                       },
-                      child: WorkoutsCardWidget(
-                        title: workout['title'],
-                        workoutType: workout['workoutType'],
-                        workoutDays: workout['workoutDays'],
-                        progress: workout['progress'],
-                        isShowProgress: workout['showProgress'],
-                        exercisesCount: workout['exercisesCount'],
-                      ),
-                    ),
-                  );
-                },
-              );
+                    );
             },
           ),
         ),
-        SizedBox(height: 34),
+
         // Add the button directly after the ListView.builder
         CommonSubmitButton(
           height: 52,
