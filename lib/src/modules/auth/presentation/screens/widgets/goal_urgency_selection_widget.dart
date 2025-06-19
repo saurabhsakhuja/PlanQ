@@ -53,7 +53,7 @@ class _GoalUrgencySelectionWidgetState
                       crossAxisCount: 2,
                       crossAxisSpacing: 16.47,
                       mainAxisSpacing: 12,
-                      childAspectRatio: 1.25
+                      childAspectRatio: 1.21
                       // childAspectRatio: 1.12
                       ),
                   itemCount: 2,

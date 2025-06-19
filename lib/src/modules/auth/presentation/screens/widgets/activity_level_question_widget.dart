@@ -65,7 +65,7 @@ class _ActivityLevelQuestionWidgetState
                       crossAxisCount: 2,
                       crossAxisSpacing: 16.47,
                       mainAxisSpacing: 12,
-                      childAspectRatio: 1.25),
+                      childAspectRatio: 1.21),
                   itemCount: 4,
                   itemBuilder: (context, index) {
                     final level = _levels[index];

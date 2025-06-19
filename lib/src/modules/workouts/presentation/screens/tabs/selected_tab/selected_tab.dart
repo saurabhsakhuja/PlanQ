@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plan_q/gen/assets.gen.dart';
-import 'package:plan_q/src/core/common/app_textstyles.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/locator.dart';
 
@@ -31,14 +30,14 @@ class SelectedTab extends StatelessWidget {
       body: Stack(
         children: [
           ListView.builder(
-            padding: const EdgeInsets.only(bottom: 120, top: 20),
+            padding: const EdgeInsets.only(bottom: 120, top: 0),
             itemCount: _calculateItemCount(workoutItems),
             itemBuilder: (context, index) {
               return _buildWorkoutItem(context, workoutItems, index);
             },
           ),
           Positioned(
-            bottom: 20,
+            bottom: 4,
             left: 20,
             right: 20,
             child: CommonSubmitButton(
@@ -48,10 +47,10 @@ class SelectedTab extends StatelessWidget {
                 children: [
                   Text(
                     'Save Workout',
-                    style:  Theme.of(context)
-                    .textTheme
-                    .titleMedium
-                    ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(fontSize: 17, fontWeight: FontWeight.w400),
                   ),
                 ],
               ),
@@ -114,75 +113,81 @@ class SelectedTab extends StatelessWidget {
       {bool isCircuit = false}) {
     return Stack(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 55, bottom: 12),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-            decoration: BoxDecoration(
-              color: const Color(0xff18181B),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Row(
-              children: [
-                if (!isCircuit)
-                  Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.transparent,
-                        border: Border.all(color: Color(0xff27272A))),
-                    child: Icon(
-                      Icons.check,
-                      color: Colors.white,
-                      size: 16,
-                    ),
+        Container(
+          height: 70.53,
+          margin: EdgeInsets.only(
+              left: 55, bottom: !isCircuit ? 4 : 9, top: !isCircuit ? 4 : 9),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          decoration: BoxDecoration(
+            color: const Color(0xff18181B),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            children: [
+              if (!isCircuit)
+                Container(
+                  height: 42.32,
+                  width: 42.32,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.transparent,
+                      border: Border.all(color: Color(0xff27272A))),
+                  child: Icon(
+                    Icons.check,
+                    color: Colors.white,
+                    size: 16,
                   ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                ),
+              SizedBox(width: isCircuit ? 0 : 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title,
+                        style: TextStyle(
+                            height: 0,
+                            color: Colors.white,
+                            fontWeight:
+                                isCircuit ? FontWeight.w500 : FontWeight.w400,
+                            fontSize: isCircuit ? 16 : 14)),
+                    const SizedBox(height: 4),
+                    Text(subtitle,
+                        style: TextStyle(
+                            color: Color(0xff71717A),
+                            fontSize: 12.34,
+                            fontWeight: FontWeight.w400)),
+                  ],
+                ),
+              ),
+              if (isCircuit)
+                Padding(
+                  padding: const EdgeInsets.only(left: 6.0),
+                  child: Stack(
                     children: [
-                      Text(title,
-                          style: TextStyle(
-                              height: 0,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: isCircuit ? 20 : 15)),
-                      const SizedBox(height: 4),
-                      Text(subtitle,
-                          style:
-                              TextStyle(color: Colors.grey[500], fontSize: 13)),
+                      ClipRRect(
+                          borderRadius: BorderRadius.circular(59),
+                          child:
+                              Assets.images.circleButtonIcon.image(scale: 5)),
+                      Positioned.fill(
+                          child: Icon(
+                        Icons.chevron_right,
+                        color: Color(0xffA1A1AA),
+                      ))
                     ],
                   ),
                 ),
-                if (isCircuit)
-                  Padding(
-                    padding: const EdgeInsets.only(left: 6.0),
-                    child: Stack(
-                      children: [
-                        ClipRRect(
-                            borderRadius: BorderRadius.circular(59),
-                            child:
-                                Assets.images.circleButtonIcon.image(scale: 5)),
-                        Positioned.fill(
-                            child: Icon(
-                          Icons.chevron_right,
-                          color: Color(0xff8E9196),
-                        ))
-                      ],
-                    ),
+              if (hasAction)
+                const Icon(Icons.chevron_right, color: Color(0xffA1A1AA)),
+              if (!isCircuit)
+                Padding(
+                  padding: const EdgeInsets.only(left: 15),
+                  child: const Icon(
+                    Icons.more_horiz_outlined,
+                    color: Color(0xff71717A),
+                    size: 18,
                   ),
-                if (hasAction)
-                  const Icon(Icons.chevron_right, color: Color(0xffA1A1AA)),
-                if (!isCircuit)
-                  Padding(
-                    padding: const EdgeInsets.only(left: 4),
-                    child: const Icon(Icons.more_horiz_outlined,
-                        color: Color(0xffA1A1AA)),
-                  ),
-              ],
-            ),
+                ),
+            ],
           ),
         ),
         Positioned(
@@ -195,18 +200,19 @@ class SelectedTab extends StatelessWidget {
               Expanded(
                 child: Container(
                   width: 2,
-                  color: const Color(0xff18181B),
+                  color: const Color(0xff27272A),
                 ),
               ),
               // Circle
               Container(
-                height: isCircuit ? 35 : 35,
-                width: isCircuit ? 35 : 35,
+                height: isCircuit ? 48 : 40,
+                width: isCircuit ? 48 : 40,
                 decoration: BoxDecoration(
                   color: isCircuit ? Colors.white : const Color(0xff18181B),
                   shape: BoxShape.circle,
                 ),
                 alignment: Alignment.center,
+                margin: EdgeInsets.all(isCircuit ? 0 : 4),
                 child: isCircuit
                     ? Assets.images.replaceIcon
                         .image(scale: 4, color: Colors.black)
@@ -215,14 +221,14 @@ class SelectedTab extends StatelessWidget {
                         style: const TextStyle(
                             color: Colors.white,
                             fontSize: 14,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.w700),
                       ),
               ),
               // Bottom line
               Expanded(
                 child: Container(
                   width: 2,
-                  color: const Color(0xff18181B),
+                  color: const Color(0xff27272A),
                 ),
               ),
             ],

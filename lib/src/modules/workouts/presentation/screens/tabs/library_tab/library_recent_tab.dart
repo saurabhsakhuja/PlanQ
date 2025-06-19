@@ -79,6 +79,7 @@ class _LibraryRecentTabState extends State<LibraryRecentTab> {
         SizedBox(height: 12),
         Expanded(
           child: GridView.builder(
+            padding: EdgeInsets.only(bottom: 20),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 8.0,

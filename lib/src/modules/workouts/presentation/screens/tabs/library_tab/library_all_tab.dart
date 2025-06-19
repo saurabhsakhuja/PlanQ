@@ -362,7 +362,7 @@ class _LibraryAllTabState extends State<LibraryAllTab> {
                     topLeft: Radius.circular(15),
                     topRight: Radius.circular(15)),
                 border: Border.all(color: ColorConstant.darkGreyBorderColor),
-                color: ColorConstant.backgroundColor),
+                color: Color(0xff151515)),
             child: SelectRoundScreen());
       },
     );
