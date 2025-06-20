@@ -72,4 +72,9 @@ class AppRoutes {
       'armCircuitDetailScreen';
   static const String ARM_CIRCUIT_DETAIL_SCREEN_ROUTE_PATH =
       '/armCircuitDetailScreen';
+
+  static const String CIRCUIT_REPS_DETAIL_SCREEN_ROUTE_NAME =
+      'circuitRepsDetailScreen';
+  static const String CIRCUIT_REPS_DETAIL_SCREEN_ROUTE_PATH =
+      '/circuitRepsDetailScreen';
 }

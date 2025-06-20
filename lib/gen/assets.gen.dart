@@ -96,10 +96,6 @@ class $AssetsImagesGen {
   AssetGenImage get introBg3 =>
       const AssetGenImage('assets/images/introBg3.png');
 
-  /// File path: assets/images/lightningIcon.png
-  AssetGenImage get lightningIcon =>
-      const AssetGenImage('assets/images/lightningIcon.png');
-
   /// File path: assets/images/logo.jpg
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.jpg');
 
@@ -110,14 +106,6 @@ class $AssetsImagesGen {
   /// File path: assets/images/plusIcon.png
   AssetGenImage get plusIcon =>
       const AssetGenImage('assets/images/plusIcon.png');
-
-  /// File path: assets/images/pulsIcon.png
-  AssetGenImage get pulsIcon =>
-      const AssetGenImage('assets/images/pulsIcon.png');
-
-  /// File path: assets/images/replaceIcon.png
-  AssetGenImage get replaceIcon =>
-      const AssetGenImage('assets/images/replaceIcon.png');
 
   /// File path: assets/images/selectedCircleButton.png
   AssetGenImage get selectedCircleButton =>
@@ -174,12 +162,9 @@ class $AssetsImagesGen {
     introBg,
     introBg2,
     introBg3,
-    lightningIcon,
     logo,
     minusIcon,
     plusIcon,
-    pulsIcon,
-    replaceIcon,
     selectedCircleButton,
     settingsIcon,
     tropyIcon,
@@ -260,6 +245,9 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/heart_issues_icon.svg
   String get heartIssuesIcon => 'assets/svgs/heart_issues_icon.svg';
 
+  /// File path: assets/svgs/heartbeatIcon.svg
+  String get heartbeatIcon => 'assets/svgs/heartbeatIcon.svg';
+
   /// File path: assets/svgs/height_indicator_main.svg
   String get heightIndicatorMain => 'assets/svgs/height_indicator_main.svg';
 
@@ -279,6 +267,9 @@ class $AssetsSvgsGen {
 
   /// File path: assets/svgs/lightly_active_icon.svg
   String get lightlyActiveIcon => 'assets/svgs/lightly_active_icon.svg';
+
+  /// File path: assets/svgs/lightningIcon.svg
+  String get lightningIcon => 'assets/svgs/lightningIcon.svg';
 
   /// File path: assets/svgs/longTermFitnessIcon.svg
   String get longTermFitnessIcon => 'assets/svgs/longTermFitnessIcon.svg';
@@ -316,6 +307,9 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/red_check_icon.svg
   String get redCheckIcon => 'assets/svgs/red_check_icon.svg';
 
+  /// File path: assets/svgs/replaceIcon.svg
+  String get replaceIcon => 'assets/svgs/replaceIcon.svg';
+
   /// File path: assets/svgs/reverse_arrow_icon.svg
   String get reverseArrowIcon => 'assets/svgs/reverse_arrow_icon.svg';
 
@@ -331,11 +325,17 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/shoulder.svg
   String get shoulder => 'assets/svgs/shoulder.svg';
 
+  /// File path: assets/svgs/skipIcon.svg
+  String get skipIcon => 'assets/svgs/skipIcon.svg';
+
   /// File path: assets/svgs/spine_issue_icon.svg
   String get spineIssueIcon => 'assets/svgs/spine_issue_icon.svg';
 
   /// File path: assets/svgs/stand_person_icon.svg
   String get standPersonIcon => 'assets/svgs/stand_person_icon.svg';
+
+  /// File path: assets/svgs/stopwatchIcon.svg
+  String get stopwatchIcon => 'assets/svgs/stopwatchIcon.svg';
 
   /// File path: assets/svgs/trophy.svg
   String get trophy => 'assets/svgs/trophy.svg';
@@ -363,12 +363,14 @@ class $AssetsSvgsGen {
     forearms,
     googleLogo,
     heartIssuesIcon,
+    heartbeatIcon,
     heightIndicatorMain,
     heightIndicatorTriangle,
     highlyActiveIcon,
     jointRelatedIssueIcon,
     lats,
     lightlyActiveIcon,
+    lightningIcon,
     longTermFitnessIcon,
     marketPlaceIcon,
     marketPlaceBlueIcon,
@@ -381,13 +383,16 @@ class $AssetsSvgsGen {
     rarelyActiveIcon,
     recentlyRecoverIcon,
     redCheckIcon,
+    replaceIcon,
     reverseArrowIcon,
     searchIcon,
     settingsSlider,
     shortPrepIcon,
     shoulder,
+    skipIcon,
     spineIssueIcon,
     standPersonIcon,
+    stopwatchIcon,
     trophy,
   ];
 }

@@ -11,6 +11,7 @@ import 'package:plan_q/src/modules/auth/presentation/screens/register_screen.dar
 import 'package:plan_q/src/modules/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:plan_q/src/modules/dashboard/presentation/screens/home/home_screen.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/splash_screen.dart';
+import 'package:plan_q/src/modules/workouts/presentation/screens/CircuitScreens/circuit_reps_details_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/arm_circuit_detail_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/create_new_workout_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/created_workout_main_screen.dart';
@@ -72,12 +73,14 @@ final router = GoRouter(
     GoRoute(
       name: AppRoutes.GENERAL_DETAIL_FILLUP_SCREEN_ROUTE_NAME,
       path: AppRoutes.GENERAL_DETAIL_FILLUP_SCREEN_ROUTE_PATH,
-      pageBuilder: (_, __) => buildPageWithTransition(const GeneralDetailFillupScreen()),
+      pageBuilder: (_, __) =>
+          buildPageWithTransition(const GeneralDetailFillupScreen()),
     ),
     GoRoute(
       name: AppRoutes.WORKOUTS_MAIN_SCREEN_ROUTE_NAME,
       path: AppRoutes.WORKOUTS_MAIN_SCREEN_ROUTE_PATH,
-      pageBuilder: (_, __) => buildPageWithTransition(const WorkoutsMainScreen()),
+      pageBuilder: (_, __) =>
+          buildPageWithTransition(const WorkoutsMainScreen()),
     ),
     GoRoute(
       name: AppRoutes.MY_WORKOUTS_SCREEN_ROUTE_NAME,
@@ -92,7 +95,8 @@ final router = GoRouter(
     GoRoute(
       name: AppRoutes.CREATE_NEW_WORKOUT_SCREEN_ROUTE_NAME,
       path: AppRoutes.CREATE_NEW_WORKOUT_SCREEN_ROUTE_PATH,
-      pageBuilder: (_, __) => buildPageWithTransition(const CreateNewWorkoutScreen()),
+      pageBuilder: (_, __) =>
+          buildPageWithTransition(const CreateNewWorkoutScreen()),
     ),
     GoRoute(
       name: AppRoutes.WORKOUT_PLAYER_MANUAL_SCREEN_ROUTE_NAME,
@@ -111,12 +115,16 @@ final router = GoRouter(
       pageBuilder: (_, __) => buildPageWithTransition(CustomWorkoutScreen()),
     ),
     GoRoute(
+      name: AppRoutes.CIRCUIT_REPS_DETAIL_SCREEN_ROUTE_NAME,
+      path: AppRoutes.CIRCUIT_REPS_DETAIL_SCREEN_ROUTE_PATH,
+      pageBuilder: (_, __) =>
+          buildPageWithTransition(CircuitRepsDetailsScreen()),
+    ),
+    GoRoute(
       name: AppRoutes.EXERCISE_DETAIL_SCREEN_ROUTE_NAME,
       path: AppRoutes.EXERCISE_DETAIL_SCREEN_ROUTE_PATH,
-      pageBuilder: (_, state) => buildPageWithTransition(
-          ExerciseDetailScreen(
-              exerciseName:
-                  state.uri.queryParameters['exerciseName'] ?? '')),
+      pageBuilder: (_, state) => buildPageWithTransition(ExerciseDetailScreen(
+          exerciseName: state.uri.queryParameters['exerciseName'] ?? '')),
     ),
     GoRoute(
       name: AppRoutes.ARM_CIRCUIT_DETAIL_SCREEN_ROUTE_NAME,
@@ -126,7 +134,8 @@ final router = GoRouter(
     GoRoute(
       name: AppRoutes.CREATED_WORKOUT_MAIN_SCREEN_ROUTE_NAME,
       path: AppRoutes.CREATED_WORKOUT_MAIN_SCREEN_ROUTE_PATH,
-      pageBuilder: (_, __) => buildPageWithTransition(CreatedWorkoutMainScreen()),
+      pageBuilder: (_, __) =>
+          buildPageWithTransition(CreatedWorkoutMainScreen()),
     ),
     StatefulShellRoute.indexedStack(
       builder: (_, __, navigationShell) {
@@ -139,7 +148,8 @@ final router = GoRouter(
             GoRoute(
               name: AppRoutes.HOME_SCREEN_ROUTE_NAME,
               path: AppRoutes.HOME_SCREEN_ROUTE_PATH,
-              pageBuilder: (_, __) => buildPageWithTransition(const HomeScreen()),
+              pageBuilder: (_, __) =>
+                  buildPageWithTransition(const HomeScreen()),
             ),
           ],
         ),

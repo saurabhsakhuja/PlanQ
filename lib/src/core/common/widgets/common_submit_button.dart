@@ -9,6 +9,7 @@ class CommonSubmitButton extends StatelessWidget {
   final EdgeInsets? padding;
   final double? width;
   final double? height;
+  final bool isGradientReverse;
 
   const CommonSubmitButton({
     super.key,
@@ -18,7 +19,8 @@ class CommonSubmitButton extends StatelessWidget {
     this.borderRadius,
     this.padding,
     this.width,
-    this.height=60,
+    this.height = 60,
+    this.isGradientReverse = false,
   });
 
   @override
@@ -46,11 +48,16 @@ class CommonSubmitButton extends StatelessWidget {
         height: height,
         width: width ?? double.maxFinite,
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [
-              ColorConstant.buttonGradient1Color,
-              ColorConstant.buttonGradient2Color,
-            ],
+          gradient: LinearGradient(
+            colors: isGradientReverse
+                ? [
+                    ColorConstant.buttonGradient2Color,
+                    ColorConstant.buttonGradient1Color,
+                  ]
+                : [
+                    ColorConstant.buttonGradient1Color,
+                    ColorConstant.buttonGradient2Color,
+                  ],
           ),
           borderRadius: borderRadius ?? BorderRadius.circular(50),
         ),
@@ -63,7 +70,7 @@ class CommonSubmitButton extends StatelessWidget {
             color: Colors.transparent,
             child: InkWell(
               onTap: onPressed,
-              overlayColor:  WidgetStateProperty.all(Colors.transparent),
+              overlayColor: WidgetStateProperty.all(Colors.transparent),
               splashColor: Colors.transparent,
               borderRadius: borderRadius ?? BorderRadius.circular(8.0),
               child: Padding(

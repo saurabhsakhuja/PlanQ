@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plan_q/gen/assets.gen.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
+import 'package:plan_q/src/core/constants/app_routes.dart';
 import 'package:plan_q/src/locator.dart';
+import 'package:plan_q/src/modules/dashboard/cubits/manage_workout_list_cubit/manage_workout_list_cubit.dart';
 
 class SelectedTab extends StatelessWidget {
   const SelectedTab({super.key});
@@ -54,7 +58,10 @@ class SelectedTab extends StatelessWidget {
                   ),
                 ],
               ),
-              onPressed: () => locator<GoRouter>().pop(),
+              onPressed: () {
+                locator<GoRouter>().pop();
+                context.read<ManageWorkoutListCubit>().addExercisesWorkout('1');
+              },
             ),
           ),
         ],
@@ -113,81 +120,89 @@ class SelectedTab extends StatelessWidget {
       {bool isCircuit = false}) {
     return Stack(
       children: [
-        Container(
-          height: 70.53,
-          margin: EdgeInsets.only(
-              left: 55, bottom: !isCircuit ? 4 : 9, top: !isCircuit ? 4 : 9),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          decoration: BoxDecoration(
-            color: const Color(0xff18181B),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Row(
-            children: [
-              if (!isCircuit)
-                Container(
-                  height: 42.32,
-                  width: 42.32,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.transparent,
-                      border: Border.all(color: Color(0xff27272A))),
-                  child: Icon(
-                    Icons.check,
-                    color: Colors.white,
-                    size: 16,
+        InkWell(
+          onTap: () {
+            if (isCircuit) {
+              locator<GoRouter>()
+                  .pushNamed(AppRoutes.CIRCUIT_REPS_DETAIL_SCREEN_ROUTE_NAME);
+            }
+          },
+          child: Container(
+            height: 70.53,
+            margin: EdgeInsets.only(
+                left: 55, bottom: !isCircuit ? 4 : 9, top: !isCircuit ? 4 : 9),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            decoration: BoxDecoration(
+              color: const Color(0xff18181B),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              children: [
+                if (!isCircuit)
+                  Container(
+                    height: 42.32,
+                    width: 42.32,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.transparent,
+                        border: Border.all(color: Color(0xff27272A))),
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.white,
+                      size: 16,
+                    ),
                   ),
-                ),
-              SizedBox(width: isCircuit ? 0 : 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(title,
-                        style: TextStyle(
-                            height: 0,
-                            color: Colors.white,
-                            fontWeight:
-                                isCircuit ? FontWeight.w500 : FontWeight.w400,
-                            fontSize: isCircuit ? 16 : 14)),
-                    const SizedBox(height: 4),
-                    Text(subtitle,
-                        style: TextStyle(
-                            color: Color(0xff71717A),
-                            fontSize: 12.34,
-                            fontWeight: FontWeight.w400)),
-                  ],
-                ),
-              ),
-              if (isCircuit)
-                Padding(
-                  padding: const EdgeInsets.only(left: 6.0),
-                  child: Stack(
+                SizedBox(width: isCircuit ? 0 : 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ClipRRect(
-                          borderRadius: BorderRadius.circular(59),
-                          child:
-                              Assets.images.circleButtonIcon.image(scale: 5)),
-                      Positioned.fill(
-                          child: Icon(
-                        Icons.chevron_right,
-                        color: Color(0xffA1A1AA),
-                      ))
+                      Text(title,
+                          style: TextStyle(
+                              height: 0,
+                              color: Colors.white,
+                              fontWeight:
+                                  isCircuit ? FontWeight.w500 : FontWeight.w400,
+                              fontSize: isCircuit ? 16 : 14)),
+                      const SizedBox(height: 4),
+                      Text(subtitle,
+                          style: TextStyle(
+                              color: Color(0xff71717A),
+                              fontSize: 12.34,
+                              fontWeight: FontWeight.w400)),
                     ],
                   ),
                 ),
-              if (hasAction)
-                const Icon(Icons.chevron_right, color: Color(0xffA1A1AA)),
-              if (!isCircuit)
-                Padding(
-                  padding: const EdgeInsets.only(left: 15),
-                  child: const Icon(
-                    Icons.more_horiz_outlined,
-                    color: Color(0xff71717A),
-                    size: 18,
+                if (isCircuit)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 6.0),
+                    child: Stack(
+                      children: [
+                        ClipRRect(
+                            borderRadius: BorderRadius.circular(59),
+                            child:
+                                Assets.images.circleButtonIcon.image(scale: 5)),
+                        Positioned.fill(
+                            child: Icon(
+                          Icons.chevron_right,
+                          color: Color(0xffA1A1AA),
+                        ))
+                      ],
+                    ),
                   ),
-                ),
-            ],
+                if (hasAction)
+                  const Icon(Icons.chevron_right, color: Color(0xffA1A1AA)),
+                if (!isCircuit)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: const Icon(
+                      Icons.more_horiz_outlined,
+                      color: Color(0xff71717A),
+                      size: 18,
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
         Positioned(
@@ -214,8 +229,8 @@ class SelectedTab extends StatelessWidget {
                 alignment: Alignment.center,
                 margin: EdgeInsets.all(isCircuit ? 0 : 4),
                 child: isCircuit
-                    ? Assets.images.replaceIcon
-                        .image(scale: 4, color: Colors.black)
+                    ? SvgPicture.asset(Assets.svgs.replaceIcon,
+                        color: Colors.black)
                     : Text(
                         "$number",
                         style: const TextStyle(

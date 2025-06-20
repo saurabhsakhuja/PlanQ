@@ -6,6 +6,8 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hint;
   final bool obscureText;
+  final double? borderRadius;
+  final TextStyle? textStyle;
   final VoidCallback? toggleObscure;
   final ValueChanged<String>? onChanged;
 
@@ -15,7 +17,9 @@ class CustomTextField extends StatelessWidget {
     required this.hint,
     this.obscureText = false,
     this.toggleObscure,
+    this.textStyle,
     this.onChanged,
+    this.borderRadius,
   }) : super(key: key);
 
   @override
@@ -24,17 +28,18 @@ class CustomTextField extends StatelessWidget {
       height: 50,
       decoration: BoxDecoration(
         color: ColorConstant.textFieldBg,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(borderRadius ?? 16),
       ),
       child: TextField(
         controller: controller,
         obscureText: obscureText,
         onChanged: onChanged,
         cursorColor: Colors.white,
-        style: Theme.of(context)
-            .textTheme
-            .bodyMedium
-            ?.copyWith(color: ColorConstant.whiteColor),
+        style: textStyle ??
+            Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: ColorConstant.whiteColor),
         decoration: InputDecoration(
           hintText: hint,
           hintStyle: TextStyle(color: Color(0xff8D8D8D), fontSize: 12),
