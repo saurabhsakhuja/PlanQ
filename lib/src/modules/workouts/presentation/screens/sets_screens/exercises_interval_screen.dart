@@ -1,233 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:go_router/go_router.dart';
-// import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
-// import 'package:plan_q/src/core/common/widgets/custom_appbar.dart';
-// import 'package:plan_q/src/core/constants/color_constant.dart';
-// import 'package:plan_q/src/locator.dart';
-// import 'dart:async';
-
-// class ExercisesIntervalScreen extends StatefulWidget {
-//   const ExercisesIntervalScreen({super.key});
-
-//   @override
-//   State<ExercisesIntervalScreen> createState() =>
-//       _ExercisesIntervalScreenState();
-// }
-
-// class _ExercisesIntervalScreenState extends State<ExercisesIntervalScreen> {
-//   int _countdownSeconds = 20;
-//   int _workSeconds = 40;
-//   int _currentTimerValue = 0;
-//   Timer? _timer;
-//   bool isInRest = true;
-//   int _currentRound = 1;
-//   final int _totalRounds = 4;
-//   bool _isPaused = false;
-//   bool _isWorkoutComplete = false; // New variable to track workout completion
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _currentTimerValue = _countdownSeconds;
-//     _startTimer();
-//   }
-
-//   @override
-//   void dispose() {
-//     _timer?.cancel();
-//     super.dispose();
-//   }
-
-//   void _startTimer() {
-//     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-//       if (_currentTimerValue > 0) {
-//         setState(() {
-//           _currentTimerValue--;
-//         });
-//       } else {
-//         _timer?.cancel();
-//         if (isInRest) {
-//           setState(() {
-//             isInRest = false;
-//             _currentTimerValue = _workSeconds;
-//           });
-//           _startTimer();
-//         } else {
-//           if (_currentRound < _totalRounds) {
-//             setState(() {
-//               _currentRound++;
-//               isInRest = true;
-//               _currentTimerValue = _countdownSeconds;
-//             });
-//             _startTimer();
-//           } else {
-//             // Workout is complete
-//             setState(() {
-//               _isWorkoutComplete = true;
-//             });
-//             // Optionally, you can automatically navigate back here
-//             // locator<GoRouter>().pop();
-//           }
-//         }
-//       }
-//     });
-//   }
-
-//   void _togglePausePlay() {
-//     setState(() {
-//       _isPaused = !_isPaused;
-//       if (_isPaused) {
-//         _timer?.cancel();
-//       } else {
-//         _startTimer();
-//       }
-//     });
-//   }
-
-//   void _stopExercise() {
-//     // This method will now be used for "Complete" action too
-//     locator<GoRouter>().pop();
-//   }
-
-//   double _calculateProgress() {
-//     if (isInRest) return 0.0;
-//     if (_workSeconds == 0) return 0.0;
-//     return 1.0 - (_currentTimerValue / _workSeconds);
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor:
-//           isInRest ? ColorConstant.blackColor : ColorConstant.whiteColor,
-//       appBar: CustomAppBar(
-//         title: 'Burpees',
-//         centerTitle: true,
-//         showBackButton: true,
-//         color: isInRest ? ColorConstant.blackColor : ColorConstant.whiteColor,
-//         backWithWhiteBg: isInRest ? false : true,
-//         onBackButtonPressed: () {
-//           locator<GoRouter>().pop();
-//         },
-//       ),
-//       body: Padding(
-//         padding: const EdgeInsets.only(left: 20, top: 32, right: 20),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Text(
-//               isInRest ? 'Get Ready' : 'Work',
-//               style: TextStyle(
-//                   fontSize: 22,
-//                   fontWeight: FontWeight.w500,
-//                   color: isInRest ? Colors.white : Colors.black,
-//                   height: 0),
-//             ),
-//             const SizedBox(height: 4),
-//             Text(
-//               '0:${_currentTimerValue.toString().padLeft(2, '0')}',
-//               style: TextStyle(
-//                   fontSize: 96,
-//                   fontWeight: FontWeight.w700,
-//                   color: isInRest ? Colors.white : Colors.black,
-//                   height: 0),
-//             ),
-//             const SizedBox(height: 4),
-//             Text(
-//               _isWorkoutComplete ? 'Workout Complete!' : 'Round $_currentRound of $_totalRounds', // Display "Workout Complete"
-//               style: TextStyle(
-//                   fontSize: 22,
-//                   fontWeight: FontWeight.w400,
-//                   color: isInRest ? Colors.white : Colors.black,
-//                   height: 0),
-//             ),
-//           ],
-//         ),
-//       ),
-//       bottomNavigationBar: !isInRest && !_isWorkoutComplete // Hide bottom bar when workout is complete and in rest
-//           ? Container(
-//               color: Colors.white,
-//               child: Container(
-//                 height: 90,
-//                 padding: const EdgeInsets.only(left: 12, right: 12, bottom: 24),
-//                 child: Column(
-//                   children: [
-//                     LinearProgressIndicator(
-//                       value: _calculateProgress(),
-//                       backgroundColor: Color(0xff656565),
-//                       valueColor: AlwaysStoppedAnimation<Color>(
-//                         Colors.black,
-//                       ),
-//                       minHeight: 4,
-//                     ),
-//                     SizedBox(height: 20),
-//                     Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                       children: [
-//                         GestureDetector(
-//                           onTap: _togglePausePlay,
-//                           child: Container(
-//                             width: 40,
-//                             height: 40,
-//                             decoration: BoxDecoration(
-//                               shape: BoxShape.circle,
-//                               color: Color(0xff27272A).withOpacity(0.8),
-//                             ),
-//                             child: Icon(
-//                               _isPaused
-//                                   ? Icons.play_arrow
-//                                   : Icons.pause_rounded,
-//                               size: 24,
-//                               color: Colors.white,
-//                             ),
-//                           ),
-//                         ),
-//                         SizedBox(width: 13),
-//                         Center(
-//                           child: Text(
-//                             '0:${_currentTimerValue.toString().padLeft(2, '0')}',
-//                             style: const TextStyle(
-//                                 fontSize: 32,
-//                                 fontWeight: FontWeight.w700,
-//                                 color: Colors.black,
-//                                 height: 0),
-//                           ),
-//                         ),
-//                         Spacer(),
-//                         CommonSubmitButton(
-//                             height: 40,
-//                             width: 88,
-//                             onPressed: _isWorkoutComplete ? _stopExercise : _togglePausePlay, // Change action for "Complete"
-//                             child: Text(
-//                               _isWorkoutComplete ? 'Complete' : 'Stop', // Change text based on workout completion
-//                               style: TextStyle(
-//                                   fontWeight: FontWeight.w400, fontSize: 13.5),
-//                             ))
-//                       ],
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             )
-//           : (_isWorkoutComplete
-//               ? Container( // Show only the "Complete" button when workout is done
-//                   color: Colors.white,
-//                   height: 90,
-//                   padding: const EdgeInsets.only(left: 20, right: 20, bottom: 24),
-//                   child: CommonSubmitButton(
-//                       height: 40,
-//                       onPressed: _stopExercise, // This will navigate back
-//                       child: Text(
-//                         'Complete',
-//                         style: TextStyle(
-//                             fontWeight: FontWeight.w400, fontSize: 13.5),
-//                       )),
-//                 )
-//               : null),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
@@ -313,7 +83,7 @@ class _ExercisesIntervalScreenState extends State<ExercisesIntervalScreen> {
 
   void _stopExercise() {
     setState(() {
-      _isPaused = !_isPaused;
+      _isPaused = true;
       if (_isPaused) {
         _timer?.cancel();
       } else {}
@@ -369,9 +139,7 @@ class _ExercisesIntervalScreenState extends State<ExercisesIntervalScreen> {
             ),
             const SizedBox(height: 4),
             Text(
-              _isWorkoutComplete
-                  ? 'Workout Complete!'
-                  : 'Round $_currentRound of $_totalRounds',
+              'Round $_currentRound of $_totalRounds',
               style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w400,
@@ -381,7 +149,7 @@ class _ExercisesIntervalScreenState extends State<ExercisesIntervalScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: !isInRest && !_isWorkoutComplete
+      bottomNavigationBar: !isInRest
           ? Container(
               color: Colors.white,
               child: Container(
@@ -448,22 +216,7 @@ class _ExercisesIntervalScreenState extends State<ExercisesIntervalScreen> {
                 ),
               ),
             )
-          : (_isWorkoutComplete
-              ? Container(
-                  color: Colors.white,
-                  height: 90,
-                  padding:
-                      const EdgeInsets.only(left: 20, right: 20, bottom: 24),
-                  child: CommonSubmitButton(
-                      height: 40,
-                      onPressed: _completeExercise,
-                      child: Text(
-                        'Complete',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w400, fontSize: 13.5),
-                      )),
-                )
-              : null),
+          : null,
     );
   }
 }
