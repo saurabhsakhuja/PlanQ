@@ -472,7 +472,6 @@
 //     );
 //   }
 // }
-
 import 'package:flutter/material.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
 import 'package:plan_q/src/core/common/widgets/custom_appbar.dart';
@@ -482,14 +481,13 @@ import 'package:plan_q/src/modules/workouts/presentation/screens/widgets/circuit
 import 'package:plan_q/src/modules/workouts/presentation/screens/widgets/revers_timer_widget.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/widgets/skip_button.dart';
 
-// Define the Exercise Model
 class Exercise {
   final String name;
-  final String type; // 'sets' or 'interval'
+  final String type;
   final int? reps;
   final String? weight;
   final Duration? duration;
-  final int? setsInRound; // For intervals, like 4 sets of 40s burpees
+  final int? setsInRound;
 
   Exercise({
     required this.name,
@@ -510,26 +508,25 @@ class CircuitRepsDetailsScreen extends StatefulWidget {
 }
 
 class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
-  // Create the list of exercises
   final List<Exercise> _exercises = [
     Exercise(name: 'Bicep Curls', type: 'sets', reps: 12, weight: '25 lbs'),
     Exercise(
         name: 'Burpees', type: 'interval', duration: Duration(seconds: 20)),
     Exercise(name: 'Rest', type: 'interval', duration: Duration(seconds: 20)),
-    // Exercise(name: 'Rest', type: 'interval', duration: Duration(seconds: 20)),
-    // Exercise(name: 'Hammer Curls', type: 'sets', reps: 12, weight: '20 lbs'),
-    // Exercise(name: 'Rest', type: 'interval', duration: Duration(seconds: 20)),
-    // Add more exercises as needed for a full circuit or multiple rounds
   ];
 
-  // Current exercise index
   int _currentExerciseIndex = 0;
   bool isPaused = false;
   bool isCompleted = false;
   late VoidCallback toggleTimer;
+
+  void _resetTimerState() {
+    isPaused = false;
+    isCompleted = false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Get the current exercise
     final bool isWorkoutFinished = _currentExerciseIndex >= _exercises.length;
     final Exercise? currentExercise =
         isWorkoutFinished ? null : _exercises[_currentExerciseIndex];
@@ -566,12 +563,15 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            _topInfo(), // Updated to be more general
+            _topInfo(),
             SizedBox(height: 36),
             if (!isWorkoutFinished && currentExercise != null)
               currentExercise.type == 'sets'
                   ? _setsInfoContainer(exercise: currentExercise)
-                  : _intervalsInfoContainer(exercise: currentExercise),
+                  : _intervalsInfoContainer(
+                      exercise: currentExercise,
+                      key: ValueKey(_currentExerciseIndex),
+                    ),
             SizedBox(height: 8),
             _circuitProgressContainer()
           ],
@@ -582,13 +582,13 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
 
   void _moveToNextExercise() {
     setState(() {
+      _resetTimerState();
+
       if (_currentExerciseIndex < _exercises.length - 1) {
         _currentExerciseIndex++;
       } else {
-        // All exercises completed
-        _currentExerciseIndex = _exercises.length; // Mark as finished
+        _currentExerciseIndex = _exercises.length;
         print("Workout Completed!");
-        // Optionally, navigate to a summary screen
       }
     });
   }
@@ -596,7 +596,9 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
   Widget _topInfo() {
     final bool isWorkoutFinished = _currentExerciseIndex >= _exercises.length;
     if (isWorkoutFinished) {
-      return Container(); // Or a "Workout Finished" message
+      return const Center(
+          child: Text('Workout Finished!',
+              style: TextStyle(color: Colors.white, fontSize: 24)));
     }
 
     return Column(
@@ -611,15 +613,16 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
                   setState(() {
                     if (_currentExerciseIndex > 0) {
                       _currentExerciseIndex--;
+                      _resetTimerState();
                     }
                   });
                 },
-                child: Icon(Icons.chevron_left, color: Colors.white)),
+                child: const Icon(Icons.chevron_left, color: Colors.white)),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'Exercise ${_currentExerciseIndex + 1} of ${_exercises.length}',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                 ),
@@ -629,7 +632,7 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
                 onTap: () {
                   _moveToNextExercise();
                 },
-                child: Icon(Icons.chevron_right, color: Colors.white))
+                child: const Icon(Icons.chevron_right, color: Colors.white))
           ],
         ),
         SizedBox(height: 14),
@@ -653,7 +656,7 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
       decoration: BoxDecoration(
           shape: BoxShape.circle,
           gradient: isFilled
-              ? LinearGradient(
+              ? const LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
@@ -661,7 +664,7 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
                       Color(0xFFDA1A41),
                       Color(0xFF2737CF)
                     ])
-              : LinearGradient(colors: [
+              : const LinearGradient(colors: [
                   Color(0xFF374151),
                   Color(0xFF374151),
                 ])),
@@ -678,7 +681,6 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
   }
 
   Widget _setsInfoContainer({required Exercise exercise}) {
-    // Safely extract weight value and unit
     String weightValue = '';
     String weightUnit = '';
 
@@ -694,9 +696,9 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
 
     return Container(
       height: 220,
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Color(0xFF151515),
+        color: const Color(0xFF151515),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -707,7 +709,7 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
             children: [
               Text(
                 exercise.name,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
               PageIndicator(
                   current: _currentExerciseIndex + 1, total: _exercises.length),
@@ -717,13 +719,13 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
             padding: const EdgeInsets.only(top: 4),
             child: Text(
               '${exercise.reps ?? ''} Reps',
-              style: TextStyle(
+              style: const TextStyle(
                   color: Color(0xff9CA3AF),
                   fontWeight: FontWeight.w400,
                   fontSize: 14),
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Row(
             children: [
               Flexible(
@@ -732,42 +734,41 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
                   children: [
                     _titleText(title: 'Weight'),
                     Padding(
-                      padding: EdgeInsets.only(top: 4),
+                      padding: const EdgeInsets.only(top: 4),
                       child: Row(
                         children: [
                           Flexible(
                             child: Container(
                               height: 40,
                               decoration: BoxDecoration(
-                                color: Color(0xff282828),
+                                color: const Color(0xff282828),
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Center(
                                 child: Text(
-                                  weightValue, // Use safe weightValue
-                                  style: TextStyle(
+                                  weightValue,
+                                  style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400),
                                 ),
                               ),
                             ),
                           ),
-                          if (weightUnit
-                              .isNotEmpty) // Only show unit if available
+                          if (weightUnit.isNotEmpty)
                             Container(
                               height: 40,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Color(0xff282828),
                                 borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(4),
                                     bottomRight: Radius.circular(4)),
                               ),
-                              margin: EdgeInsets.only(left: 1),
-                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              margin: const EdgeInsets.only(left: 1),
+                              padding: const EdgeInsets.symmetric(horizontal: 8),
                               child: Center(
                                 child: Text(
-                                  weightUnit, // Use safe weightUnit
-                                  style: TextStyle(
+                                  weightUnit,
+                                  style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400),
                                 ),
@@ -779,7 +780,7 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
                   ],
                 ),
               ),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -787,15 +788,15 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
                     _titleText(title: 'Reps'),
                     Container(
                       height: 40,
-                      margin: EdgeInsets.only(top: 4),
+                      margin: const EdgeInsets.only(top: 4),
                       decoration: BoxDecoration(
-                        color: Color(0xff282828),
+                        color: const Color(0xff282828),
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Center(
                         child: Text(
                           exercise.reps.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w400),
                         ),
                       ),
@@ -815,7 +816,7 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
                     _moveToNextExercise();
                   },
                 )),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Flexible(
                   child: CircuitButton(
                     height: 40,
@@ -823,7 +824,7 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
                     onPressed: () {
                       _moveToNextExercise();
                     },
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
@@ -832,7 +833,7 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
                           size: 18,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
+                          padding: EdgeInsets.only(left: 8.0),
                           child: Text(
                             'Complete',
                             style: TextStyle(
@@ -851,12 +852,13 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
     );
   }
 
-  Widget _intervalsInfoContainer({required Exercise exercise}) {
+  Widget _intervalsInfoContainer({required Exercise exercise, Key? key}) {
     return Container(
+      key: key,
       height: 266,
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
       decoration: BoxDecoration(
-        color: Color(0xFF151515),
+        color: const Color(0xFF151515),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -867,7 +869,7 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
             children: [
               Text(
                 exercise.name,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
               PageIndicator(
                   current: _currentExerciseIndex + 1, total: _exercises.length),
@@ -887,7 +889,7 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
               setState(() {
                 isCompleted = true;
               });
-              _moveToNextExercise(); // You can remove this if you only want to show "Next" button instead
+              _moveToNextExercise();
             },
             textStyle: const TextStyle(
               fontSize: 96,
@@ -900,7 +902,7 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
             padding: const EdgeInsets.only(top: 9),
             child: Text(
               '${exercise.duration?.inSeconds ?? 0} Seconds',
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 22,
                   color: Colors.white,
                   fontWeight: FontWeight.w400),
@@ -916,7 +918,7 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
                     _moveToNextExercise();
                   },
                 )),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Flexible(
                   child: CircuitButton(
                     height: 40,
@@ -925,7 +927,7 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
                       if (isCompleted) {
                         _moveToNextExercise();
                       } else {
-                        toggleTimer(); // toggles play/pause
+                        toggleTimer();
                       }
                     },
                     child: Row(
@@ -945,7 +947,7 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
                           isCompleted
                               ? 'Next'
                               : isPaused
-                                  ? 'Play'
+                                  ? 'Start'
                                   : 'Pause',
                           style: const TextStyle(
                             fontSize: 14,
@@ -967,22 +969,22 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
 
   Widget _circuitProgressContainer() {
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Color(0xff282828),
+        color: const Color(0xff282828),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Circuit Progress',
             style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: Color(0xFFD1D5DB)),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           ..._exercises.asMap().entries.map((entry) {
             final int index = entry.key;
             final Exercise exercise = entry.value;
@@ -1007,13 +1009,13 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
               isComplete: isComplete,
             );
           }).toList(),
-          Divider(
+          const Divider(
             color: Color(0xff151515),
             thickness: 1,
             height: 1,
           ),
-          SizedBox(height: 17),
-          Text(
+          const SizedBox(height: 17),
+          const Text(
             'After completing all exercises in this circuit, you\'ll finish the workout.',
             style: TextStyle(
               fontSize: 12,
@@ -1039,30 +1041,30 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
             height: 8,
             decoration: BoxDecoration(
               gradient: isComplete
-                  ? LinearGradient(colors: [
+                  ? const LinearGradient(colors: [
                       Color(0xFFDA1A41),
                       Color(0xFF2737CF),
                     ])
-                  : LinearGradient(colors: [
+                  : const LinearGradient(colors: [
                       Color(0xFF151515),
                       Color(0xFF151515),
                     ]),
               shape: BoxShape.circle,
             ),
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Text(
             exerciseName,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: Colors.white,
                 height: 0),
           ),
-          Spacer(),
+          const Spacer(),
           Text(
             status,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
                 color: Color(0xff9CA3AF),
@@ -1079,7 +1081,7 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
       style: Theme.of(context)
           .textTheme
           .bodyMedium
-          ?.copyWith(color: Color(0XFF9CA3AF)),
+          ?.copyWith(color: const Color(0XFF9CA3AF)),
     );
   }
 }
