@@ -6,11 +6,15 @@ class ReverseTimer extends StatefulWidget {
   final VoidCallback? onFinished;
   final TextStyle? textStyle;
 
+  /// Single callback to toggle timer (pause/resume)
+  final void Function(VoidCallback toggle)? onToggleRequested;
+
   const ReverseTimer({
     Key? key,
     required this.duration,
     this.onFinished,
     this.textStyle,
+    this.onToggleRequested,
   }) : super(key: key);
 
   @override
@@ -20,23 +24,35 @@ class ReverseTimer extends StatefulWidget {
 class _ReverseTimerState extends State<ReverseTimer> {
   late Duration remainingTime;
   Timer? _timer;
+  bool isPaused = false;
 
   @override
   void initState() {
     super.initState();
     remainingTime = widget.duration;
     _startTimer();
+
+    // Provide single toggle method to parent
+    widget.onToggleRequested?.call(_togglePauseResume);
   }
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (remainingTime.inSeconds <= 1) {
-        timer.cancel();
-        widget.onFinished?.call();
+      if (!isPaused) {
+        if (remainingTime.inSeconds <= 1) {
+          timer.cancel();
+          widget.onFinished?.call();
+        }
+        setState(() {
+          remainingTime -= const Duration(seconds: 1);
+        });
       }
-      setState(() {
-        remainingTime -= const Duration(seconds: 1);
-      });
+    });
+  }
+
+  void _togglePauseResume() {
+    setState(() {
+      isPaused = !isPaused;
     });
   }
 
@@ -57,7 +73,7 @@ class _ReverseTimerState extends State<ReverseTimer> {
     return Text(
       _formatDuration(remainingTime),
       style: widget.textStyle ??
-          const TextStyle(fontSize: 16, fontWeight: FontWeight.bold,height: 0),
+          const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, height: 0),
     );
   }
 }
