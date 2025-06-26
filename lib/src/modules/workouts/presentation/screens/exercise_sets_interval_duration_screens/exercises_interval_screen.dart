@@ -48,6 +48,11 @@ class _ExercisesIntervalScreenState extends State<ExercisesIntervalScreen> {
   }
 
   void _startTimer() {
+    // Only create a new timer if one isn't already active
+    if (_timer != null && _timer!.isActive) {
+      return;
+    }
+
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_isPaused) {
         return;
@@ -57,7 +62,7 @@ class _ExercisesIntervalScreenState extends State<ExercisesIntervalScreen> {
           _currentTimerValue--;
         });
       } else {
-        _timer?.cancel();
+        _timer?.cancel(); // Cancel the current timer before starting a new phase
 
         if (isInRest) {
           setState(() {
@@ -91,7 +96,9 @@ class _ExercisesIntervalScreenState extends State<ExercisesIntervalScreen> {
     setState(() {
       _isPaused = !_isPaused;
       if (!_isPaused) {
-        _startTimer();
+        _startTimer(); // Resume the timer if not paused
+      } else {
+        _timer?.cancel(); // Pause the timer by canceling it
       }
     });
   }
