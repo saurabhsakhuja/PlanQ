@@ -218,6 +218,9 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/back_button_icon.svg
   String get backButtonIcon => 'assets/svgs/back_button_icon.svg';
 
+  /// File path: assets/svgs/back_button_whitebg.svg
+  String get backButtonWhitebg => 'assets/svgs/back_button_whitebg.svg';
+
   /// File path: assets/svgs/calves.svg
   String get calves => 'assets/svgs/calves.svg';
 
@@ -354,6 +357,7 @@ class $AssetsSvgsGen {
     arrowDownIconSvg_,
     arrowRight,
     backButtonIcon,
+    backButtonWhitebg,
     calves,
     chest,
     dumbbellIcon,

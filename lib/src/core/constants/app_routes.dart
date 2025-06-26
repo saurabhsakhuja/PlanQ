@@ -77,4 +77,9 @@ class AppRoutes {
       'circuitRepsDetailScreen';
   static const String CIRCUIT_REPS_DETAIL_SCREEN_ROUTE_PATH =
       '/circuitRepsDetailScreen';
+
+  static const String EXERCISE_INTERVAL_SCREEN_ROUTE_NAME =
+      'exerciseIntervalScreen';
+  static const String EXERCISE_INTERVAL_SCREEN_ROUTE_PATH =
+      '/exerciseIntervalScreen';
 }

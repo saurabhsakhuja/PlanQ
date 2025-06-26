@@ -126,6 +126,9 @@ class SelectedTab extends StatelessWidget {
               locator<GoRouter>()
                   .pushNamed(AppRoutes.CIRCUIT_REPS_DETAIL_SCREEN_ROUTE_NAME);
             }
+
+            locator<GoRouter>()
+                .pushNamed(AppRoutes.EXERCISE_INTERVAL_SCREEN_ROUTE_NAME);
           },
           child: Container(
             height: 70.53,

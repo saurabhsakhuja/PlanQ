@@ -11,7 +11,7 @@ import 'package:plan_q/src/modules/auth/presentation/screens/register_screen.dar
 import 'package:plan_q/src/modules/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:plan_q/src/modules/dashboard/presentation/screens/home/home_screen.dart';
 import 'package:plan_q/src/modules/auth/presentation/screens/splash_screen.dart';
-import 'package:plan_q/src/modules/workouts/presentation/screens/CircuitScreens/circuit_reps_details_screen.dart';
+import 'package:plan_q/src/modules/workouts/presentation/screens/circuit_screens/circuit_reps_details_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/arm_circuit_detail_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/create_new_workout_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/created_workout_main_screen.dart';
@@ -20,6 +20,7 @@ import 'package:plan_q/src/modules/workouts/presentation/screens/exercise_detail
 import 'package:plan_q/src/modules/workouts/presentation/screens/library_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/my_workouts_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/select_round_screen.dart';
+import 'package:plan_q/src/modules/workouts/presentation/screens/sets_screens/exercises_interval_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/workout_player_manual_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/workouts_main_screen.dart';
 
@@ -44,7 +45,8 @@ CustomTransitionPage<T> buildPageWithTransition<T>(Widget child) {
 
 final router = GoRouter(
   navigatorKey: locator<GlobalKey<NavigatorState>>(),
-  initialLocation: AppRoutes.INTRO_SCREEN_ROUTE_PATH,
+  // initialLocation: AppRoutes.INTRO_SCREEN_ROUTE_PATH,
+  initialLocation: AppRoutes.WORKOUTS_MAIN_SCREEN_ROUTE_PATH,
   redirect: (context, state) {
     final loginStatus = context.read<LoginStatusCubit>().state;
     return null;
@@ -119,6 +121,12 @@ final router = GoRouter(
       path: AppRoutes.CIRCUIT_REPS_DETAIL_SCREEN_ROUTE_PATH,
       pageBuilder: (_, __) =>
           buildPageWithTransition(CircuitRepsDetailsScreen()),
+    ),
+    GoRoute(
+      name: AppRoutes.EXERCISE_INTERVAL_SCREEN_ROUTE_NAME,
+      path: AppRoutes.EXERCISE_INTERVAL_SCREEN_ROUTE_PATH,
+      pageBuilder: (_, __) =>
+          buildPageWithTransition(ExercisesIntervalScreen()),
     ),
     GoRoute(
       name: AppRoutes.EXERCISE_DETAIL_SCREEN_ROUTE_NAME,

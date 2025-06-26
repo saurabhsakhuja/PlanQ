@@ -8,6 +8,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final List<Widget>? actions;
   final bool showBackButton;
+  final bool backWithWhiteBg;
   final bool centerTitle;
   final bool? showBottomDiver;
   final VoidCallback? onBackButtonPressed;
@@ -20,6 +21,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.title,
     this.actions,
     this.showBackButton = false,
+    this.backWithWhiteBg = false,
     this.centerTitle = false,
     this.showBottomDiver = true,
     this.onBackButtonPressed,
@@ -34,7 +36,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
+            color:
+                backWithWhiteBg ? Colors.white : Colors.black.withOpacity(0.2),
             blurRadius: 2,
             spreadRadius: 1,
           ),
@@ -52,7 +55,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   padding: const EdgeInsets.only(
                     left: 10,
                   ),
-                  child: SvgPicture.asset(Assets.svgs.backButtonIcon),
+                  child: backWithWhiteBg
+                      ? SvgPicture.asset(Assets.svgs.backButtonWhitebg)
+                      : SvgPicture.asset(Assets.svgs.backButtonIcon),
                 ),
               )
             : null,
@@ -60,10 +65,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             (title != null
                 ? Text(
                     title!,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(fontWeight: FontWeight.w400),
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.w400,
+                        color: backWithWhiteBg
+                            ? ColorConstant.blackColor
+                            : ColorConstant.whiteColor),
                   )
                 : null),
         centerTitle: centerTitle,
