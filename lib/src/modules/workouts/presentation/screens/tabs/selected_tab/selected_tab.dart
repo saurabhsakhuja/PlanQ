@@ -127,8 +127,9 @@ class SelectedTab extends StatelessWidget {
               locator<GoRouter>()
                   .pushNamed(AppRoutes.CIRCUIT_REPS_DETAIL_SCREEN_ROUTE_NAME);
             } else if (subtitle == 'Tracked by Interval') {
-              locator<GoRouter>()
-                  .pushNamed(AppRoutes.EXERCISE_INTERVAL_SCREEN_ROUTE_NAME);
+              locator<GoRouter>().pushNamed(
+                  AppRoutes.EXERCISE_INTERVAL_MAIN_SCREEN_ROUTE_NAME,
+                  queryParameters: {'exerciseName': title});
             } else if (subtitle == 'Tracked on Duration') {
               locator<GoRouter>()
                   .pushNamed(AppRoutes.EXERCISE_DURATION_SCREEN_ROUTE_NAME);
