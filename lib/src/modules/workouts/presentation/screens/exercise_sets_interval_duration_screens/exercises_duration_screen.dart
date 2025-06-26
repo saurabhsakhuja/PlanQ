@@ -458,16 +458,14 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
                     label: 'Minutes',
                     onChanged: (val) => setState(() => selectedMinutes = val),
                   ),
-                  const Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 5, right: 5, top: 30),
-                      child: Text(
-                        ':',
-                        style: TextStyle(
-                          fontSize: 45,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                        ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 14, right: 14, top: 56),
+                    child: Text(
+                      ':',
+                      style: TextStyle(
+                        fontSize: 45,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
@@ -493,7 +491,7 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
         FixedExtentScrollController(initialItem: currentSelectedValue);
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
@@ -504,60 +502,56 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
             fontWeight: FontWeight.w400,
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 32),
         Container(
-          height: 230, // Increased height to better accommodate the effect
-          width: 120, // Keep width consistent
-
+          height: 210,
+          width: 120,
           child: ListWheelScrollView.useDelegate(
             controller: _scrollController,
-            // itemExtent should be tall enough to contain the mainFontSize number
-            // and some space for the clipped parts to appear to roll into.
-            // Adjust this based on your mainFontSize for best visual.
-            itemExtent: 110.0, // This value is crucial for visual spacing
+            itemExtent: 110.0,
             physics: const FixedExtentScrollPhysics(),
-            perspective: 0.005, // Experiment with this for distortion
-            diameterRatio: 10, // Experiment with this for "wheel" curvature
+            perspective: 0.005,
+            diameterRatio: 10,
             onSelectedItemChanged: (index) {
               onChanged(index);
             },
             childDelegate: ListWheelChildBuilderDelegate(
               builder: (context, index) {
-                if (index < 0 || index > 59) return null; // 0-59 range
+                if (index < 0 || index > 59) return null;
 
                 final bool isSelected = index == currentSelectedValue;
 
-                // Define font sizes and colors
-                final double mainFontSize =
-                    96; // This will be used for both full and clipped
+                final double mainFontSize = 96;
                 final Color mainColor = Colors.white;
                 final Color shadedColor = Color(0xFF232227);
 
-                // Determine if this item is the "previous" or "next" for the visual effect
                 bool showTopHalf = false;
                 bool showBottomHalf = false;
 
-                // Check for wrapping for numbers around 0/59
                 final int prevValue = (currentSelectedValue - 1 + 60) % 60;
                 final int nextValue = (currentSelectedValue + 1) % 60;
 
                 if (index == prevValue) {
-                  showBottomHalf =
-                      true; // This means the bottom of 'prevValue' should show
+                  showBottomHalf = true;
                 } else if (index == nextValue) {
-                  showTopHalf =
-                      true; // This means the top of 'nextValue' should show
+                  showTopHalf = true;
                 }
 
-                // Only render the selected, previous (bottom half), or next (top half)
                 if (isSelected) {
-                  return Center(
-                    child: Text(
-                      index.toString().padLeft(2, '0'),
-                      style: TextStyle(
-                        fontSize: mainFontSize,
-                        color: mainColor,
-                        fontWeight: FontWeight.w700,
+                  return Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 2, horizontal: 0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        index.toString(),
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: mainFontSize,
+                          color: mainColor,
+                          height: 0,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   );
@@ -565,9 +559,8 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
                   return Center(
                     child: _ClippedNumberText(
                       number: index,
-                      color: shadedColor, // Shaded for the clipped parts
-                      fontSize:
-                          mainFontSize, // Use main font size for the underlying text
+                      color: shadedColor,
+                      fontSize: mainFontSize,
                       fontWeight: FontWeight.w700,
                       isTopHalf: false,
                     ),
@@ -612,28 +605,22 @@ class _ClippedNumberText extends StatelessWidget {
   });
 
   String _formatNumber(int number) {
-    return number.toString().padLeft(2, '0');
+    return number.toString();
   }
 
   @override
   Widget build(BuildContext context) {
     final text = Text(
       _formatNumber(number),
+      textAlign: TextAlign.left,
       style: TextStyle(
           fontSize: fontSize, color: color, fontWeight: fontWeight, height: 0),
     );
 
-    // This ClipRect and Align combination is key to the effect
     return ClipRect(
       child: Align(
-        // If isTopHalf, align to bottom and clip the bottom half.
-        // If !isTopHalf (i.e., isBottomHalf), align to top and clip the top half.
-        alignment: isTopHalf ? Alignment.bottomCenter : Alignment.topCenter,
-        // heightFactor determines how much of the child's height is shown relative to its intrinsic height.
-        // For displaying half the text, a value around 0.5 is ideal.
-        // You might need to slightly adjust this (e.g., 0.55 or 0.6)
-        // depending on the font to get a perfect visual half.
-        heightFactor: 0.8, // Changed from 3 to 0.5
+        alignment: isTopHalf ? Alignment.bottomLeft : Alignment.topLeft,
+        heightFactor: 10,
         child: text,
       ),
     );
@@ -667,34 +654,59 @@ class _LiveTimerNumberColumn extends StatelessWidget {
                 fontSize: 18,
                 fontWeight: FontWeight.w400)),
         const SizedBox(height: 8),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              _formatNumber(prev),
-              style: const TextStyle(
-                fontSize: 48,
+        SizedBox(
+          height: 210,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Text(
+              //   _formatNumber(prev),
+              //   style: const TextStyle(
+              //     fontSize: 96,
+              //     color: Colors.white12,
+              //     fontWeight: FontWeight.w700,
+              //   ),
+              // ),
+              _ClippedNumberText(
+                number: prev,
                 color: Colors.white12,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            Text(
-              _formatNumber(current),
-              style: const TextStyle(
                 fontSize: 96,
+                fontWeight: FontWeight.w700,
+                isTopHalf: false,
+              ),
+              _ClippedNumberText(
+                number: current,
                 color: Colors.white,
+                fontSize: 96,
                 fontWeight: FontWeight.w700,
+                isTopHalf: false,
               ),
-            ),
-            Text(
-              _formatNumber(next),
-              style: const TextStyle(
-                fontSize: 48,
+
+              _ClippedNumberText(
+                number: next,
                 color: Colors.white12,
+                fontSize: 96,
                 fontWeight: FontWeight.w700,
+                isTopHalf: true,
               ),
-            ),
-          ],
+              // Text(
+              //   _formatNumber(current),
+              //   style: const TextStyle(
+              //     fontSize: 96,
+              //     color: Colors.white,
+              //     fontWeight: FontWeight.w700,
+              //   ),
+              // ),
+              // Text(
+              //   _formatNumber(next),
+              //   style: const TextStyle(
+              //     fontSize: 96,
+              //     color: Colors.white12,
+              //     fontWeight: FontWeight.w700,
+              //   ),
+              // ),
+            ],
+          ),
         ),
       ],
     );
