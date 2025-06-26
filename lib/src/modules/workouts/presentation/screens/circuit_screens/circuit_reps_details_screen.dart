@@ -709,7 +709,8 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
             children: [
               Text(
                 exercise.name,
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
               PageIndicator(
                   current: _currentExerciseIndex + 1, total: _exercises.length),
@@ -764,7 +765,8 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
                                     bottomRight: Radius.circular(4)),
                               ),
                               margin: const EdgeInsets.only(left: 1),
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
                               child: Center(
                                 child: Text(
                                   weightUnit,
@@ -869,7 +871,8 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
             children: [
               Text(
                 exercise.name,
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
               PageIndicator(
                   current: _currentExerciseIndex + 1, total: _exercises.length),
