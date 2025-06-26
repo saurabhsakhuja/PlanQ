@@ -22,7 +22,7 @@ class ExercisesIntervalScreen extends StatefulWidget {
 }
 
 class _ExercisesIntervalScreenState extends State<ExercisesIntervalScreen> {
-  int _countdownSeconds = 20;
+  int _countdownSeconds = 10;
   int _workSeconds = 40;
   int _currentTimerValue = 0;
   Timer? _timer;
@@ -62,7 +62,8 @@ class _ExercisesIntervalScreenState extends State<ExercisesIntervalScreen> {
           _currentTimerValue--;
         });
       } else {
-        _timer?.cancel(); // Cancel the current timer before starting a new phase
+        _timer
+            ?.cancel(); // Cancel the current timer before starting a new phase
 
         if (isInRest) {
           setState(() {
