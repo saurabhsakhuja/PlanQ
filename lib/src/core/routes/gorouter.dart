@@ -20,6 +20,7 @@ import 'package:plan_q/src/modules/workouts/presentation/screens/exercise_detail
 import 'package:plan_q/src/modules/workouts/presentation/screens/exercise_sets_interval_duration_screens/exercise_distance_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/exercise_sets_interval_duration_screens/exercises_duration_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/exercise_sets_interval_duration_screens/exercises_interval_main_screen.dart';
+import 'package:plan_q/src/modules/workouts/presentation/screens/exercise_sets_interval_duration_screens/exercises_interval_main_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/library_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/my_workouts_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/select_round_screen.dart';
@@ -126,11 +127,18 @@ final router = GoRouter(
           buildPageWithTransition(CircuitRepsDetailsScreen()),
     ),
     GoRoute(
-      name: AppRoutes.EXERCISE_INTERVAL_SCREEN_ROUTE_NAME,
-      path: AppRoutes.EXERCISE_INTERVAL_SCREEN_ROUTE_PATH,
-      pageBuilder: (_, __) =>
-          buildPageWithTransition(ExercisesIntervalScreen()),
-    ),
+        name: AppRoutes.EXERCISE_INTERVAL_SCREEN_ROUTE_NAME,
+        path: AppRoutes.EXERCISE_INTERVAL_SCREEN_ROUTE_PATH,
+        pageBuilder: (_, state) {
+          final exerciseName =
+              state.uri.queryParameters['exerciseName'] ?? '';
+          final currentRoundString = state.uri.queryParameters['currentRound'];
+          final initialRound = int.tryParse(currentRoundString ?? '1') ?? 1;
+          return buildPageWithTransition(ExercisesIntervalScreen(
+            exerciseName: exerciseName,
+            initialRound: initialRound,
+          ));
+        }),
     GoRoute(
       name: AppRoutes.EXERCISE_DISTANCE_SCREEN_ROUTE_NAME,
       path: AppRoutes.EXERCISE_DISTANCE_SCREEN_ROUTE_PATH,
@@ -146,8 +154,9 @@ final router = GoRouter(
     GoRoute(
       name: AppRoutes.EXERCISE_INTERVAL_MAIN_SCREEN_ROUTE_NAME,
       path: AppRoutes.EXERCISE_INTERVAL_MAIN_SCREEN_ROUTE_PATH,
-      pageBuilder: (_, __) =>
-          buildPageWithTransition(ExercisesIntervalMainScreen()),
+      pageBuilder: (_, state) => buildPageWithTransition(
+          ExercisesIntervalMainScreen(
+              exerciseName: state.uri.queryParameters['exerciseName'] ?? '')),
     ),
     GoRoute(
       name: AppRoutes.EXERCISE_DETAIL_SCREEN_ROUTE_NAME,
