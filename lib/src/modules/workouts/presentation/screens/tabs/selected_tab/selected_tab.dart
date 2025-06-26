@@ -15,8 +15,9 @@ class SelectedTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> workoutItems = [
       {'title': 'Treadmill', 'sub': 'Tracked by Distance', 'type': 'single'},
-      {'title': 'Chest press', 'sub': 'Tracked on Sets', 'type': 'single'},
-      {'title': 'Arnold press', 'sub': 'Tracked on Sets', 'type': 'single'},
+      {'title': 'Chest press', 'sub': 'Tracked by Sets', 'type': 'single'},
+      {'title': 'Arnold press', 'sub': 'Tracked by Interval', 'type': 'single'},
+      {'title': 'Cycling', 'sub': 'Tracked on Duration', 'type': 'single'},
       {
         'title': 'Circuit',
         'sub': 'Perform exercises in sequence',
@@ -125,10 +126,13 @@ class SelectedTab extends StatelessWidget {
             if (isCircuit) {
               locator<GoRouter>()
                   .pushNamed(AppRoutes.CIRCUIT_REPS_DETAIL_SCREEN_ROUTE_NAME);
+            } else if (subtitle == 'Tracked by Interval') {
+              locator<GoRouter>()
+                  .pushNamed(AppRoutes.EXERCISE_INTERVAL_SCREEN_ROUTE_NAME);
+            } else if (subtitle == 'Tracked on Duration') {
+              locator<GoRouter>()
+                  .pushNamed(AppRoutes.EXERCISE_DURATION_SCREEN_ROUTE_NAME);
             }
-
-            locator<GoRouter>()
-                .pushNamed(AppRoutes.EXERCISE_INTERVAL_SCREEN_ROUTE_NAME);
           },
           child: Container(
             height: 70.53,
