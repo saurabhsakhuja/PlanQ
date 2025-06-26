@@ -547,13 +547,135 @@ class _ExercisesDistanceScreenState extends State<ExercisesDistanceScreen> {
     );
   }
 
+  // Widget _numberPickerItem({
+  //   required int currentSelectedValue,
+  //   required String label,
+  //   required ValueChanged<int> onChanged,
+  // }) {
+  //   // We create a new FixedExtentScrollController here with the initialItem set
+  //   // based on currentSelectedValue. This ensures the picker starts at the correct position.
+  //   final FixedExtentScrollController _scrollController =
+  //       FixedExtentScrollController(initialItem: currentSelectedValue);
+
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.center,
+  //     mainAxisAlignment: MainAxisAlignment.start,
+  //     children: [
+  //       Text(
+  //         label,
+  //         style: const TextStyle(
+  //           color: Colors.white,
+  //           fontSize: 18,
+  //           fontWeight: FontWeight.w400,
+  //         ),
+  //       ),
+  //       const SizedBox(height: 8),
+  //       Container(
+  //         height: 230, // Increased height to better accommodate the effect
+  //         width: 120, // Keep width consistent
+
+  //         child: ListWheelScrollView.useDelegate(
+  //           controller: _scrollController,
+  //           itemExtent:
+  //               120.0, // Item extent should be the full height of the visible number
+  //           physics: const FixedExtentScrollPhysics(),
+  //           perspective: 0.005,
+  //           diameterRatio: 1.5,
+  //           onSelectedItemChanged: (index) {
+  //             onChanged(index);
+  //           },
+  //           childDelegate: ListWheelChildBuilderDelegate(
+  //             builder: (context, index) {
+  //               if (index < 0 || index > 59) return null; // 0-59 range
+
+  //               final bool isSelected = index == currentSelectedValue;
+
+  //               // Define font sizes and colors for consistency with _LiveDistanceCountdownColumn
+  //               final double mainFontSize = 96;
+  //               final double shadedFontSize = 48;
+  //               final Color mainColor = Colors.white;
+  //               final Color shadedColor = Colors.white54;
+
+  //               final double fontSize =
+  //                   isSelected ? mainFontSize : shadedFontSize;
+  //               final Color color = isSelected ? mainColor : shadedColor;
+
+  //               // Determine if this item is the "previous" or "next" for the visual effect
+  //               bool showTopHalf = false;
+  //               bool showBottomHalf = false;
+
+  //               // Check for wrapping for numbers around 0/59
+  //               final int prevValue = (currentSelectedValue - 1 + 60) % 60;
+  //               final int nextValue = (currentSelectedValue + 1) % 60;
+
+  //               if (index == prevValue) {
+  //                 showBottomHalf = true;
+  //               } else if (index == nextValue) {
+  //                 showTopHalf = true;
+  //               }
+
+  //               // If it's the selected item, show full.
+  //               if (isSelected) {
+  //                 showTopHalf = false;
+  //                 showBottomHalf = false;
+  //               }
+
+  //               String formattedNumber = index.toString().padLeft(2, '0');
+
+  //               return Center(
+  //                 child: isSelected
+  //                     ? Text(
+  //                         formattedNumber,
+  //                         style: TextStyle(
+  //                           fontSize: fontSize,
+  //                           color: color,
+  //                           fontWeight: FontWeight.w700,
+  //                         ),
+  //                       )
+  //                     : Stack(
+  //                         alignment: Alignment.center,
+  //                         children: [
+  //                           if (showTopHalf)
+  //                             _ClippedNumberText(
+  //                               number: index,
+  //                               color: color,
+  //                               fontSize: fontSize,
+  //                               fontWeight: FontWeight.w700,
+  //                               isTopHalf: true,
+  //                             ),
+  //                           if (showBottomHalf)
+  //                             _ClippedNumberText(
+  //                               number: index,
+  //                               color: color,
+  //                               fontSize: fontSize,
+  //                               fontWeight: FontWeight.w700,
+  //                               isTopHalf: false,
+  //                             ),
+  //                           if (!showTopHalf && !showBottomHalf)
+  //                             Text(
+  //                               formattedNumber,
+  //                               style: TextStyle(
+  //                                 fontSize: fontSize,
+  //                                 color: color,
+  //                                 fontWeight: FontWeight.w700,
+  //                               ),
+  //                             ),
+  //                         ],
+  //                       ),
+  //               );
+  //             },
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+
   Widget _numberPickerItem({
     required int currentSelectedValue,
     required String label,
     required ValueChanged<int> onChanged,
   }) {
-    // We create a new FixedExtentScrollController here with the initialItem set
-    // based on currentSelectedValue. This ensures the picker starts at the correct position.
     final FixedExtentScrollController _scrollController =
         FixedExtentScrollController(initialItem: currentSelectedValue);
 
@@ -573,13 +695,16 @@ class _ExercisesDistanceScreenState extends State<ExercisesDistanceScreen> {
         Container(
           height: 230, // Increased height to better accommodate the effect
           width: 120, // Keep width consistent
-          
+
           child: ListWheelScrollView.useDelegate(
             controller: _scrollController,
-            itemExtent: 120.0, // Item extent should be the full height of the visible number
+            // itemExtent should be tall enough to contain the mainFontSize number
+            // and some space for the clipped parts to appear to roll into.
+            // Adjust this based on your mainFontSize for best visual.
+            itemExtent: 100.0, // This value is crucial for visual spacing
             physics: const FixedExtentScrollPhysics(),
-            perspective: 0.005,
-            diameterRatio: 1.5,
+            perspective: 0.005, // Experiment with this for distortion
+            diameterRatio: 1.5, // Experiment with this for "wheel" curvature
             onSelectedItemChanged: (index) {
               onChanged(index);
             },
@@ -589,14 +714,12 @@ class _ExercisesDistanceScreenState extends State<ExercisesDistanceScreen> {
 
                 final bool isSelected = index == currentSelectedValue;
 
-                // Define font sizes and colors for consistency with _LiveDistanceCountdownColumn
-                final double mainFontSize = 96;
-                final double shadedFontSize = 48;
+                // Define font sizes and colors
+                final double mainFontSize =
+                    96; // This will be used for both full and clipped
                 final Color mainColor = Colors.white;
-                final Color shadedColor = Colors.white54;
-
-                final double fontSize = isSelected ? mainFontSize : shadedFontSize;
-                final Color color = isSelected ? mainColor : shadedColor;
+                final Color shadedColor =
+                    Colors.white54; // For the clipped parts
 
                 // Determine if this item is the "previous" or "next" for the visual effect
                 bool showTopHalf = false;
@@ -607,60 +730,51 @@ class _ExercisesDistanceScreenState extends State<ExercisesDistanceScreen> {
                 final int nextValue = (currentSelectedValue + 1) % 60;
 
                 if (index == prevValue) {
-                  showBottomHalf = true;
+                  showBottomHalf =
+                      true; // This means the bottom of 'prevValue' should show
                 } else if (index == nextValue) {
-                  showTopHalf = true;
+                  showTopHalf =
+                      true; // This means the top of 'nextValue' should show
                 }
 
-                // If it's the selected item, show full.
+                // Only render the selected, previous (bottom half), or next (top half)
                 if (isSelected) {
-                  showTopHalf = false;
-                  showBottomHalf = false;
+                  return Center(
+                    child: Text(
+                      index.toString().padLeft(2, '0'),
+                      style: TextStyle(
+                        fontSize: mainFontSize,
+                        color: mainColor,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  );
+                } else if (showTopHalf) {
+                  return Center(
+                    child: _ClippedNumberText(
+                      number: index,
+                      color: shadedColor, // Shaded for the clipped parts
+                      fontSize:
+                          mainFontSize, // Use main font size for the underlying text
+                      fontWeight: FontWeight.w700,
+                      isTopHalf: false,
+                    ),
+                  );
+                } else if (showBottomHalf) {
+                  return Center(
+                    child: _ClippedNumberText(
+                      number: index,
+                      color: shadedColor, // Shaded for the clipped parts
+                      fontSize:
+                          mainFontSize, // Use main font size for the underlying text
+                      fontWeight: FontWeight.w700,
+                      isTopHalf: true,
+                    ),
+                  );
+                } else {
+                  // For all other numbers, return an empty Sized Box so they are invisible
+                  return const SizedBox.shrink();
                 }
-
-                String formattedNumber = index.toString().padLeft(2, '0');
-
-                return Center(
-                  child: isSelected
-                      ? Text(
-                          formattedNumber,
-                          style: TextStyle(
-                            fontSize: fontSize,
-                            color: color,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        )
-                      : Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            if (showTopHalf)
-                              _ClippedNumberText(
-                                number: index,
-                                color: color,
-                                fontSize: fontSize,
-                                fontWeight: FontWeight.w700,
-                                isTopHalf: true,
-                              ),
-                            if (showBottomHalf)
-                              _ClippedNumberText(
-                                number: index,
-                                color: color,
-                                fontSize: fontSize,
-                                fontWeight: FontWeight.w700,
-                                isTopHalf: false,
-                              ),
-                            if (!showTopHalf && !showBottomHalf)
-                              Text(
-                                formattedNumber,
-                                style: TextStyle(
-                                  fontSize: fontSize,
-                                  color: color,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                          ],
-                        ),
-                );
               },
             ),
           ),
@@ -669,6 +783,46 @@ class _ExercisesDistanceScreenState extends State<ExercisesDistanceScreen> {
     );
   }
 }
+
+// class _ClippedNumberText extends StatelessWidget {
+//   final int number;
+//   final Color color;
+//   final double fontSize;
+//   final FontWeight fontWeight;
+//   final bool isTopHalf;
+
+//   const _ClippedNumberText({
+//     required this.number,
+//     required this.color,
+//     required this.fontSize,
+//     required this.fontWeight,
+//     required this.isTopHalf,
+//   });
+
+//   String _formatNumber(int number) {
+//     return number.toString().padLeft(2, '0');
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final text = Text(
+//       _formatNumber(number),
+//       style: TextStyle(
+//         fontSize: fontSize,
+//         color: color,
+//         fontWeight: fontWeight,
+//       ),
+//     );
+
+//     return ClipRect(
+//       child: Align(
+//         alignment: isTopHalf ? Alignment.topCenter : Alignment.bottomCenter,
+//         heightFactor: 15,
+//         child: text,
+//       ),
+//     );
+//   }
+// }
 
 class _ClippedNumberText extends StatelessWidget {
   final int number;
@@ -700,10 +854,17 @@ class _ClippedNumberText extends StatelessWidget {
       ),
     );
 
+    // This ClipRect and Align combination is key to the effect
     return ClipRect(
       child: Align(
-        alignment: isTopHalf ? Alignment.topCenter : Alignment.bottomCenter,
-        heightFactor: 0.5,
+        // If isTopHalf, align to bottom and clip the bottom half.
+        // If !isTopHalf (i.e., isBottomHalf), align to top and clip the top half.
+        alignment: isTopHalf ? Alignment.bottomCenter : Alignment.topCenter,
+        // heightFactor determines how much of the child's height is shown relative to its intrinsic height.
+        // For displaying half the text, a value around 0.5 is ideal.
+        // You might need to slightly adjust this (e.g., 0.55 or 0.6)
+        // depending on the font to get a perfect visual half.
+        heightFactor: 0.5, // Changed from 3 to 0.5
         child: text,
       ),
     );
