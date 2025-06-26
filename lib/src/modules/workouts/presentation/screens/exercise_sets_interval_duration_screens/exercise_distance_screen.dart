@@ -547,130 +547,6 @@ class _ExercisesDistanceScreenState extends State<ExercisesDistanceScreen> {
     );
   }
 
-  // Widget _numberPickerItem({
-  //   required int currentSelectedValue,
-  //   required String label,
-  //   required ValueChanged<int> onChanged,
-  // }) {
-  //   // We create a new FixedExtentScrollController here with the initialItem set
-  //   // based on currentSelectedValue. This ensures the picker starts at the correct position.
-  //   final FixedExtentScrollController _scrollController =
-  //       FixedExtentScrollController(initialItem: currentSelectedValue);
-
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.center,
-  //     mainAxisAlignment: MainAxisAlignment.start,
-  //     children: [
-  //       Text(
-  //         label,
-  //         style: const TextStyle(
-  //           color: Colors.white,
-  //           fontSize: 18,
-  //           fontWeight: FontWeight.w400,
-  //         ),
-  //       ),
-  //       const SizedBox(height: 8),
-  //       Container(
-  //         height: 230, // Increased height to better accommodate the effect
-  //         width: 120, // Keep width consistent
-
-  //         child: ListWheelScrollView.useDelegate(
-  //           controller: _scrollController,
-  //           itemExtent:
-  //               120.0, // Item extent should be the full height of the visible number
-  //           physics: const FixedExtentScrollPhysics(),
-  //           perspective: 0.005,
-  //           diameterRatio: 1.5,
-  //           onSelectedItemChanged: (index) {
-  //             onChanged(index);
-  //           },
-  //           childDelegate: ListWheelChildBuilderDelegate(
-  //             builder: (context, index) {
-  //               if (index < 0 || index > 59) return null; // 0-59 range
-
-  //               final bool isSelected = index == currentSelectedValue;
-
-  //               // Define font sizes and colors for consistency with _LiveDistanceCountdownColumn
-  //               final double mainFontSize = 96;
-  //               final double shadedFontSize = 48;
-  //               final Color mainColor = Colors.white;
-  //               final Color shadedColor = Colors.white54;
-
-  //               final double fontSize =
-  //                   isSelected ? mainFontSize : shadedFontSize;
-  //               final Color color = isSelected ? mainColor : shadedColor;
-
-  //               // Determine if this item is the "previous" or "next" for the visual effect
-  //               bool showTopHalf = false;
-  //               bool showBottomHalf = false;
-
-  //               // Check for wrapping for numbers around 0/59
-  //               final int prevValue = (currentSelectedValue - 1 + 60) % 60;
-  //               final int nextValue = (currentSelectedValue + 1) % 60;
-
-  //               if (index == prevValue) {
-  //                 showBottomHalf = true;
-  //               } else if (index == nextValue) {
-  //                 showTopHalf = true;
-  //               }
-
-  //               // If it's the selected item, show full.
-  //               if (isSelected) {
-  //                 showTopHalf = false;
-  //                 showBottomHalf = false;
-  //               }
-
-  //               String formattedNumber = index.toString().padLeft(2, '0');
-
-  //               return Center(
-  //                 child: isSelected
-  //                     ? Text(
-  //                         formattedNumber,
-  //                         style: TextStyle(
-  //                           fontSize: fontSize,
-  //                           color: color,
-  //                           fontWeight: FontWeight.w700,
-  //                         ),
-  //                       )
-  //                     : Stack(
-  //                         alignment: Alignment.center,
-  //                         children: [
-  //                           if (showTopHalf)
-  //                             _ClippedNumberText(
-  //                               number: index,
-  //                               color: color,
-  //                               fontSize: fontSize,
-  //                               fontWeight: FontWeight.w700,
-  //                               isTopHalf: true,
-  //                             ),
-  //                           if (showBottomHalf)
-  //                             _ClippedNumberText(
-  //                               number: index,
-  //                               color: color,
-  //                               fontSize: fontSize,
-  //                               fontWeight: FontWeight.w700,
-  //                               isTopHalf: false,
-  //                             ),
-  //                           if (!showTopHalf && !showBottomHalf)
-  //                             Text(
-  //                               formattedNumber,
-  //                               style: TextStyle(
-  //                                 fontSize: fontSize,
-  //                                 color: color,
-  //                                 fontWeight: FontWeight.w700,
-  //                               ),
-  //                             ),
-  //                         ],
-  //                       ),
-  //               );
-  //             },
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
-
   Widget _numberPickerItem({
     required int currentSelectedValue,
     required String label,
@@ -701,10 +577,10 @@ class _ExercisesDistanceScreenState extends State<ExercisesDistanceScreen> {
             // itemExtent should be tall enough to contain the mainFontSize number
             // and some space for the clipped parts to appear to roll into.
             // Adjust this based on your mainFontSize for best visual.
-            itemExtent: 100.0, // This value is crucial for visual spacing
+            itemExtent: 110.0, // This value is crucial for visual spacing
             physics: const FixedExtentScrollPhysics(),
             perspective: 0.005, // Experiment with this for distortion
-            diameterRatio: 1.5, // Experiment with this for "wheel" curvature
+            diameterRatio: 10, // Experiment with this for "wheel" curvature
             onSelectedItemChanged: (index) {
               onChanged(index);
             },
@@ -718,8 +594,7 @@ class _ExercisesDistanceScreenState extends State<ExercisesDistanceScreen> {
                 final double mainFontSize =
                     96; // This will be used for both full and clipped
                 final Color mainColor = Colors.white;
-                final Color shadedColor =
-                    Colors.white54; // For the clipped parts
+                final Color shadedColor = Color(0xFF232227);
 
                 // Determine if this item is the "previous" or "next" for the visual effect
                 bool showTopHalf = false;
@@ -784,46 +659,6 @@ class _ExercisesDistanceScreenState extends State<ExercisesDistanceScreen> {
   }
 }
 
-// class _ClippedNumberText extends StatelessWidget {
-//   final int number;
-//   final Color color;
-//   final double fontSize;
-//   final FontWeight fontWeight;
-//   final bool isTopHalf;
-
-//   const _ClippedNumberText({
-//     required this.number,
-//     required this.color,
-//     required this.fontSize,
-//     required this.fontWeight,
-//     required this.isTopHalf,
-//   });
-
-//   String _formatNumber(int number) {
-//     return number.toString().padLeft(2, '0');
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final text = Text(
-//       _formatNumber(number),
-//       style: TextStyle(
-//         fontSize: fontSize,
-//         color: color,
-//         fontWeight: fontWeight,
-//       ),
-//     );
-
-//     return ClipRect(
-//       child: Align(
-//         alignment: isTopHalf ? Alignment.topCenter : Alignment.bottomCenter,
-//         heightFactor: 15,
-//         child: text,
-//       ),
-//     );
-//   }
-// }
-
 class _ClippedNumberText extends StatelessWidget {
   final int number;
   final Color color;
@@ -848,10 +683,7 @@ class _ClippedNumberText extends StatelessWidget {
     final text = Text(
       _formatNumber(number),
       style: TextStyle(
-        fontSize: fontSize,
-        color: color,
-        fontWeight: fontWeight,
-      ),
+          fontSize: fontSize, color: color, fontWeight: fontWeight, height: 0),
     );
 
     // This ClipRect and Align combination is key to the effect
@@ -864,7 +696,7 @@ class _ClippedNumberText extends StatelessWidget {
         // For displaying half the text, a value around 0.5 is ideal.
         // You might need to slightly adjust this (e.g., 0.55 or 0.6)
         // depending on the font to get a perfect visual half.
-        heightFactor: 0.5, // Changed from 3 to 0.5
+        heightFactor: 0.8, // Changed from 3 to 0.5
         child: text,
       ),
     );
@@ -888,7 +720,7 @@ class _LiveDistanceCountdownColumn extends StatelessWidget {
     const double mainFontSize = 96;
     const double shadedFontSize = 48;
     const Color mainColor = Colors.white;
-    const Color shadedColor = Colors.white12;
+    const Color shadedColor = Color(0xFF232227);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -907,7 +739,7 @@ class _LiveDistanceCountdownColumn extends StatelessWidget {
               color: shadedColor,
               fontSize: shadedFontSize,
               fontWeight: FontWeight.w700,
-              isTopHalf: false,
+              isTopHalf: true,
             ),
             Text(
               _formatNumber(current),
@@ -922,7 +754,7 @@ class _LiveDistanceCountdownColumn extends StatelessWidget {
               color: shadedColor,
               fontSize: shadedFontSize,
               fontWeight: FontWeight.w700,
-              isTopHalf: true,
+              isTopHalf: false,
             ),
           ],
         ),
