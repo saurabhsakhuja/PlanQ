@@ -21,10 +21,9 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
   bool isStartTimer = false;
   bool hasStarted = false;
   bool isTimerPaused = false;
-  bool _didTimerCompleteNaturally =
-      false; // New flag to track natural completion
-  int selectedMinutes = 1; // User's selected minutes
-  int selectedSeconds = 0; // User's selected seconds
+  bool _didTimerCompleteNaturally = false;
+  int selectedMinutes = 1;
+  int selectedSeconds = 0;
 
   Duration? totalDuration;
   Timer? countdownTimer;
@@ -117,21 +116,18 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
     if (selected != null) {
       setState(() {
         isStartTimer = selected == 1;
-        _resetActivityState(); // Reset general activity state
+        _resetActivityState();
 
-        // Only reset picker values when explicitly switching TO 'Log time' mode
         if (!isStartTimer) {
           selectedMinutes = 1;
           selectedSeconds = 0;
         }
-        // If switched to 'Start timer' mode, selectedMinutes/Seconds retain user's last setting.
       });
     }
   }
 
   void _startTimer() {
     _cancelTimer();
-    // Initialize currentRemainingTime with selected values if it's a fresh start
     if (currentRemainingTime == null || currentRemainingTime!.inSeconds == 0) {
       currentRemainingTime =
           Duration(minutes: selectedMinutes, seconds: selectedSeconds);
@@ -139,7 +135,7 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
     setState(() {
       hasStarted = true;
       isTimerPaused = false;
-      _didTimerCompleteNaturally = false; // Reset this flag when starting
+      _didTimerCompleteNaturally = false;
     });
 
     countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -148,8 +144,8 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
         setState(() {
           hasStarted = false;
           isTimerPaused = false;
-          currentRemainingTime = null; // Clear remaining time
-          _didTimerCompleteNaturally = true; // Set flag when timer finishes
+          currentRemainingTime = null;
+          _didTimerCompleteNaturally = true;
         });
         return;
       }
@@ -172,14 +168,13 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
     countdownTimer = null;
   }
 
-  // Renamed from _resetTimerState to better reflect its purpose: resetting core activity flags
   void _resetActivityState() {
-    _cancelTimer(); // Stop any running timer
+    _cancelTimer();
     setState(() {
       hasStarted = false;
       isTimerPaused = false;
-      currentRemainingTime = null; // Clear remaining time for a fresh state
-      _didTimerCompleteNaturally = false; // Reset natural completion flag
+      currentRemainingTime = null;
+      _didTimerCompleteNaturally = false;
     });
   }
 
@@ -229,7 +224,6 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
                           begin: Alignment.topCenter,
                           end: Alignment.bottomLeft,
                           colors: [
-                            // const Color.fromARGB(255, 47, 45, 45),
                             const Color.fromARGB(255, 56, 54, 54),
                             const Color.fromARGB(255, 95, 95, 95),
                           ]),
@@ -297,24 +291,17 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
     });
   }
 
-  // Helper getter to determine the button's current label based on all states
   String get _buttonLabel {
     if (!isStartTimer) {
-      // 'Log time' mode selected from popup
       return 'Log';
     } else {
-      // 'Start timer' mode selected from popup
       if (_didTimerCompleteNaturally) {
-        // Timer ran to completion
         return 'Log';
       } else if (!hasStarted) {
-        // Timer mode, not started, and not completed naturally (fresh start or reset)
         return 'Start';
       } else if (isTimerPaused) {
-        // Timer is paused
         return 'Resume';
       } else {
-        // Timer is running
         return 'Pause';
       }
     }
@@ -368,7 +355,6 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
             padding: const EdgeInsets.only(left: 5, right: 10),
             child: CommonSubmitButton(
               onPressed: () {
-                // Perform action based on the current button label
                 if (_buttonLabel == 'Log') {
                   _showCompletionDialog();
                 } else if (_buttonLabel == 'Start' ||
@@ -381,7 +367,7 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
               width: 83,
               height: 34,
               child: Text(
-                _buttonLabel, // Use the helper getter for the button text
+                _buttonLabel,
                 style: const TextStyle(
                     fontSize: 12.36, fontWeight: FontWeight.w400),
               ),
@@ -417,7 +403,6 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
                   color: Colors.white54),
             ),
             const SizedBox(height: 20),
-            // Display live timer or number pickers based on mode and state
             if (isStartTimer && hasStarted && currentRemainingTime != null ||
                 isStartTimer && isTimerPaused && currentRemainingTime != null ||
                 isStartTimer && _didTimerCompleteNaturally)
@@ -428,7 +413,7 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
                 children: [
                   _LiveTimerNumberColumn(
                     current: currentRemainingTime?.inMinutes.remainder(60) ??
-                        selectedMinutes, // Use selected if current is null after completion
+                        selectedMinutes,
                     label: 'Minutes',
                   ),
                   const Center(
@@ -446,7 +431,7 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
                   ),
                   _LiveTimerNumberColumn(
                     current: currentRemainingTime?.inSeconds.remainder(60) ??
-                        selectedSeconds, // Use selected if current is null after completion
+                        selectedSeconds,
                     label: 'Seconds',
                   ),
                 ],
@@ -494,7 +479,7 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
     final FixedExtentScrollController _scrollController =
         FixedExtentScrollController(initialItem: currentSelectedValue);
 
-    final double mainFontSize = 96; // Consistent font size
+    final double mainFontSize = 96;
     final Color mainColor = Colors.white;
     final Color shadedColor = Color(0xFF232227);
 
@@ -512,12 +497,11 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
         ),
         const SizedBox(height: 32),
         Container(
-          // Height should accommodate 2.5 times the itemExtent for visible halves
           height: mainFontSize * 2.5,
           width: 120,
           child: ListWheelScrollView.useDelegate(
             controller: _scrollController,
-            itemExtent: mainFontSize, // Each item slot is the height of a full number
+            itemExtent: mainFontSize,
             physics: const FixedExtentScrollPhysics(),
             perspective: 0.005,
             diameterRatio: 10,
@@ -526,7 +510,7 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
             },
             childDelegate: ListWheelChildBuilderDelegate(
               builder: (context, index) {
-                if (index < 0 || index > 59) return null; // 0-59 range for minutes/seconds
+                if (index < 0 || index > 59) return null;
 
                 final bool isSelected = index == currentSelectedValue;
 
@@ -542,43 +526,38 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
                       style: TextStyle(
                         fontSize: mainFontSize,
                         color: mainColor,
-                        height: 0, // Keep height 0 for tight packing
+                        height: 0,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                   );
                 } else if (index == prevValue) {
-                  // This item is visually above the selected one. We want to show its BOTTOM half.
                   return Align(
-                    alignment: Alignment
-                        .bottomLeft, // Align clipped half to bottom of its item slot
+                    alignment: Alignment.bottomLeft,
                     child: _ClippedNumberText(
                       number: index,
                       color: shadedColor,
                       fontSize: mainFontSize,
                       fontWeight: FontWeight.w700,
-                      showTopHalf: false, // Show bottom half
+                      showTopHalf: false,
                     ),
                   );
                 } else if (index == nextValue) {
-                  // This item is visually below the selected one. We want to show its TOP half.
                   return Align(
-                    alignment: Alignment
-                        .topLeft, // Align clipped half to top of its item slot
+                    alignment: Alignment.topLeft,
                     child: _ClippedNumberText(
                       number: index,
                       color: shadedColor,
                       fontSize: mainFontSize,
                       fontWeight: FontWeight.w700,
-                      showTopHalf: true, // Show top half
+                      showTopHalf: true,
                     ),
                   );
                 } else {
-                  // For all other numbers, return an empty Sized Box so they are invisible
                   return const SizedBox.shrink();
                 }
               },
-              childCount: 60, // Total items from 0 to 59
+              childCount: 60,
             ),
           ),
         ),
@@ -592,7 +571,7 @@ class _ClippedNumberText extends StatelessWidget {
   final Color color;
   final double fontSize;
   final FontWeight fontWeight;
-  final bool showTopHalf; // true to show top half, false to show bottom half
+  final bool showTopHalf;
 
   const _ClippedNumberText({
     required this.number,
@@ -603,7 +582,6 @@ class _ClippedNumberText extends StatelessWidget {
   });
 
   String _formatNumber(int number) {
-    // Pad with zero for single-digit numbers for consistent display
     return number.toString().padLeft(2, '0');
   }
 
@@ -618,10 +596,8 @@ class _ClippedNumberText extends StatelessWidget {
 
     return ClipRect(
       child: Align(
-        alignment: showTopHalf
-            ? Alignment.topLeft // If true, align to top to clip bottom half
-            : Alignment.bottomLeft, // If false, align to bottom to clip top half
-        heightFactor: 0.5, // Crucial for showing exactly half
+        alignment: showTopHalf ? Alignment.topLeft : Alignment.bottomLeft,
+        heightFactor: 0.5,
         child: text,
       ),
     );
@@ -659,19 +635,16 @@ class _LiveTimerNumberColumn extends StatelessWidget {
               color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
         ),
         const SizedBox(height: 8),
-        // Use a Column to stack the clipped numbers and the full current number
         Column(
-          mainAxisSize: MainAxisSize.min, // Make column take minimum space
+          mainAxisSize: MainAxisSize.min,
           children: [
-            // Previous number: show its bottom half
             _ClippedNumberText(
               number: prev,
               color: shadedColor,
               fontSize: mainFontSize,
               fontWeight: FontWeight.w700,
-              showTopHalf: false, // Display bottom half
+              showTopHalf: false,
             ),
-            // Current number: show full number
             Text(
               _formatNumber(current),
               style: const TextStyle(
@@ -680,13 +653,12 @@ class _LiveTimerNumberColumn extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
             ),
-            // Next number: show its top half
             _ClippedNumberText(
               number: next,
               color: shadedColor,
               fontSize: mainFontSize,
               fontWeight: FontWeight.w700,
-              showTopHalf: true, // Display top half
+              showTopHalf: true,
             ),
           ],
         ),

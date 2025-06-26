@@ -470,7 +470,7 @@ class _ExercisesDistanceScreenState extends State<ExercisesDistanceScreen> {
                     label: 'Kilometers',
                   ),
                   const Padding(
-                    padding: EdgeInsets.only(left: 60, right: 13, top: 150),
+                    padding: EdgeInsets.only(left: 13, right: 13, top: 150),
                     child: Text(
                       '.',
                       style: TextStyle(
@@ -509,7 +509,7 @@ class _ExercisesDistanceScreenState extends State<ExercisesDistanceScreen> {
                   ),
                   const Center(
                     child: Padding(
-                      padding: EdgeInsets.only(left: 60, right: 13, top: 70),
+                      padding: EdgeInsets.only(left: 13, right: 13, top: 70),
                       child: Text(
                         '.',
                         style: TextStyle(
@@ -569,12 +569,14 @@ class _ExercisesDistanceScreenState extends State<ExercisesDistanceScreen> {
         ),
         const SizedBox(height: 32),
         Container(
-          height: mainFontSize * 2.5, // Adjusted container height to fit the items visually
-          width: 120,
+          height: mainFontSize *
+              2.5,
+          width: 140,
 
           child: ListWheelScrollView.useDelegate(
             controller: _scrollController,
-            itemExtent: mainFontSize, // Each item occupies the height of the font
+            itemExtent:
+                mainFontSize,
             physics: const FixedExtentScrollPhysics(),
             perspective: 0.005,
             diameterRatio: 10,
@@ -605,36 +607,34 @@ class _ExercisesDistanceScreenState extends State<ExercisesDistanceScreen> {
                     ),
                   );
                 } else if (index == prevValue) {
-                  // This item is visually above the selected one. We want to show its BOTTOM half.
                   return Align(
                     alignment: Alignment
-                        .bottomLeft, // Align clipped half to bottom of its item slot
+                        .bottomLeft,
                     child: _ClippedNumberText(
                       number: index,
                       color: shadedColor,
                       fontSize: mainFontSize,
                       fontWeight: FontWeight.w700,
-                      showTopHalf: false, // Show bottom half
+                      showTopHalf: false,
                     ),
                   );
                 } else if (index == nextValue) {
-                  // This item is visually below the selected one. We want to show its TOP half.
                   return Align(
                     alignment: Alignment
-                        .topLeft, // Align clipped half to top of its item slot
+                        .topLeft,
                     child: _ClippedNumberText(
                       number: index,
                       color: shadedColor,
                       fontSize: mainFontSize,
                       fontWeight: FontWeight.w700,
-                      showTopHalf: true, // Show top half
+                      showTopHalf: true,
                     ),
                   );
                 } else {
-                  return const SizedBox.shrink(); // Hide other numbers
+                  return const SizedBox.shrink();
                 }
               },
-              childCount: 60, // Important to provide childCount for 0-59 range
+              childCount: 60,
             ),
           ),
         ),
@@ -648,7 +648,7 @@ class _ClippedNumberText extends StatelessWidget {
   final Color color;
   final double fontSize;
   final FontWeight fontWeight;
-  final bool showTopHalf; // true to show top half, false to show bottom half
+  final bool showTopHalf;
 
   const _ClippedNumberText({
     required this.number,
@@ -675,7 +675,8 @@ class _ClippedNumberText extends StatelessWidget {
       child: Align(
         alignment: showTopHalf
             ? Alignment.topLeft
-            : Alignment.bottomLeft, // Corrected: If showTopHalf, align top; else align bottom.
+            : Alignment
+                .bottomLeft, // Corrected: If showTopHalf, align top; else align bottom.
         heightFactor: 0.5, // True half
         child: text,
       ),
@@ -717,13 +718,12 @@ class _LiveDistanceCountdownColumn extends StatelessWidget {
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Previous number, show its bottom half
             _ClippedNumberText(
               number: prev,
               color: shadedColor,
               fontSize: shadedFontSize,
               fontWeight: FontWeight.w700,
-              showTopHalf: false, // Correct: show bottom half
+              showTopHalf: false,
             ),
             Align(
               alignment: Alignment.centerLeft,
@@ -737,13 +737,12 @@ class _LiveDistanceCountdownColumn extends StatelessWidget {
                 ),
               ),
             ),
-            // Next number, show its top half
             _ClippedNumberText(
               number: next,
               color: shadedColor,
               fontSize: shadedFontSize,
               fontWeight: FontWeight.w700,
-              showTopHalf: true, // Correct: show top half
+              showTopHalf: true,
             ),
           ],
         ),
