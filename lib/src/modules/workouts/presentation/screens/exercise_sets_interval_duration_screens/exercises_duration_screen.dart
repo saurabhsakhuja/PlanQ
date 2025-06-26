@@ -418,14 +418,17 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
             ),
             const SizedBox(height: 20),
             // Display live timer or number pickers based on mode and state
-            if (isStartTimer && hasStarted && currentRemainingTime != null)
+            if (isStartTimer && hasStarted && currentRemainingTime != null ||
+                isStartTimer && isTimerPaused && currentRemainingTime != null ||
+                isStartTimer && _didTimerCompleteNaturally)
               Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   _LiveTimerNumberColumn(
-                    current: currentRemainingTime!.inMinutes.remainder(60),
+                    current: currentRemainingTime?.inMinutes.remainder(60) ??
+                        selectedMinutes, // Use selected if current is null after completion
                     label: 'Minutes',
                   ),
                   const Center(
@@ -442,7 +445,8 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
                     ),
                   ),
                   _LiveTimerNumberColumn(
-                    current: currentRemainingTime!.inSeconds.remainder(60),
+                    current: currentRemainingTime?.inSeconds.remainder(60) ??
+                        selectedSeconds, // Use selected if current is null after completion
                     label: 'Seconds',
                   ),
                 ],
@@ -458,7 +462,7 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
                     label: 'Minutes',
                     onChanged: (val) => setState(() => selectedMinutes = val),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.only(left: 14, right: 14, top: 56),
                     child: Text(
                       ':',
@@ -490,6 +494,10 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
     final FixedExtentScrollController _scrollController =
         FixedExtentScrollController(initialItem: currentSelectedValue);
 
+    final double mainFontSize = 96; // Consistent font size
+    final Color mainColor = Colors.white;
+    final Color shadedColor = Color(0xFF232227);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -504,11 +512,12 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
         ),
         const SizedBox(height: 32),
         Container(
-          height: 210,
+          // Height should accommodate 2.5 times the itemExtent for visible halves
+          height: mainFontSize * 2.5,
           width: 120,
           child: ListWheelScrollView.useDelegate(
             controller: _scrollController,
-            itemExtent: 110.0,
+            itemExtent: mainFontSize, // Each item slot is the height of a full number
             physics: const FixedExtentScrollPhysics(),
             perspective: 0.005,
             diameterRatio: 10,
@@ -517,63 +526,51 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
             },
             childDelegate: ListWheelChildBuilderDelegate(
               builder: (context, index) {
-                if (index < 0 || index > 59) return null;
+                if (index < 0 || index > 59) return null; // 0-59 range for minutes/seconds
 
                 final bool isSelected = index == currentSelectedValue;
-
-                final double mainFontSize = 96;
-                final Color mainColor = Colors.white;
-                final Color shadedColor = Color(0xFF232227);
-
-                bool showTopHalf = false;
-                bool showBottomHalf = false;
 
                 final int prevValue = (currentSelectedValue - 1 + 60) % 60;
                 final int nextValue = (currentSelectedValue + 1) % 60;
 
-                if (index == prevValue) {
-                  showBottomHalf = true;
-                } else if (index == nextValue) {
-                  showTopHalf = true;
-                }
-
                 if (isSelected) {
-                  return Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 2, horizontal: 0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        index.toString(),
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: mainFontSize,
-                          color: mainColor,
-                          height: 0,
-                          fontWeight: FontWeight.w700,
-                        ),
+                  return Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      index.toString(),
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: mainFontSize,
+                        color: mainColor,
+                        height: 0, // Keep height 0 for tight packing
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   );
-                } else if (showTopHalf) {
-                  return Center(
+                } else if (index == prevValue) {
+                  // This item is visually above the selected one. We want to show its BOTTOM half.
+                  return Align(
+                    alignment: Alignment
+                        .bottomLeft, // Align clipped half to bottom of its item slot
                     child: _ClippedNumberText(
                       number: index,
                       color: shadedColor,
                       fontSize: mainFontSize,
                       fontWeight: FontWeight.w700,
-                      isTopHalf: false,
+                      showTopHalf: false, // Show bottom half
                     ),
                   );
-                } else if (showBottomHalf) {
-                  return Center(
+                } else if (index == nextValue) {
+                  // This item is visually below the selected one. We want to show its TOP half.
+                  return Align(
+                    alignment: Alignment
+                        .topLeft, // Align clipped half to top of its item slot
                     child: _ClippedNumberText(
                       number: index,
-                      color: shadedColor, // Shaded for the clipped parts
-                      fontSize:
-                          mainFontSize, // Use main font size for the underlying text
+                      color: shadedColor,
+                      fontSize: mainFontSize,
                       fontWeight: FontWeight.w700,
-                      isTopHalf: true,
+                      showTopHalf: true, // Show top half
                     ),
                   );
                 } else {
@@ -581,6 +578,7 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
                   return const SizedBox.shrink();
                 }
               },
+              childCount: 60, // Total items from 0 to 59
             ),
           ),
         ),
@@ -594,18 +592,19 @@ class _ClippedNumberText extends StatelessWidget {
   final Color color;
   final double fontSize;
   final FontWeight fontWeight;
-  final bool isTopHalf;
+  final bool showTopHalf; // true to show top half, false to show bottom half
 
   const _ClippedNumberText({
     required this.number,
     required this.color,
     required this.fontSize,
     required this.fontWeight,
-    required this.isTopHalf,
+    required this.showTopHalf,
   });
 
   String _formatNumber(int number) {
-    return number.toString();
+    // Pad with zero for single-digit numbers for consistent display
+    return number.toString().padLeft(2, '0');
   }
 
   @override
@@ -619,8 +618,10 @@ class _ClippedNumberText extends StatelessWidget {
 
     return ClipRect(
       child: Align(
-        alignment: isTopHalf ? Alignment.bottomLeft : Alignment.topLeft,
-        heightFactor: 10,
+        alignment: showTopHalf
+            ? Alignment.topLeft // If true, align to top to clip bottom half
+            : Alignment.bottomLeft, // If false, align to bottom to clip top half
+        heightFactor: 0.5, // Crucial for showing exactly half
         child: text,
       ),
     );
@@ -645,68 +646,49 @@ class _LiveTimerNumberColumn extends StatelessWidget {
     final int prev = (current - 1 + 60) % 60;
     final int next = (current + 1) % 60;
 
+    const double mainFontSize = 96;
+    const Color mainColor = Colors.white;
+    const Color shadedColor = Color(0xFF232227);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(label,
-            style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.w400)),
+        Text(
+          label,
+          style: const TextStyle(
+              color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+        ),
         const SizedBox(height: 8),
-        SizedBox(
-          height: 210,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Text(
-              //   _formatNumber(prev),
-              //   style: const TextStyle(
-              //     fontSize: 96,
-              //     color: Colors.white12,
-              //     fontWeight: FontWeight.w700,
-              //   ),
-              // ),
-              _ClippedNumberText(
-                number: prev,
-                color: Colors.white12,
-                fontSize: 96,
+        // Use a Column to stack the clipped numbers and the full current number
+        Column(
+          mainAxisSize: MainAxisSize.min, // Make column take minimum space
+          children: [
+            // Previous number: show its bottom half
+            _ClippedNumberText(
+              number: prev,
+              color: shadedColor,
+              fontSize: mainFontSize,
+              fontWeight: FontWeight.w700,
+              showTopHalf: false, // Display bottom half
+            ),
+            // Current number: show full number
+            Text(
+              _formatNumber(current),
+              style: const TextStyle(
+                fontSize: mainFontSize,
+                color: mainColor,
                 fontWeight: FontWeight.w700,
-                isTopHalf: false,
               ),
-              _ClippedNumberText(
-                number: current,
-                color: Colors.white,
-                fontSize: 96,
-                fontWeight: FontWeight.w700,
-                isTopHalf: false,
-              ),
-
-              _ClippedNumberText(
-                number: next,
-                color: Colors.white12,
-                fontSize: 96,
-                fontWeight: FontWeight.w700,
-                isTopHalf: true,
-              ),
-              // Text(
-              //   _formatNumber(current),
-              //   style: const TextStyle(
-              //     fontSize: 96,
-              //     color: Colors.white,
-              //     fontWeight: FontWeight.w700,
-              //   ),
-              // ),
-              // Text(
-              //   _formatNumber(next),
-              //   style: const TextStyle(
-              //     fontSize: 96,
-              //     color: Colors.white12,
-              //     fontWeight: FontWeight.w700,
-              //   ),
-              // ),
-            ],
-          ),
+            ),
+            // Next number: show its top half
+            _ClippedNumberText(
+              number: next,
+              color: shadedColor,
+              fontSize: mainFontSize,
+              fontWeight: FontWeight.w700,
+              showTopHalf: true, // Display top half
+            ),
+          ],
         ),
       ],
     );
