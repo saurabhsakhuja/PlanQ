@@ -86,7 +86,7 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
           children: [
             _buildDot(isFilled: true),
             SizedBox(width: 6),
-            _buildDot(isFilled: false),
+            _buildDot(isFilled: true),
             SizedBox(width: 6),
             _buildDot(isFilled: false),
           ],
@@ -276,8 +276,8 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
 
   Widget _intervalsInfoContainer() {
     return Container(
-      height: 270,
-      padding: EdgeInsets.all(16),
+      height: 266,
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
       decoration: BoxDecoration(
         color: Color(0xFF151515),
         borderRadius: BorderRadius.circular(8),
@@ -295,9 +295,9 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
               PageIndicator(current: 2, total: 3),
             ],
           ),
-          SizedBox(height: 12),
+     
           ReverseTimer(
-            duration: Duration(minutes: 1),
+            duration: Duration(seconds: 40),
             onFinished: () {
               print("Timer ended!");
             },
@@ -308,13 +308,18 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
               fontWeight: FontWeight.w400,
             ),
           ),
-          Text(
-            'Round 1 of 4',
-            style: TextStyle(
-                fontSize: 22, color: Colors.white, fontWeight: FontWeight.w400),
+          Padding(
+            padding: const EdgeInsets.only(top: 9),
+            child: Text(
+              'Round 1 of 4',
+              style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w400),
+            ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 12),
+            padding: const EdgeInsets.only(top: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -336,7 +341,7 @@ class _CircuitRepsDetailsScreenState extends State<CircuitRepsDetailsScreen> {
                         Padding(
                           padding: const EdgeInsets.only(left: 8.0),
                           child: Text(
-                            'Complete',
+                            'Pause',
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w400),
                           ),

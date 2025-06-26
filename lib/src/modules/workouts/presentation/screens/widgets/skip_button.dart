@@ -20,12 +20,12 @@ class SkipButton extends StatelessWidget {
         label: const Text(
           'Skip',
           style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: Colors.black,
-          ),
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: Colors.black,
+              height: 0),
         ),
-        icon:SvgPicture.asset(Assets.svgs.skipIcon),
+        icon: SvgPicture.asset(Assets.svgs.skipIcon),
       ),
     );
   }
