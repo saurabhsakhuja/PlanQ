@@ -463,7 +463,7 @@ class _ExercisesDistanceScreenState extends State<ExercisesDistanceScreen> {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _LiveDistanceCountdownColumn(
                     current: _currentCountdownKilometers,
@@ -512,7 +512,7 @@ class _ExercisesDistanceScreenState extends State<ExercisesDistanceScreen> {
                   ),
                   const Center(
                     child: Padding(
-                      padding: EdgeInsets.only(left: 5, right: 5, top: 30),
+                      padding: EdgeInsets.only(left: 60, right: 13, top: 70),
                       child: Text(
                         '.',
                         style: TextStyle(
@@ -556,7 +556,7 @@ class _ExercisesDistanceScreenState extends State<ExercisesDistanceScreen> {
         FixedExtentScrollController(initialItem: currentSelectedValue);
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
@@ -567,9 +567,9 @@ class _ExercisesDistanceScreenState extends State<ExercisesDistanceScreen> {
             fontWeight: FontWeight.w400,
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 32),
         Container(
-          height: 230, // Increased height to better accommodate the effect
+          height: 238, // Increased height to better accommodate the effect
           width: 120, // Keep width consistent
 
           child: ListWheelScrollView.useDelegate(
@@ -614,13 +614,20 @@ class _ExercisesDistanceScreenState extends State<ExercisesDistanceScreen> {
 
                 // Only render the selected, previous (bottom half), or next (top half)
                 if (isSelected) {
-                  return Center(
-                    child: Text(
-                      index.toString().padLeft(2, '0'),
-                      style: TextStyle(
-                        fontSize: mainFontSize,
-                        color: mainColor,
-                        fontWeight: FontWeight.w700,
+                  return Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 2, horizontal: 0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        index.toString(),
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: mainFontSize,
+                          color: mainColor,
+                          height: 0,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   );
@@ -628,9 +635,8 @@ class _ExercisesDistanceScreenState extends State<ExercisesDistanceScreen> {
                   return Center(
                     child: _ClippedNumberText(
                       number: index,
-                      color: shadedColor, // Shaded for the clipped parts
-                      fontSize:
-                          mainFontSize, // Use main font size for the underlying text
+                      color: shadedColor,
+                      fontSize: mainFontSize,
                       fontWeight: FontWeight.w700,
                       isTopHalf: false,
                     ),
@@ -675,13 +681,14 @@ class _ClippedNumberText extends StatelessWidget {
   });
 
   String _formatNumber(int number) {
-    return number.toString().padLeft(2, '0');
+    return number.toString();
   }
 
   @override
   Widget build(BuildContext context) {
     final text = Text(
       _formatNumber(number),
+      textAlign: TextAlign.left,
       style: TextStyle(
           fontSize: fontSize, color: color, fontWeight: fontWeight, height: 0),
     );
@@ -691,7 +698,7 @@ class _ClippedNumberText extends StatelessWidget {
       child: Align(
         // If isTopHalf, align to bottom and clip the bottom half.
         // If !isTopHalf (i.e., isBottomHalf), align to top and clip the top half.
-        alignment: isTopHalf ? Alignment.bottomCenter : Alignment.topCenter,
+        alignment: isTopHalf ? Alignment.bottomLeft : Alignment.topLeft,
         // heightFactor determines how much of the child's height is shown relative to its intrinsic height.
         // For displaying half the text, a value around 0.5 is ideal.
         // You might need to slightly adjust this (e.g., 0.55 or 0.6)
