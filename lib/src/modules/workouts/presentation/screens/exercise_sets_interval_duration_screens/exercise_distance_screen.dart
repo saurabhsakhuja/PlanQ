@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plan_q/gen/assets.gen.dart';
 import 'package:plan_q/src/core/common/widgets/common_submit_button.dart';
@@ -9,28 +8,37 @@ import 'package:plan_q/src/core/common/widgets/custom_appbar.dart';
 import 'package:plan_q/src/core/constants/color_constant.dart';
 import 'package:plan_q/src/locator.dart';
 
-class ExercisesDurationScreen extends StatefulWidget {
-  const ExercisesDurationScreen({super.key});
+class ExercisesDistanceScreen extends StatefulWidget {
+  const ExercisesDistanceScreen({super.key});
 
   @override
-  State<ExercisesDurationScreen> createState() =>
-      _ExercisesDurationScreenState();
+  State<ExercisesDistanceScreen> createState() =>
+      _ExercisesDistanceScreenState();
 }
 
-class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
+class _ExercisesDistanceScreenState extends State<ExercisesDistanceScreen> {
   bool isStartTimer = false;
   bool hasStarted = false;
   bool isTimerPaused = false;
-  bool _didTimerCompleteNaturally =
-      false; // New flag to track natural completion
-  int selectedMinutes = 1; // User's selected minutes
-  int selectedSeconds = 0; // User's selected seconds
 
-  Duration? totalDuration;
-  Timer? countdownTimer;
-  Duration? currentRemainingTime;
+  int selectedKilometers = 1;
+  int selectedMeters = 0;
+
+  late int _currentCountdownKilometers;
+  late int _currentCountdownMeters;
+
+  bool _distanceCountdownComplete = false;
+
+  Timer? _distanceTimer;
 
   final GlobalKey _menuKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    _currentCountdownKilometers = selectedKilometers;
+    _currentCountdownMeters = selectedMeters;
+  }
 
   void _showPopupMenu(BuildContext context, Offset offset) async {
     final selected = await showMenu<int>(
@@ -75,7 +83,7 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
                         ),
                         const SizedBox(width: 8),
                         const Text(
-                          'Log time',
+                          'Log distance',
                           style: TextStyle(
                               color: Color(0xffD1D5DB),
                               fontSize: 14,
@@ -97,7 +105,7 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
                         ),
                         const SizedBox(width: 8),
                         const Text(
-                          'Start timer',
+                          'Track Distance',
                           style: TextStyle(
                               color: Color(0xffD1D5DB),
                               fontSize: 14,
@@ -117,82 +125,93 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
     if (selected != null) {
       setState(() {
         isStartTimer = selected == 1;
-        _resetActivityState(); // Reset general activity state
+        _resetActivityState();
 
-        // Only reset picker values when explicitly switching TO 'Log time' mode
         if (!isStartTimer) {
-          selectedMinutes = 1;
-          selectedSeconds = 0;
+          selectedKilometers = 1;
+          selectedMeters = 0;
+        } else {
+          _currentCountdownKilometers = selectedKilometers;
+          _currentCountdownMeters = selectedMeters;
         }
-        // If switched to 'Start timer' mode, selectedMinutes/Seconds retain user's last setting.
       });
     }
   }
 
-  void _startTimer() {
-    _cancelTimer();
-    // Initialize currentRemainingTime with selected values if it's a fresh start
-    if (currentRemainingTime == null || currentRemainingTime!.inSeconds == 0) {
-      currentRemainingTime =
-          Duration(minutes: selectedMinutes, seconds: selectedSeconds);
+  void _startDistanceCountdown() {
+    _cancelDistanceCountdown();
+
+    if (!hasStarted && !isTimerPaused) {
+      _currentCountdownKilometers = selectedKilometers;
+      _currentCountdownMeters = selectedMeters;
     }
+
+    if (_currentCountdownKilometers == 0 && _currentCountdownMeters == 0) {
+      setState(() {
+        _distanceCountdownComplete = true;
+      });
+      return;
+    }
+
     setState(() {
       hasStarted = true;
       isTimerPaused = false;
-      _didTimerCompleteNaturally = false; // Reset this flag when starting
+      _distanceCountdownComplete = false;
     });
 
-    countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (currentRemainingTime!.inSeconds <= 0) {
-        timer.cancel();
-        setState(() {
+    _distanceTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_currentCountdownKilometers == 0 && _currentCountdownMeters == 0) {
+          timer.cancel();
           hasStarted = false;
           isTimerPaused = false;
-          currentRemainingTime = null; // Clear remaining time
-          _didTimerCompleteNaturally = true; // Set flag when timer finishes
-        });
-        return;
-      }
-      setState(() {
-        currentRemainingTime =
-            currentRemainingTime! - const Duration(seconds: 1);
+          _distanceCountdownComplete = true;
+          return;
+        }
+
+        if (_currentCountdownMeters > 0) {
+          _currentCountdownMeters--;
+        } else if (_currentCountdownKilometers > 0) {
+          _currentCountdownKilometers--;
+          _currentCountdownMeters = 59;
+        }
       });
     });
   }
 
-  void _pauseTimer() {
-    _cancelTimer();
+  void _pauseDistanceCountdown() {
+    _cancelDistanceCountdown();
     setState(() {
       isTimerPaused = true;
     });
   }
 
-  void _cancelTimer() {
-    countdownTimer?.cancel();
-    countdownTimer = null;
+  void _cancelDistanceCountdown() {
+    _distanceTimer?.cancel();
+    _distanceTimer = null;
   }
 
-  // Renamed from _resetTimerState to better reflect its purpose: resetting core activity flags
   void _resetActivityState() {
-    _cancelTimer(); // Stop any running timer
+    _cancelDistanceCountdown();
     setState(() {
       hasStarted = false;
       isTimerPaused = false;
-      currentRemainingTime = null; // Clear remaining time for a fresh state
-      _didTimerCompleteNaturally = false; // Reset natural completion flag
+      _distanceCountdownComplete = false;
+      _currentCountdownKilometers = selectedKilometers;
+      _currentCountdownMeters = selectedMeters;
     });
   }
 
   void _showCompletionDialog() {
-    String exerciseName = 'Burpees';
-    String formattedDuration = '${selectedMinutes}m ${selectedSeconds}s';
+    String exerciseName = 'Treadmill';
+    String formattedDistance = '${selectedKilometers}km ${selectedMeters}m';
 
     showDialog(
       context: context,
       barrierColor: Colors.black54,
       builder: (BuildContext context) {
         return Dialog(
-          backgroundColor: Color(0xff151515),
+          backgroundColor: const Color(0xff151515),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           child: Container(
@@ -212,26 +231,25 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
                 Container(
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            const Color.fromARGB(255, 91, 90, 90),
-                            const Color.fromARGB(255, 140, 137, 137),
+                            Color.fromARGB(255, 91, 90, 90),
+                            Color.fromARGB(255, 140, 137, 137),
                           ])),
                   child: Container(
                     width: 44,
                     height: 44,
-                    margin: EdgeInsets.all(1),
+                    margin: const EdgeInsets.all(1),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomLeft,
                           colors: [
-                            // const Color.fromARGB(255, 47, 45, 45),
-                            const Color.fromARGB(255, 56, 54, 54),
-                            const Color.fromARGB(255, 95, 95, 95),
+                            Color.fromARGB(255, 56, 54, 54),
+                            Color.fromARGB(255, 95, 95, 95),
                           ]),
                     ),
                     child: Center(
@@ -254,7 +272,7 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Your $exerciseName duration was logged successfully.',
+                  'Your $exerciseName distance was logged successfully.',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: Colors.white70,
@@ -269,16 +287,20 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
                     color: Colors.white12,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text(
-                    'Duration: $formattedDuration',
-                    style: const TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w500),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Distance: $formattedDistance',
+                        style: const TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w500),
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: 20),
                 CommonSubmitButton(
                     height: 40,
-                    child: Text('OK'),
+                    child: const Text('OK'),
                     onPressed: () {
                       locator<GoRouter>().pop();
                       locator<GoRouter>().pop();
@@ -291,30 +313,25 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
     ).then((_) {
       setState(() {
         _resetActivityState();
-        selectedMinutes = 1;
-        selectedSeconds = 0;
+        selectedKilometers = 1;
+        selectedMeters = 0;
+        _currentCountdownKilometers = selectedKilometers;
+        _currentCountdownMeters = selectedMeters;
       });
     });
   }
 
-  // Helper getter to determine the button's current label based on all states
   String get _buttonLabel {
     if (!isStartTimer) {
-      // 'Log time' mode selected from popup
       return 'Log';
     } else {
-      // 'Start timer' mode selected from popup
-      if (_didTimerCompleteNaturally) {
-        // Timer ran to completion
+      if (_distanceCountdownComplete) {
         return 'Log';
       } else if (!hasStarted) {
-        // Timer mode, not started, and not completed naturally (fresh start or reset)
         return 'Start';
       } else if (isTimerPaused) {
-        // Timer is paused
         return 'Resume';
       } else {
-        // Timer is running
         return 'Pause';
       }
     }
@@ -322,7 +339,7 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
 
   @override
   void dispose() {
-    _cancelTimer();
+    _cancelDistanceCountdown();
     super.dispose();
   }
 
@@ -368,20 +385,19 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
             padding: const EdgeInsets.only(left: 5, right: 10),
             child: CommonSubmitButton(
               onPressed: () {
-                // Perform action based on the current button label
                 if (_buttonLabel == 'Log') {
                   _showCompletionDialog();
                 } else if (_buttonLabel == 'Start' ||
                     _buttonLabel == 'Resume') {
-                  _startTimer();
+                  _startDistanceCountdown();
                 } else if (_buttonLabel == 'Pause') {
-                  _pauseTimer();
+                  _pauseDistanceCountdown();
                 }
               },
               width: 83,
               height: 34,
               child: Text(
-                _buttonLabel, // Use the helper getter for the button text
+                _buttonLabel,
                 style: const TextStyle(
                     fontSize: 12.36, fontWeight: FontWeight.w400),
               ),
@@ -401,38 +417,63 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Burpees',
-              style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white),
-            ),
-            const SizedBox(height: 14),
-            const Text(
-              'Either Start a timer or log time directly',
-              style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white54),
+            Container(
+              width: double.maxFinite,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      const Color.fromARGB(255, 50, 49, 49),
+                      const Color.fromARGB(255, 30, 30, 30)
+                    ]),
+              ),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 15.5, vertical: 13),
+                margin: EdgeInsets.all(1),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Color(0xff151515)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Treadmill',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Perform this exercise for a distance and log that here',
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white54),
+                    ),
+                  ],
+                ),
+              ),
             ),
             const SizedBox(height: 20),
-            // Display live timer or number pickers based on mode and state
-            if (isStartTimer && hasStarted && currentRemainingTime != null)
+            if (isStartTimer &&
+                (hasStarted || _distanceCountdownComplete || isTimerPaused))
               Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  _LiveTimerNumberColumn(
-                    current: currentRemainingTime!.inMinutes.remainder(60),
-                    label: 'Minutes',
+                  _LiveDistanceCountdownColumn(
+                    current: _currentCountdownKilometers,
+                    label: 'Kilometers',
                   ),
                   const Center(
                     child: Padding(
                       padding: EdgeInsets.only(left: 5.0, right: 5, top: 30),
                       child: Text(
-                        ':',
+                        '.',
                         style: TextStyle(
                           fontSize: 45,
                           color: Colors.white,
@@ -441,9 +482,9 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
                       ),
                     ),
                   ),
-                  _LiveTimerNumberColumn(
-                    current: currentRemainingTime!.inSeconds.remainder(60),
-                    label: 'Seconds',
+                  _LiveDistanceCountdownColumn(
+                    current: _currentCountdownMeters,
+                    label: 'Meters',
                   ),
                 ],
               )
@@ -454,17 +495,26 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   _numberPickerItem(
-                    value: selectedMinutes,
-                    label: 'Minutes',
-                    onChanged: (val) => setState(() => selectedMinutes = val),
-                    controller: FixedExtentScrollController(
-                        initialItem: selectedMinutes),
+                    currentSelectedValue: selectedKilometers,
+                    label: 'Kilometers',
+                    onChanged: (val) {
+                      setState(() {
+                        selectedKilometers = val;
+                        if (isStartTimer && !hasStarted && !isTimerPaused) {
+                          _currentCountdownKilometers = selectedKilometers;
+                        }
+                        if (isStartTimer && isTimerPaused) {
+                          _currentCountdownKilometers = selectedKilometers;
+                        }
+                      });
+                    },
+                    // No controller needed for _numberPickerItem when using ListWheelScrollView.useDelegate with initialItem logic
                   ),
                   const Center(
                     child: Padding(
                       padding: EdgeInsets.only(left: 5, right: 5, top: 30),
                       child: Text(
-                        ':',
+                        '.',
                         style: TextStyle(
                           fontSize: 45,
                           color: Colors.white,
@@ -474,11 +524,20 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
                     ),
                   ),
                   _numberPickerItem(
-                    value: selectedSeconds,
-                    label: 'Seconds',
-                    onChanged: (val) => setState(() => selectedSeconds = val),
-                    controller: FixedExtentScrollController(
-                        initialItem: selectedSeconds),
+                    currentSelectedValue: selectedMeters,
+                    label: 'Meters',
+                    onChanged: (val) {
+                      setState(() {
+                        selectedMeters = val;
+                        if (isStartTimer && !hasStarted && !isTimerPaused) {
+                          _currentCountdownMeters = selectedMeters;
+                        }
+                        if (isStartTimer && isTimerPaused) {
+                          _currentCountdownMeters = selectedMeters;
+                        }
+                      });
+                    },
+                    // No controller needed for _numberPickerItem when using ListWheelScrollView.useDelegate with initialItem logic
                   ),
                 ],
               ),
@@ -489,11 +548,15 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
   }
 
   Widget _numberPickerItem({
-    required int value,
+    required int currentSelectedValue,
     required String label,
     required ValueChanged<int> onChanged,
-    required FixedExtentScrollController controller,
   }) {
+    // We create a new FixedExtentScrollController here with the initialItem set
+    // based on currentSelectedValue. This ensures the picker starts at the correct position.
+    final FixedExtentScrollController _scrollController =
+        FixedExtentScrollController(initialItem: currentSelectedValue);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -508,31 +571,97 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
         ),
         const SizedBox(height: 8),
         Container(
-          height: 180,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-       
-          child: CupertinoPicker(
-            scrollController: controller,
-            itemExtent: 40.0,
-            onSelectedItemChanged: onChanged,
-            useMagnifier: true,
-            magnification: 1,
-            diameterRatio: 1.2,
-            selectionOverlay: const CupertinoPickerDefaultSelectionOverlay(
-              background: Colors.transparent,
-            ),
-            children: List.generate(
-              60,
-              (index) => Center(
-                child: Text(
-                  index.toString(),
-                  style: TextStyle(
-                    fontSize: 96,
-                    color: index == value ? Colors.white : Color(0xff232227),
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
+          height: 230, // Increased height to better accommodate the effect
+          width: 120, // Keep width consistent
+          
+          child: ListWheelScrollView.useDelegate(
+            controller: _scrollController,
+            itemExtent: 120.0, // Item extent should be the full height of the visible number
+            physics: const FixedExtentScrollPhysics(),
+            perspective: 0.005,
+            diameterRatio: 1.5,
+            onSelectedItemChanged: (index) {
+              onChanged(index);
+            },
+            childDelegate: ListWheelChildBuilderDelegate(
+              builder: (context, index) {
+                if (index < 0 || index > 59) return null; // 0-59 range
+
+                final bool isSelected = index == currentSelectedValue;
+
+                // Define font sizes and colors for consistency with _LiveDistanceCountdownColumn
+                final double mainFontSize = 96;
+                final double shadedFontSize = 48;
+                final Color mainColor = Colors.white;
+                final Color shadedColor = Colors.white54;
+
+                final double fontSize = isSelected ? mainFontSize : shadedFontSize;
+                final Color color = isSelected ? mainColor : shadedColor;
+
+                // Determine if this item is the "previous" or "next" for the visual effect
+                bool showTopHalf = false;
+                bool showBottomHalf = false;
+
+                // Check for wrapping for numbers around 0/59
+                final int prevValue = (currentSelectedValue - 1 + 60) % 60;
+                final int nextValue = (currentSelectedValue + 1) % 60;
+
+                if (index == prevValue) {
+                  showBottomHalf = true;
+                } else if (index == nextValue) {
+                  showTopHalf = true;
+                }
+
+                // If it's the selected item, show full.
+                if (isSelected) {
+                  showTopHalf = false;
+                  showBottomHalf = false;
+                }
+
+                String formattedNumber = index.toString().padLeft(2, '0');
+
+                return Center(
+                  child: isSelected
+                      ? Text(
+                          formattedNumber,
+                          style: TextStyle(
+                            fontSize: fontSize,
+                            color: color,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        )
+                      : Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            if (showTopHalf)
+                              _ClippedNumberText(
+                                number: index,
+                                color: color,
+                                fontSize: fontSize,
+                                fontWeight: FontWeight.w700,
+                                isTopHalf: true,
+                              ),
+                            if (showBottomHalf)
+                              _ClippedNumberText(
+                                number: index,
+                                color: color,
+                                fontSize: fontSize,
+                                fontWeight: FontWeight.w700,
+                                isTopHalf: false,
+                              ),
+                            if (!showTopHalf && !showBottomHalf)
+                              Text(
+                                formattedNumber,
+                                style: TextStyle(
+                                  fontSize: fontSize,
+                                  color: color,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                          ],
+                        ),
+                );
+              },
             ),
           ),
         ),
@@ -541,13 +670,19 @@ class _ExercisesDurationScreenState extends State<ExercisesDurationScreen> {
   }
 }
 
-class _LiveTimerNumberColumn extends StatelessWidget {
-  final int current;
-  final String label;
+class _ClippedNumberText extends StatelessWidget {
+  final int number;
+  final Color color;
+  final double fontSize;
+  final FontWeight fontWeight;
+  final bool isTopHalf;
 
-  const _LiveTimerNumberColumn({
-    required this.current,
-    required this.label,
+  const _ClippedNumberText({
+    required this.number,
+    required this.color,
+    required this.fontSize,
+    required this.fontWeight,
+    required this.isTopHalf,
   });
 
   String _formatNumber(int number) {
@@ -556,8 +691,43 @@ class _LiveTimerNumberColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final text = Text(
+      _formatNumber(number),
+      style: TextStyle(
+        fontSize: fontSize,
+        color: color,
+        fontWeight: fontWeight,
+      ),
+    );
+
+    return ClipRect(
+      child: Align(
+        alignment: isTopHalf ? Alignment.topCenter : Alignment.bottomCenter,
+        heightFactor: 0.5,
+        child: text,
+      ),
+    );
+  }
+}
+
+class _LiveDistanceCountdownColumn extends StatelessWidget {
+  final int current;
+  final String label;
+
+  const _LiveDistanceCountdownColumn({
+    required this.current,
+    required this.label,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     final int prev = (current - 1 + 60) % 60;
     final int next = (current + 1) % 60;
+
+    const double mainFontSize = 96;
+    const double shadedFontSize = 48;
+    const Color mainColor = Colors.white;
+    const Color shadedColor = Colors.white12;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -571,33 +741,35 @@ class _LiveTimerNumberColumn extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              _formatNumber(prev),
-              style: const TextStyle(
-                fontSize: 48,
-                color: Colors.white12,
-                fontWeight: FontWeight.w700,
-              ),
+            _ClippedNumberText(
+              number: prev,
+              color: shadedColor,
+              fontSize: shadedFontSize,
+              fontWeight: FontWeight.w700,
+              isTopHalf: false,
             ),
             Text(
               _formatNumber(current),
               style: const TextStyle(
-                fontSize: 96,
-                color: Colors.white,
+                fontSize: mainFontSize,
+                color: mainColor,
                 fontWeight: FontWeight.w700,
               ),
             ),
-            Text(
-              _formatNumber(next),
-              style: const TextStyle(
-                fontSize: 48,
-                color: Colors.white12,
-                fontWeight: FontWeight.w700,
-              ),
+            _ClippedNumberText(
+              number: next,
+              color: shadedColor,
+              fontSize: shadedFontSize,
+              fontWeight: FontWeight.w700,
+              isTopHalf: true,
             ),
           ],
         ),
       ],
     );
+  }
+
+  String _formatNumber(int number) {
+    return number.toString().padLeft(2, '0');
   }
 }

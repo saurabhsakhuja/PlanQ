@@ -43,6 +43,7 @@ dependencies:
   muscle_selector: ^1.0.3
   google_fonts: ^6.2.1
   numeric_selector: ^0.0.3
+  numberpicker: ^2.1.2
  
 
 

@@ -132,6 +132,9 @@ class SelectedTab extends StatelessWidget {
             } else if (subtitle == 'Tracked on Duration') {
               locator<GoRouter>()
                   .pushNamed(AppRoutes.EXERCISE_DURATION_SCREEN_ROUTE_NAME);
+            } else {
+              locator<GoRouter>()
+                  .pushNamed(AppRoutes.EXERCISE_DISTANCE_SCREEN_ROUTE_NAME);
             }
           },
           child: Container(

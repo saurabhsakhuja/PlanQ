@@ -92,4 +92,9 @@ class AppRoutes {
       'exerciseIntervalMainScreen';
   static const String EXERCISE_INTERVAL_MAIN_SCREEN_ROUTE_PATH =
       '/exerciseIntervalMainScreen';
+
+  static const String EXERCISE_DISTANCE_SCREEN_ROUTE_NAME =
+      'exerciseDistanceScreen';
+  static const String EXERCISE_DISTANCE_SCREEN_ROUTE_PATH =
+      '/exerciseDistanceScreen';
 }
