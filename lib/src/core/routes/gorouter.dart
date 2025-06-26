@@ -20,6 +20,7 @@ import 'package:plan_q/src/modules/workouts/presentation/screens/exercise_detail
 import 'package:plan_q/src/modules/workouts/presentation/screens/library_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/my_workouts_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/select_round_screen.dart';
+import 'package:plan_q/src/modules/workouts/presentation/screens/sets_screens/exercises_interval_main_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/sets_screens/exercises_interval_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/workout_player_manual_screen.dart';
 import 'package:plan_q/src/modules/workouts/presentation/screens/workouts_main_screen.dart';
@@ -127,6 +128,12 @@ final router = GoRouter(
       path: AppRoutes.EXERCISE_INTERVAL_SCREEN_ROUTE_PATH,
       pageBuilder: (_, __) =>
           buildPageWithTransition(ExercisesIntervalScreen()),
+    ),
+    GoRoute(
+      name: AppRoutes.EXERCISE_INTERVAL_MAIN_SCREEN_ROUTE_NAME,
+      path: AppRoutes.EXERCISE_INTERVAL_MAIN_SCREEN_ROUTE_PATH,
+      pageBuilder: (_, __) =>
+          buildPageWithTransition(ExercisesIntervalMainScreen()),
     ),
     GoRoute(
       name: AppRoutes.EXERCISE_DETAIL_SCREEN_ROUTE_NAME,
